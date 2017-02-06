@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="603.25mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 9956 49779"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created by: Treedbox, treedbox.com.br -->
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:#30719E}
+    .fil2 {fill:#ccc}
+    .fil1 {fill:#fff}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+<rect class="fil0" width="9956" height="49779"/>
+  <g id="_863426640">
+   <circle class="fil1" cx="3528" cy="5496" r="1211"/>
+   <circle class="fil1" cx="4388" cy="4608" r="1684"/>
+   <circle class="fil1" cx="5422" cy="5820" r="1211"/>
+   <circle class="fil1" cx="7110" cy="5519" r="1211"/>
+   <circle class="fil1" cx="6497" cy="4407" r="1211"/>
+   <circle class="fil1" cx="2704" cy="4608" r="1070"/>
+  </g>
+  <g id="_863450704">
+   <circle class="fil2" cx="3528" cy="25407" r="1211"/>
+   <circle class="fil2" cx="4388" cy="24520" r="1684"/>
+   <circle class="fil2" cx="5422" cy="25731" r="1211"/>
+   <circle class="fil2" cx="7110" cy="25430" r="1211"/>
+   <circle class="fil2" cx="6497" cy="24318" r="1211"/>
+   <circle class="fil2" cx="2704" cy="24520" r="1070"/>
+  </g>
+  <g id="_863437232">
+   <circle class="fil3" cx="3528" cy="45319" r="1211"/>
+   <circle class="fil3" cx="4388" cy="44431" r="1684"/>
+   <circle class="fil3" cx="5422" cy="45643" r="1211"/>
+   <circle class="fil3" cx="7110" cy="45342" r="1211"/>
+   <circle class="fil3" cx="6497" cy="44229" r="1211"/>
+   <circle class="fil3" cx="2704" cy="44431" r="1070"/>
+  </g>
+ </g>
+</svg>

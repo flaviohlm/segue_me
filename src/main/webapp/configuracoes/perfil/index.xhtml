@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Perfil
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="frmGrupoView">
+                <p:panel header="Gerenciar Perfil">                    
+                    <p:commandButton value="Incluir" action="#{perfilBean.gotoGrupoEdit}" ajax="false" image="" class="icone2 adicionar"/>
+                </p:panel>
+                <p:panel header="Grupos">
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+                        <p:dataTable id="dataTableGrupo" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="modelGrupo" emptyMessage="Nenhum registro encontrado." var="model" value="#{perfilBean.listaPerfil}" currentPageReportTemplate="{currentPage} de {totalPages}" >
+                            <p:column headerText="Nome" >
+                                <h:outputText value="#{model.nome}" />    
+                            </p:column>
+
+                            <p:column headerText="Ativo" width="60">
+                                <h:outputText value="#{model.flAtivo==true?'Sim':'Não'}" />   
+                            </p:column>
+
+                            <p:column headerText="Editar" width="60">
+                                <h:link id="cmdEditar" title="Editar" outcome="edit.xhtml" class="botao iconebt editar" includeViewParams="true" >
+                                    <f:param name="idElemento" value="#{model.id}" />
+                                </h:link>
+                            </p:column>
+
+                            <p:column headerText="Excluir" width="60" >
+                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir"  title="Excluir" value="" >
+                                    <f:setPropertyActionListener value="#{model}" target="#{perfilBean.perfil}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>                    
+                </p:panel>
+                <p:confirmDialog message="Tem certeza que deseja excluir este Perfil? Essa operação não poderá ser desfeita. Confirma?" header="Excluir Perfil" width="430" widgetVar="confirmarExcluir" >
+                    <p:commandButton value="Confirmar" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{perfilBean.delete}" ajax="true" update=":frmGrupoView:dataTableGrupo" />
+                    <p:commandButton value="Cancelar" onclick="PF('confirmarExcluir').hide(); return false;" type="button" ajax="false" />
+                </p:confirmDialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

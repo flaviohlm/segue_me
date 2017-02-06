@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="603.25mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 9956 49779"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created by: Treedbox, treedbox.com.br -->
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:#30719E}
+    .fil2 {fill:#ccc}
+    .fil1 {fill:#fff}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+<rect class="fil0" width="9956" height="49779"/>
+  <g id="_702319328">
+   <polygon class="fil1" points="2683,2768 5744,2768 5202,3309 3225,3309 3225,6608 6523,6608 6523,4793 7065,4251 7065,7149 2683,7149 "/>
+   <g>
+    <rect class="fil1" transform="matrix(-2.07978 -2.07978 -2.07978 2.07978 7903.02 3065.45)" width="507" height="1031"/>
+    <path class="fil1" d="M3836 6078l383 -163 -220 -220 -163 383zm538 -230l1255 -534 -1029 -1029 -535 1254 309 309z"/>
+    <path class="fil1" d="M7999 1915c-290,-290 -759,-291 -1051,-4l-4 4 1055 1054c4,-4 9,-8 13,-13 278,-292 274,-754 -13,-1041z"/>
+   </g>
+  </g>
+  <g id="_702316320">
+   <polygon class="fil2" points="2683,22680 5744,22680 5202,23221 3225,23221 3225,26519 6523,26519 6523,24704 7065,24163 7065,27061 2683,27061 "/>
+   <g>
+    <rect class="fil2" transform="matrix(-2.07978 -2.07978 -2.07978 2.07978 7903.02 22976.9)" width="507" height="1031"/>
+    <path class="fil2" d="M3836 25989l383 -163 -220 -219 -163 382zm538 -229l1255 -534 -1029 -1030 -535 1255 309 309z"/>
+    <path class="fil2" d="M7999 21826c-290,-290 -759,-291 -1051,-3l-4 3 1055 1055c4,-5 9,-9 13,-14 278,-292 274,-754 -13,-1041z"/>
+   </g>
+  </g>
+  <g id="_702318208">
+   <polygon class="fil3" points="2683,42591 5744,42591 5202,43132 3225,43132 3225,46431 6523,46431 6523,44616 7065,44074 7065,46972 2683,46972 "/>
+   <g>
+    <rect class="fil3" transform="matrix(-2.07978 -2.07978 -2.07978 2.07978 7903.02 42888.4)" width="507" height="1031"/>
+    <path class="fil3" d="M3836 45900l383 -162 -220 -220 -163 382zm538 -229l1255 -534 -1029 -1029 -535 1254 309 309z"/>
+    <path class="fil3" d="M7999 41738c-290,-290 -759,-291 -1051,-4l-4 4 1055 1054c4,-4 9,-9 13,-13 278,-292 274,-754 -13,-1041z"/>
+   </g>
+  </g>
+ </g>
+</svg>

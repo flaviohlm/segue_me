@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Usuários
+        </ui:define>
+        
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="frmUsuarioView">                
+                <p:panel header="Gerenciar Acesso dos Usuários" >                 
+                <p:commandButton value="Incluir" action="#{usuarioBean.gotoUsuarioEdit}" ajax="false"  class="icone2 adicionar"/>
+                <br/>
+                <br/>
+                </p:panel>
+                <p:panel header="Usuários">
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+                        <p:dataTable id="dataTableUsuario" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30"  widgetVar="modelUsuario" emptyMessage="Nenhum registro encontrado." var="model"
+                                     value="#{usuarioBean.listaUsuarios}" currentPageReportTemplate="{currentPage} de {totalPages}" > 
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Filtrar: " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('modelUsuario').filter()" placeholder=""/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column>
+                                <p:rowToggler />
+                            </p:column>
+                            
+                            <p:column headerText="Componente" sortBy="#{model.nome}" filterBy="#{model.nome}" filterMatchMode="contains">
+                                <h:outputText value="#{model.nome}"/>    
+                            </p:column>                            
+                                                        
+                            <p:column headerText="Editar" width="60" >
+                                <h:link id="cmdEditar" title="Editar" outcome="edit.xhtml" class="botao iconebt editar" includeViewParams="true" >
+                                    <f:param name="idElemento" value="#{model.id}" />
+                                </h:link>
+                            </p:column>
+                            
+                            <p:column headerText="Resetar Senha" width="130">
+                                <p:commandButton id="resetar_senha" value="Resetar" oncomplete="PF('confirmarResetar').show()" styleClass="ui-priority-primary" update=":frmUsuarioView:messages"  >
+                                    <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{model}"/>
+                                </p:commandButton>
+                            </p:column>
+                            
+                            <p:column headerText="Desativar Usuário" width="130">
+                                <p:commandButton id="desativar" value="Desativar" oncomplete="PF('confirmarDesativar').show()" styleClass="ui-priority-primary" update=":frmUsuarioView:messages"  rendered="#{model.dtfim == null}">
+                                    <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{model}"/>
+                                </p:commandButton>
+                                
+                                <p:commandButton id="ativar" value="Ativar" oncomplete="PF('confirmarAtivar').show()" styleClass="ui-priority-primary" update=":frmUsuarioView:messages"  rendered="#{model.dtfim != null}">
+                                    <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{model}"/>
+                                </p:commandButton>
+                            </p:column>
+                                                        
+                            <p:rowExpansion>
+                                <p:dataTable var="perfil" value="#{model.listaPerfis}" emptyMessage="Usuário sem Perfil." rendered="#{model.dtfim == null}" >
+                                    <p:column>
+                                        <h:outputText value="Perfil #{perfil.nome} (#{perfil.flAtivo==true?'Ativo':'Inativo'})" />
+                                    </p:column>                                    
+                                </p:dataTable>
+                                
+                                <h:outputText value="Este usuário não está mais ativo no sistema desde: " rendered="#{model.dtfim != null}" />                                 
+                                <h:outputText value="#{model.dtfim}" rendered="#{model.dtfim != null}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                           </p:rowExpansion>                            
+                        </p:dataTable>
+                    </p:panel>
+                
+                    <p:confirmDialog message="Tem certeza que deseja resetar a senha?" header="Resetar Senha" width="430" widgetVar="confirmarResetar" >
+                        <p:commandButton value="Confirmar" oncomplete="PF('confirmarResetar').hide()" actionListener="#{usuarioBean.resetaPassword()}" ajax="true" update=":frmUsuarioView:messages"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarResetar').hide()" type="button" ajax="false"/>                               
+                    </p:confirmDialog>
+                
+                    <p:confirmDialog message="Tem certeza que deseja desativar esse usuário?" header="Desativar Usuário" width="430" widgetVar="confirmarDesativar" >
+                        <p:commandButton value="Confirmar" oncomplete="PF('confirmarDesativar').hide()" actionListener="#{usuarioBean.desativarUsuario()}" ajax="true" update=":frmUsuarioView:messages :frmUsuarioView:dataTableUsuario"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarDesativar').hide()" type="button" ajax="false"/>                               
+                    </p:confirmDialog>
+                
+                    <p:confirmDialog message="Tem certeza que deseja restaurar o acesso desse usuário ao sistema?" header="Reativar Acesso do Usuário" width="430" widgetVar="confirmarAtivar" >
+                        <p:commandButton value="Confirmar" oncomplete="PF('confirmarAtivar').hide()" actionListener="#{usuarioBean.ativarUsuario()}" ajax="true" update=":frmUsuarioView:messages :frmUsuarioView:dataTableUsuario"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarAtivar').hide()" type="button" ajax="false"/>                               
+                    </p:confirmDialog>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

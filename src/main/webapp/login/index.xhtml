@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão do Sistema-->
+        <ui:define name="tituloDaPagina">
+            Login
+        </ui:define>
+        <ui:define name="func">
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{loginBean.checkAuthentication()}" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="perfil">
+        </ui:define>
+        <ui:define name="cabecalho">
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">            
+            <p:panel id="welcome">
+                <a class="logo-grande logo-bom-pastor" href="#" title="Secad em Dados"/>
+                <h1 class="centralizar">Segue-me</h1>
+                <p:separator/>
+                <!-- LOGIN -->
+                <h:form prependId="false" class="formulario">                    
+                    <p:messages showSummary="true" />
+                    <p:panelGrid layout="grid" columns="1">
+                        <p:outputLabel value="CPF" for="username" />
+                        <p:inputMask id="username" mask="999.999.999-99" value="#{loginBean.participante.cpf}" size="22" maxlength="15" required="true" requiredMessage="Informe o Login." />
+                        <p:outputLabel value="Senha" for="password" />
+                        <h:inputSecret id="password" value="#{loginBean.participante.password}" size="22" maxlength="30" required="true" requiredMessage="Informe a Senha."/>
+                    </p:panelGrid>
+                    <p:commandButton value="Entrar" action="#{loginBean.login}" ajax="false" class="dir icone2 chave"/>
+
+                </h:form>
+            </p:panel>
+        </ui:define>
+        <ui:define name="blocos">
+        </ui:define>
+        <ui:define name="recursos">
+        </ui:define>
+    </ui:composition>
+</html>

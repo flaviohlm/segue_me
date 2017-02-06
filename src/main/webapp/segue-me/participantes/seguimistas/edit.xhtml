@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Cadastro de Seguimistas
+        </ui:define>
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{seguimistaController.id}" />
+                <f:viewAction action="#{seguimistaController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">       
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+                
+                <p:panel id="panel_1">
+                   <p:panelGrid layout="grid" columns="1" >
+                        <p:outputLabel value="Encontro*:" >
+                            <p:selectOneMenu id="orgao" value="#{seguimistaController.seguimista.encontro}" converter="#{encontroConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
+                                <f:selectItem itemLabel="- - -" itemValue="" />
+                                <f:selectItems value="#{seguimistaController.listaEncontro}" itemLabel="#{encontro.descricao}" itemValue="#{encontro}" var="encontro" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Nome*:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
+                        
+                        <p:outputLabel value="Crachá:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.apelido}" />
+                        
+                        <p:outputLabel value="E-mail:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.email}" />
+                        
+                        <p:outputLabel value="Sexo:" />
+                        <p:selectOneRadio id="console" value="#{seguimistaController.seguimista.participante.sexo}">
+                            <f:selectItem itemLabel="Feminino" itemValue="F" />
+                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel value="Data de Nascimento*:">
+                            <p:calendar locale="pt" showButtonPanel="true" value="#{seguimistaController.seguimista.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1" required="true" requiredMessage="Campo 'Data de Nascimento' é obrigatório." >
+                                <h:outputScript name="primefaces-locales.js" library="js" />
+                            </p:calendar>
+                        </p:outputLabel>
+                                                
+                        <p:outputLabel value="Endereço:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.endereco}" />
+                        
+                        <p:outputLabel value="Bairro:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.bairro}" />
+                        
+                        <p:outputLabel value="Telefone Celular:" >
+                            <p:inputMask mask="(99) 99999-9999" value="#{seguimistaController.seguimista.participante.telefoneCelular}" />
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Telefone Residencial:" >
+                            <p:inputMask mask="(99) 9999-9999" value="#{seguimistaController.seguimista.participante.telefoneResidencial}"/>
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Nome do Pai:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.nomePai}" />
+                        
+                        <p:outputLabel value="Nome da Mãe:" />
+                        <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.nomeMae}" />
+                        
+                        <p:outputLabel value="CPF:" />
+                        <p:inputMask mask="99999999999" value="#{seguimistaController.seguimista.participante.cpf}"/>                        
+                        
+                        <p:outputLabel value="Habilidades:" />
+                        <p:selectManyCheckbox id="habilidades" value="#{seguimistaController.seguimista.participante.habilidadeList}" layout="responsive" columns="3" converter="#{habilidadeConverter}" >
+                            <f:selectItems value="#{seguimistaController.listaHabilidades}" var="habilidade" itemLabel="#{habilidade.descricao}" itemValue="#{habilidade}" />
+                        </p:selectManyCheckbox> 
+                        
+                    </p:panelGrid>                      
+                    <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{seguimistaController.salvar()}" update=":frmCadApontamento"/>
+                </p:panel>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="603.25mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 9956 49779"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created by: Treedbox, treedbox.com.br -->
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil5 {fill:#30719E}
+    .fil3 {fill:#ccc}
+    .fil2 {fill:#fff}
+    .fil4 {fill:#30719E;}
+    .fil1 {fill:#fff;}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+<rect class="fil0" width="9956" height="49779"/>
+  <g id="_594388960">
+   <path class="fil1" d="M6883 2965l0 154 154 0c0,1329 0,2658 0,3987 -1329,0 -2658,0 -3987,0l0 -155 -154 0c0,-1328 0,-2657 0,-3986 1329,0 2658,0 3987,0zm-154 154l-3679 0 0 3678 3679 0 0 -3678z"/>
+   <polygon class="fil2" points="4580,5416 4276,4450 3125,4675 4342,6619 8508,3273 7503,2453 "/>
+  </g>
+  <g id="_594400864">
+   <path class="fil3" d="M6883 22876l0 154 154 0c0,1329 0,2658 0,3987 -1329,0 -2658,0 -3987,0l0 -154 -154 0c0,-1329 0,-2658 0,-3987 1329,0 2658,0 3987,0zm-154 154l-3679 0 0 3679 3679 0 0 -3679z"/>
+   <polygon class="fil3" points="4580,25327 4276,24362 3125,24586 4342,26531 8508,23185 7503,22365 "/>
+  </g>
+  <g id="_594393664">
+   <path class="fil4" d="M6883 42788l0 154 154 0c0,1329 0,2658 0,3986 -1329,0 -2658,0 -3987,0l0 -154 -154 0c0,-1329 0,-2657 0,-3986 1329,0 2658,0 3987,0zm-154 154l-3679 0 0 3678 3679 0 0 -3678z"/>
+   <polygon class="fil5" points="4580,45239 4276,44273 3125,44498 4342,46442 8508,43096 7503,42276 "/>
+  </g>
+ </g>
+</svg>

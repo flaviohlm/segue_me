@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120.65mm" height="603.25mm" style="fill-rule:evenodd" viewBox="0 0 9956 49779">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:#30719E}
+    .fil2 {fill:#ccc}
+    .fil1 {fill:#fff}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+<rect class="fil0" width="9956" height="49779"/>
+  <g id="_587925120">
+   <rect class="fil1" x="3675" y="5971" width="1966" height="1477"/>
+   <rect class="fil1" x="2006" y="2508" width="1966" height="1477"/>
+   <rect class="fil1" x="5984" y="3838" width="1966" height="1477"/>
+   <polygon class="fil1" points="4762,4680 4762,6044 4554,6044 4554,4680 2885,4680 2885,3964 3093,3964 3093,4472 6078,4472 6078,4680 "/>
+  </g>
+  <g id="_587904096">
+   <rect class="fil2" x="3675" y="25883" width="1966" height="1477"/>
+   <rect class="fil2" x="2006" y="22419" width="1966" height="1477"/>
+   <rect class="fil2" x="5984" y="23749" width="1966" height="1477"/>
+   <polygon class="fil2" points="4762,24592 4762,25955 4554,25955 4554,24592 2885,24592 2885,23875 3093,23875 3093,24384 6078,24384 6078,24592 "/>
+  </g>
+  <g id="_587908192">
+   <rect class="fil3" x="3675" y="45794" width="1966" height="1477"/>
+   <rect class="fil3" x="2006" y="42331" width="1966" height="1477"/>
+   <rect class="fil3" x="5984" y="43661" width="1966" height="1477"/>
+   <polygon class="fil3" points="4762,44503 4762,45867 4554,45867 4554,44503 2885,44503 2885,43787 3093,43787 3093,44295 6078,44295 6078,44503 "/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-clean tomcat7:run</actionName>
+            <displayName>clean tomcat7:run</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>tomcat7:run</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-clean tomcat7:run-war</actionName>
+            <displayName>clean tomcat7:run-war</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>tomcat7:run-war</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-clean jetty:run</actionName>
+            <displayName>clean jetty:run</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>jetty:run</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-jetty:stop</actionName>
+            <displayName>jetty:stop</displayName>
+            <goals>
+                <goal>jetty:stop</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>war</packaging>
+                <packaging>ear</packaging>
+                <packaging>ejb</packaging>
+            </packagings>
+            <goals>
+                <goal>jetty:run</goal>
+                <goal>-o</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>debug</actionName>
+            <packagings>
+                <packaging>war</packaging>
+                <packaging>ear</packaging>
+                <packaging>ejb</packaging>
+            </packagings>
+            <goals>
+                <goal>jetty:run</goal>
+                <goal>-o</goal>
+            </goals>
+            <properties>
+                <jpda.listen>maven</jpda.listen>
+            </properties>
+        </action>
+    </actions>

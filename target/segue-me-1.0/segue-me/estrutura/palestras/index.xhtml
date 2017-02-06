@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Palestras do Encontro
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{encontroController.id}" />
+                <f:viewAction action="#{encontroController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Círculos">
+                <p:messages id="messages" autoUpdate="true" closable="true"  />
+                
+                    <p:separator/>
+                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                     value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Filtrar: " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                                </p:outputPanel>
+                            </f:facet>
+                            
+                            <p:column headerText="Palestra" sortBy="#{model.palestras.descricao}" filterBy="#{model.palestras.descricao}" >
+                                <h:outputText value="#{model.palestras.descricao}" />                                  
+                            </p:column>
+                            
+                            <p:column headerText="Palestrante" sortBy="#{model.palestrante.participante.nome}" filterBy="#{model.palestrante.paparticipanteome}" >
+                                <h:outputText value="#{model.palestrante.partparticipantee}" />                                  
+                            </p:column>
+                            
+                            <p:column headerText="Opções" width="90" class="centralizar">                        
+                                <p:menuButton value="" >
+                                    <p:menuitem value="Editar" styleClass="icone2 editar"
+                                                action="#{encontroPalestraController.gotoEdit(model.id)}" 
+                                                title="Editar dados do encontro."/>                                    
+                                </p:menuButton>
+                            </p:column>
+                            
+                        </p:dataTable>                    
+                </p:panel>                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

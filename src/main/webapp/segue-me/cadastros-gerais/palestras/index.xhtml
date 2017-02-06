@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Palestras
+        </ui:define>        
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Palestra">
+                <p:messages id="messages" autoUpdate="true" closable="true"  />
+                     <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{palestraController.novo()}" class="icone2 adicionar"/>
+                    <p:separator/>
+                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                     value="#{palestraController.listaPalestras}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                            
+                            <p:ajax event="rowEdit" listener="#{palestraController.onRowEdit}" update=":form_1:messages" />
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Filtrar: " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                                </p:outputPanel>
+                            </f:facet>
+                            
+                            <p:column headerText="Tema" sortBy="#{model.tema}" filterBy="#{model.tema}" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{model.tema}" /> 
+                                    </f:facet>
+                                    <f:facet name="input">    
+                                        <p:inputText value="#{model.tema}" />
+                                    </f:facet> 
+                                </p:cellEditor>                                    
+                            </p:column> 
+                            
+                            <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{model.descricao}" /> 
+                                    </f:facet>
+                                    <f:facet name="input">    
+                                        <p:inputText value="#{model.descricao}" />
+                                    </f:facet> 
+                                </p:cellEditor>                                    
+                            </p:column>                                                    
+                            
+                            <p:column width="50" headerText="Editar">
+                                <p:rowEditor />
+                            </p:column>
+
+                            <p:column headerText="Excluir" width="60">
+                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
+                                    <f:setPropertyActionListener value="#{model}" target="#{palestraController.circulo}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>                    
+                </p:panel>
+                <p:confirmDialog message="Tem certeza que deseja excluir este Registro? Essa operação não poderá ser desfeita. Confirma?" header="Excluir Registro" width="430" widgetVar="confirmarExcluir" >
+                    <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{palestraController.deletar()}" ajax="true" update=":form_1" />
+                    <p:commandButton value="Cancelar" class="icone2 excluir" onclick="PF('confirmarExcluir').hide(); return false;" type="button" ajax="false" />
+                </p:confirmDialog>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

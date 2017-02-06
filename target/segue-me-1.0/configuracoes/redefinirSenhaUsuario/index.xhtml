@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão do Sistema-->
+       <ui:define name="tituloDaPagina">
+           Redefinir Senha
+       </ui:define>
+       <ui:define name="perfil">
+       </ui:define>       
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <p:panel id="pnlRedefinirSenha">
+                <h:form id="frmCadComponente" enctype="multipart/form-data">
+                    <p:growl id="messages"  />
+                    <p:panel id="pnlCadComponente" header="Redefinição de Senha">
+
+                        <p:fieldset id="fdsetDadosPessoais" legend="Dados do Usuário" >                                              
+                            <h:panelGrid layout="grid" columns="2" >
+                                <p:outputLabel value="Nome: " />
+                                <p:inputText id="nome" size = "70" maxlength="70" value="#{loginBean.usuarioTrocaSenha.nome}" readonly="true" />
+                            </h:panelGrid>
+                            <h:panelGrid layout="grid" columns="2" >
+                                <p:outputLabel value="CPF: " />
+                                <p:inputMask id="cpf" mask="999.999.999-99" size = "15"  required="true" value="#{loginBean.usuarioTrocaSenha.cpf}" readonly="true" />                             
+                            </h:panelGrid>                           
+                        </p:fieldset>
+                        
+                        <p:fieldset id="fdsetDadosSenha" legend="Modifique sua senha" > 
+                            <h:panelGrid layout="grid" columns="4" >
+                                <p:outputLabel value="Senha: " />
+                                <p:password id="senha"  size = "20" maxlength="12" value="#{loginBean.password}" match="confirmaSenha" validatorMessage="As senhas não conferem."
+                                            feedback="true" promptLabel="Digite uma senha." weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" inline="true" />                                    
+
+                                <p:outputLabel value="Confirma Senha:" />
+                                <p:password id="confirmaSenha"  size = "20" maxlength="12" value="#{loginBean.confirmaPassword}" />
+                            </h:panelGrid>
+
+                        </p:fieldset>
+
+                        <p:commandButton id="salvar" value="Redefinir Senha" update="messages" action="#{loginBean.trocarSenha()}" image="ui-icon-disk"/>
+
+                    </p:panel>
+                </h:form>
+            </p:panel>
+        </ui:define>
+        <ui:define name="blocos">
+        </ui:define>
+    </ui:composition>
+</html>

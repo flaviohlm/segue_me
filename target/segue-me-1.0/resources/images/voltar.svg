@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="603.25mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 9956 49779"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created by: Treedbox, treedbox.com.br -->
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:#30719E}
+    .fil2 {fill:#ccc}
+    .fil1 {fill:#fff}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+<rect class="fil0" width="9956" height="49779"/>
+  <path class="fil1" d="M3579 3414c-31,-302 -62,-605 -92,-907 -622,746 -1245,1491 -1867,2237 1205,234 2195,769 2981,1593 -146,-489 -292,-978 -438,-1467 2027,-682 3418,178 4173,2579 -345,-3226 -2238,-4105 -4757,-4035l0 0z"/>
+  <path class="fil2" d="M3579 23326c-31,-303 -62,-605 -92,-908 -622,746 -1245,1492 -1867,2237 1205,235 2195,770 2981,1594 -146,-489 -292,-979 -438,-1468 2027,-682 3418,178 4173,2580 -345,-3227 -2238,-4106 -4757,-4035l0 0z"/>
+  <path class="fil3" d="M3579 43237c-31,-302 -62,-605 -92,-907 -622,746 -1245,1491 -1867,2237 1205,234 2195,769 2981,1593 -146,-489 -292,-978 -438,-1467 2027,-682 3418,178 4173,2579 -345,-3226 -2238,-4105 -4757,-4035l0 0z"/>
+ </g>
+</svg>

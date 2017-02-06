@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Integrantes da Equipe
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{encontroEquipeController.id}" />
+                <f:viewAction action="#{encontroEquipeController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Equipe: #{encontroEquipeController.encontroEquipe.equipe.descricao}">
+                <p:messages id="messages" autoUpdate="true" closable="true"  />                
+                <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Equipe"  />
+                
+                <p:separator/>
+                <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                             value="#{encontroEquipeController.encontroEquipe.encontroEquipeIntegrantesList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Filtrar: " />
+                            <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="Nome" sortBy="#{model.seguidor.participante.nome}" filterBy="#{model.seguidor.participante.nome}" >
+                        <h:outputText value="#{model.seguidor.participante.nome}" />                                  
+                    </p:column>
+
+                    <p:column headerText="Crachá" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >
+                        <h:outputText value="#{model.seguidor.participante.apelido}" />                                  
+                    </p:column>
+
+                    <p:column headerText="Telefone" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >
+                        <h:outputText value="#{model.seguidor.participante.telefoneCelular}" />                                  
+                    </p:column>
+
+                    <p:column headerText="Tipo" >
+                        <p:selectBooleanButton value="#{model.coordenador}" onLabel="Coordenador(a)" offLabel="Seguidor(a)" >
+                            <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
+                        </p:selectBooleanButton>
+                    </p:column>
+
+                    <p:column headerText="Opções" width="90" class="centralizar">                        
+                        <p:menuButton value="" >
+                            <p:menuitem value="Editar" styleClass="icone2 editar"
+                                        action="#{encontroEquipeController.gotoEdit(model.id)}" 
+                                        title="Editar dados do encontro."/> 
+                                                       
+                            <p:menuitem value="Trocar de Equipe" styleClass="icone2 atualizar" oncomplete="PF('dialogTrocar').show()" update=":form_1" title="Trocar o Seguidor de Equipe." rendered="#{model.coordenador == false}">
+                                <f:setPropertyActionListener value="#{model}" target="#{encontroEquipeController.encontroEquipeIntegrante}"  />
+                            </p:menuitem>
+                        </p:menuButton>
+                    </p:column>
+                </p:dataTable> 
+                <!--
+                <p:commandButton value="Salvar" ajax="false"  class="icone2 salvar" action="#{encontroEquipeController.salvar()}" update=":form_1"/>
+                -->
+                </p:panel>   
+                
+                
+                <p:confirmDialog id="dialog_pessoas" message="Selecione clicando no checkbox" header="Seguidores" width="800" widgetVar="dialogPessoas" >
+                    <p:dataTable widgetVar="model_x" emptyMessage="Nenhum registro encontrado." var="model" rowSelectMode="checkbox"
+                                 value="#{encontroEquipeController.listaSeguidores}" selection="#{encontroEquipeController.encontroEquipe.seguidorList}" rowKey="#{model.id}" 
+                                 paginator="true" paginatorAlwaysVisible="false" rows="10" reflow="true" currentPageReportTemplate="{currentPage} de {totalPages}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_x').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
+                        <p:column headerText="Nome do Seguidor" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
+                            <h:outputText value="#{model.participante.nome}" />                                    
+                        </p:column>
+                        
+                        <p:column headerText="Crachá" sortBy="#{model.participante.apelido}" filterBy="#{model.participante.apelido}" >
+                            <h:outputText value="#{model.participante.apelido}" />                                    
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogPessoas').hide()" />
+                </p:confirmDialog>
+                
+                <p:confirmDialog id="trocar_equipe" message="Trocar Seguidor de Equipe" header="Trocar Equipe" width="800" widgetVar="dialogTrocar" >
+                    
+                    <p:panelGrid layout="grid" columns="2" >
+                    
+                        <p:outputLabel value="Nome*:" />
+                        <h:outputText value="#{encontroEquipeController.encontroEquipeIntegrante.seguidor.participante.nome}" /> 
+                        
+                        <p:outputLabel value="Equipes*:" />
+                        <p:selectOneMenu  value="#{encontroEquipeController.encontroEquipeIntegrante.encontroEquipe}" converter="#{encontroEquipeConverter}" filter="true" filterMatchMode="contains" effect="fade" >
+                            <f:selectItem itemLabel="- - -" itemValue="" />
+                            <f:selectItems value="#{encontroEquipeController.encontroEquipe.encontro.encontroEquipeList}" itemLabel="#{encontroEquipe.equipe.descricao}" itemValue="#{encontroEquipe}" var="encontroEquipe" />
+                        </p:selectOneMenu>
+
+                        <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2" oncomplete="PF('dialogTrocar').hide()" />
+                    </p:panelGrid>
+                </p:confirmDialog>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+    
+</html>

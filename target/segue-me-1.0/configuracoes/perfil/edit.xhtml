@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Cadastro de Perfil
+        </ui:define>
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="idElemento" value="#{perfilBean.idElemento}" />
+                <f:viewAction action="#{perfilBean.loadModel}" />
+                <f:viewAction action="#{perfilBean.init()}" />
+            </f:metadata>            
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo" >
+            <h:form id="frmCadPerfil">
+                <p:panel id="pnlCadPerfil" header="Cadastrar Perfil">
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+                    <p:fieldset >
+                        <p:panelGrid layout="grid" columns="2" id="pnlgAdmin" rendered="#{perfilBean.perfil.id == 1}" >
+                            <p:outputLabel value="Nome: " />
+                            <p:inputText id="nome" size="70" value="#{perfilBean.perfil.nome}" disabled="true"/>                        
+                            
+                            <p:outputLabel value="Nível" />
+                            <p:spinner id="nivel" min="2" max="10" size="5" value="#{perfilBean.perfil.nivel}" disabled="true" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid layout="grid" columns="2" id="pnlgNaoAdmin" rendered="#{perfilBean.perfil.id != 1}" >
+                            <p:outputLabel value="Nome: " />
+                            <p:inputText id="nome2" size="70" value="#{perfilBean.perfil.nome}"/>                        
+                            
+                            <p:outputLabel value="Nível" />
+                            <p:spinner id="nivel2" min="2" max="10" size="5" value="#{perfilBean.perfil.nivel}" />                            
+                        </p:panelGrid>
+                        
+                    </p:fieldset>
+                    <br />
+                    
+                    <p:fieldset legend="Permissões">
+                        <p:tree value="#{perfilBean.listaMenu}" widgetVar="treeSingleWidget" var="doc"
+                                selectionMode="checkbox" 
+                                selection="#{perfilBean.listaMenuSelecionados}">
+                            <p:treeNode>
+                                <h:outputText value="#{doc.descricao}"/>
+                            </p:treeNode>
+                            
+                        </p:tree>                        
+                    </p:fieldset>
+                     
+                    <br />
+                    <p:commandButton id="btnSalvar" update="messages" value="Salvar" image="" action="#{perfilBean.salvar}" class="icone2 salvar"/>
+                </p:panel>
+            </h:form> 
+        </ui:define>
+    </ui:composition>
+</html>

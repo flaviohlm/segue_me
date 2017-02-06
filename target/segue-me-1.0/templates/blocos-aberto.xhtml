@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
+<ui:composition>
+    <div class="acesso">
+        <div class="caixa">
+            <a class="logo-grande logo-bom-pastor" href="#{facesContext.externalContext.requestContextPath}" title="Voltar à Capa"/>
+            <p:separator/>
+            <p:dataList var="menuM"  value="#{menuBean.menuModulo(loginBean.menusAcesso, 1, 1)}"  >
+                <div class="secao">
+                    <p:accordionPanel id="secao-menu" multiple="true" cache="true" class="#{menuM.icone}">
+                        <p:tab class="secao-titulo" title="#{menuM.descricao}">
+                            <p:dataList var="menuSe" class="secao-conteudo"  value="#{menuBean.menuModulo(loginBean.menusAcesso, 2, menuM.id)}">
+                                <a href="#{facesContext.externalContext.requestContextPath}#{menuSe.url}" title="#{menuSe.observacoes}">
+                                    <div class="box">
+                                        <div class="icone #{menuSe.icone}"></div>
+                                        <div class="descricao">
+                                            <h2>#{menuSe.descricao}</h2>
+                                        </div>
+                                    </div>
+                                </a>
+                            </p:dataList>
+                        </p:tab>
+                    </p:accordionPanel>
+                </div>
+            </p:dataList>
+        </div>
+    </div>
+</ui:composition>
+</html>

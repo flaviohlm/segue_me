@@ -1,0 +1,40 @@
+-- Spring Annotations --
+
+@Autowired
+    
+    Injeção automática. Possibilita ao conteiner descobrir em tempo de execução
+    quais dependências devem ser injetadas em cada bean SEM que o desenvolvedor
+    precise instruí-lo para tal. 
+
+@Component, @Repository, @Controller, @Service
+
+    Uma classe é definida pelo Spring como uma configuração de bean se possui
+    uma anotação que defina o tipo de bean (estereótipo) que esta representa. O
+    tipo mais básico é o @Component, sendo possível nomear o bean passando
+    como parâmetro sua identificação. Caso este valor esteja ausente o nome do
+    bean será definido pelo container automaticamente. Além do @Component, há
+    também o @Repository para identificar DAOs, @Controller para controladores
+    do SpringMVC, @Service para controle transacional mais fino etc. 
+
+@Qualifier
+    
+    Guia o container na seleção de qual dependência deverá ser 
+    injetada neste atributo. O valor passado à anotação é o identificador
+    que ajuda na escolha de qual dependência deverá ser injetada. 
+
+@Scope("session")
+    
+    Define um escopo de um bean e recebe como parâmetro o nome do escopo
+    (singleton, prototype, request) ou um customizado.
+
+@ManagedProperty(value = "#{authenticationService}")
+    
+    Injeta dependência do bean authenticationService;
+
+@Transactional(readOnly = true)
+    
+    sdfsdf
+
+@PersistenceContext
+    
+    auhauha

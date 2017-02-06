@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/index.xhtml">
+    <!--Substituir o Título padrão da Página-->
+    <ui:define name="tituloDaPagina">
+        Cursos Unicet
+    </ui:define>
+
+    <!--Conteúdo da página-->
+    <ui:define name="conteudo">        
+        
+        <p:messages id="messages" autoUpdate="true" closable="true"  />
+        
+        <!--
+        <p:dataList var="model"  value="#{indexController.listaCursos}" widgetVar="model_w" emptyMessage="Nenhum curso encontrado." class="caixa cursos-lista">
+            <article class="curso">                    
+                <h:graphicImage class="destaque" library="images" name="padrao.png" rendered="#{model.capaAnexada == false}" />
+                <p:graphicImage class="destaque" value="#{indexController.productImage}" rendered="#{model.capaAnexada == true}">
+                        <f:param name="pid" value="#{model.id}" />
+                </p:graphicImage>
+
+                <h1>#{model.descricao}</h1>
+
+                <h:link title="Editar informações do curso" outcome="#{model.linkEditar}" value="" class="botao iconebt editar" rendered="#{model.linkEditar != null}"/>
+                
+                <h:link title="Listar as aulas do curso" outcome="#{model.linkAulas}" value="" class="botao iconebt pasta" rendered="#{model.linkAulas != null}"/>
+
+                <h:link title="Visualizar inscritos para tutoria do curso" outcome="#{model.linkInscritos}" value="" class="botao iconebt grupo" rendered="#{model.linkInscritos != null}" />
+
+                <h:link title="Visualizar alunos do curso" outcome="#{model.linkAlunos}" value="" class="botao iconebt bom" rendered="#{model.linkAlunos != null}"/>
+
+                <h:link title="Cadastrar os dados da enquete do curso" outcome="#{model.linkEnquete}" value="" class="botao iconebt doc" rendered="#{model.linkEnquete != null}"/>
+
+            </article>
+        </p:dataList>
+        -->
+    </ui:define>
+    <ui:define name="recursos">
+    </ui:define>
+</ui:composition>
+</html>
