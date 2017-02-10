@@ -22,53 +22,48 @@
         <ui:define name="conteudo">
             <h:form id="form_1">  
                 <p:panel header="Equipe: #{encontroEquipeController.encontroEquipe.equipe.descricao}">
-                <p:messages id="messages" autoUpdate="true" closable="true"  />                
-                <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Equipe"  />
-                
-                <p:separator/>
-                <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                             value="#{encontroEquipeController.encontroEquipe.encontroEquipeIntegrantesList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />                
 
-                    <f:facet name="header">
-                        <p:outputPanel>
-                            <h:outputText value="Filtrar: " />
-                            <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
-                        </p:outputPanel>
-                    </f:facet>
+                    <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Equipe"  />                
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroEquipeController.id, 'equipe')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>
 
-                    <p:column headerText="Nome" sortBy="#{model.seguidor.participante.nome}" filterBy="#{model.seguidor.participante.nome}" >
-                        <h:outputText value="#{model.seguidor.participante.nome}" />                                  
-                    </p:column>
+                    <p:separator/>
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroEquipeController.encontroEquipe.encontroEquipeIntegrantesList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
 
-                    <p:column headerText="Crachá" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >
-                        <h:outputText value="#{model.seguidor.participante.apelido}" />                                  
-                    </p:column>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
 
-                    <p:column headerText="Telefone" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >
-                        <h:outputText value="#{model.seguidor.participante.telefoneCelular}" />                                  
-                    </p:column>
+                        <p:column headerText="Nome" sortBy="#{model.seguidor.participante.nome}" filterBy="#{model.seguidor.participante.nome}" >
+                            <h:outputText value="#{model.seguidor.participante.nome}" />                                  
+                        </p:column>
 
-                    <p:column headerText="Tipo" >
-                        <p:selectBooleanButton value="#{model.coordenador}" onLabel="Coordenador(a)" offLabel="Seguidor(a)" >
-                            <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
-                        </p:selectBooleanButton>
-                    </p:column>
+                        <p:column headerText="Crachá" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >
+                            <h:outputText value="#{model.seguidor.participante.apelido}" />                                  
+                        </p:column>
 
-                    <p:column headerText="Opções" width="90" class="centralizar">                        
-                        <p:menuButton value="" >
-                            <p:menuitem value="Editar" styleClass="icone2 editar"
-                                        action="#{encontroEquipeController.gotoEdit(model.id)}" 
-                                        title="Editar dados do encontro."/> 
-                                                       
-                            <p:menuitem value="Trocar de Equipe" styleClass="icone2 atualizar" oncomplete="PF('dialogTrocar').show()" update=":form_1" title="Trocar o Seguidor de Equipe." rendered="#{model.coordenador == false}">
-                                <f:setPropertyActionListener value="#{model}" target="#{encontroEquipeController.encontroEquipeIntegrante}"  />
-                            </p:menuitem>
-                        </p:menuButton>
-                    </p:column>
-                </p:dataTable> 
-                <!--
-                <p:commandButton value="Salvar" ajax="false"  class="icone2 salvar" action="#{encontroEquipeController.salvar()}" update=":form_1"/>
-                -->
+                        <p:column headerText="Telefone" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >
+                            <h:outputText value="#{model.seguidor.participante.telefoneCelular}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Tipo" >
+                            <p:selectBooleanButton value="#{model.coordenador}" onLabel="Coordenador(a)" offLabel="Seguidor(a)" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
+                            </p:selectBooleanButton>
+                        </p:column>
+
+                        <p:column headerText="Opções" width="90" class="centralizar">                        
+                            <p:menuButton value="" >                                
+                                <p:menuitem value="Trocar de Equipe" styleClass="icone2 atualizar" oncomplete="PF('dialogTrocar').show()" update=":form_1" title="Trocar o Seguidor de Equipe." rendered="#{model.coordenador == false}">
+                                    <f:setPropertyActionListener value="#{model}" target="#{encontroEquipeController.encontroEquipeIntegrante}"  />
+                                </p:menuitem>
+                            </p:menuButton>
+                        </p:column>
+                    </p:dataTable>                     
                 </p:panel>   
                 
                 

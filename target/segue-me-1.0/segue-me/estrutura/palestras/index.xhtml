@@ -21,38 +21,67 @@
         <!--Conteúdo da página-->
         <ui:define name="conteudo">
             <h:form id="form_1">  
-                <p:panel header="Círculos">
-                <p:messages id="messages" autoUpdate="true" closable="true"  />
+                <p:panel header="Palestras">
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />
                 
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroController.id, 'palestras')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
                     <p:separator/>
-                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" 
+                                 selectionMode="single" selection="#{palestranteController.encontroPalestraSelecionada}" rowKey="#{model.id}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""  />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" oncomplete="PF('dialog_palestrantes').show()" update=":form_1:dialog_palestrantes"/>
+                        
+                        <p:column headerText="Palestra" sortBy="#{model.palestras.descricao}" filterBy="#{model.palestras.descricao}" >
+                            <h:outputText value="#{model.palestras.descricao}" />                                  
+                        </p:column>
+
+                    </p:dataTable>                    
+                </p:panel> 
+                
+                <p:confirmDialog id="dialog_palestrantes" widgetVar="dialog_palestrantes" message="Selecionar Palestrantes" width="630"
+                                 header="Palestrantes da Palestra: #{palestranteController.encontroPalestraSelecionada.palestras.descricao}"  >
+                    <p:scrollPanel class="rolagem" mode="native" >  
+                        
+                        <p:panelGrid layout="grid" columns="1">
+                            <p:outputLabel value="Palestrantes: " >
+                                <p:selectOneMenu id="palestrante_select" value="#{palestranteController.palestrante}" converter="#{palestranteConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                                    <f:selectItem itemLabel="- - -" itemValue="" />                                
+                                    <f:selectItems value="#{palestranteController.listaPalestrantes}" itemLabel="#{palestrante.participante.nome}" itemValue="#{palestrante}" var="palestrante" />
+                                </p:selectOneMenu>
+                            </p:outputLabel>
+
+                            <p:commandButton value="Adicionar Palestrante" action="#{palestranteController.adicionarPalestrante()}" update="palestrante_select data_table_palestrantes" />
                             
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Filtrar: " />
-                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
-                                </p:outputPanel>
-                            </f:facet>
-                            
-                            <p:column headerText="Palestra" sortBy="#{model.palestras.descricao}" filterBy="#{model.palestras.descricao}" >
-                                <h:outputText value="#{model.palestras.descricao}" />                                  
+                        </p:panelGrid>
+
+                        <p:dataTable id="data_table_palestrantes" paginator="false" reflow="true" emptyMessage="Nenhum registro encontrado." var="palestrante"
+                                     value="#{palestranteController.encontroPalestraSelecionada.palestranteList}"  >
+
+                            <p:column headerText="Palestrante" sortBy="#{palestrante.participante.nome}" filterBy="#{palestrante.participante.nome}" >
+                                <h:outputText value="#{palestrante.participante.nome}" />                                  
+                            </p:column>
+
+                            <p:column headerText="Celular" sortBy="#{palestrante.participante.telefoneCelular}" filterBy="#{palestrante.participante.telefoneCelular}" >
+                                <h:outputText value="#{palestrante.participante.telefoneCelular}" />                                  
                             </p:column>
                             
-                            <p:column headerText="Palestrante" sortBy="#{model.palestrante.participante.nome}" filterBy="#{model.palestrante.paparticipanteome}" >
-                                <h:outputText value="#{model.palestrante.partparticipantee}" />                                  
-                            </p:column>
-                            
-                            <p:column headerText="Opções" width="90" class="centralizar">                        
-                                <p:menuButton value="" >
-                                    <p:menuitem value="Editar" styleClass="icone2 editar"
-                                                action="#{encontroPalestraController.gotoEdit(model.id)}" 
-                                                title="Editar dados do encontro."/>                                    
-                                </p:menuButton>
-                            </p:column>
-                            
-                        </p:dataTable>                    
-                </p:panel>                
+                        </p:dataTable>
+                                            
+                    </p:scrollPanel>
+                    
+                    <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{palestranteController.salvarEncontroPalestra()}" class="icone2" oncomplete="PF('dialog_palestrantes').hide()" />
+                    
+                </p:confirmDialog>
+                
+                
             </h:form>
 
         </ui:define>

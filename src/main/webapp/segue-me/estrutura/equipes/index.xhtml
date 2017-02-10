@@ -22,37 +22,29 @@
         <ui:define name="conteudo">
             <h:form id="form_1">  
                 <p:panel header="Equipes">
-                <p:messages id="messages" autoUpdate="true" closable="true"  />
-                
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />
+
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroController.id, 'equipes_trabalho')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>
                     <p:separator/>
-                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{encontroController.encontro.encontroEquipeList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
-                            
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Filtrar: " />
-                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
-                                </p:outputPanel>
-                            </f:facet>
-                            
-                            <p:column headerText="Descrição" sortBy="#{model.equipe.descricao}" filterBy="#{model.equipe.descricao}" >
-                                <h:outputText value="#{model.equipe.descricao}" />                                  
-                            </p:column>
-                            
-                            <p:column headerText="Opções" width="90" class="centralizar">                        
-                                <p:menuButton value="" >
-                                    <p:menuitem value="Editar" styleClass="icone2 editar"
-                                                action="#{encontroEquipeController.gotoEdit(model.id)}" 
-                                                title="Editar dados do encontro."/>                                    
-                                </p:menuButton>
-                            </p:column>
-                            
-                        </p:dataTable>                    
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroController.encontro.encontroEquipeList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" 
+                                 selectionMode="single" selection="#{encontroController.encontroEquipeSelecionado}" rowKey="#{model.id}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:ajax event="rowSelect" listener="#{encontroController.selecionarEquipe}" />
+
+                        <p:column headerText="Descrição" sortBy="#{model.equipe.descricao}" filterBy="#{model.equipe.descricao}" >
+                            <h:outputText value="#{model.equipe.descricao}" />                                  
+                        </p:column>                        
+
+                    </p:dataTable>                    
                 </p:panel>    
-                
-                
-                
-                
                 
             </h:form>
 

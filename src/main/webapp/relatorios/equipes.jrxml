@@ -6,7 +6,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="ENCONTRO_ID" class="java.lang.Integer">
+	<parameter name="R_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -24,7 +24,7 @@ INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_i
 INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
 INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
 
-WHERE encontro.id = $P{ENCONTRO_ID}
+WHERE encontro.id = $P{R_ID}
 ORDER BY equipe.descricao]]>
 	</queryString>
 	<field name="encontro_equipe_id" class="java.lang.Integer"/>
@@ -49,24 +49,26 @@ ORDER BY equipe.descricao]]>
 	<pageHeader>
 		<band height="54" splitType="Stretch">
 			<textField>
-				<reportElement x="141" y="20" width="100" height="20" uuid="26f1ed6d-c4d6-4b16-b8a4-4d0a928bdb00"/>
-				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_inicio}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="333" y="20" width="100" height="20" uuid="c48c524f-e624-4e89-ad91-dbd0c56ce6bb"/>
-				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_fim}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="287" y="20" width="14" height="20" uuid="0809609d-e95a-48ba-91d1-817336f2e54d"/>
-				<text><![CDATA[à]]></text>
-			</staticText>
-			<textField>
 				<reportElement x="0" y="0" width="555" height="20" uuid="f9307728-143c-40ab-b58d-43962a648937"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
 			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="181" y="20" width="100" height="20" uuid="2f6b0388-3ad0-455a-99b1-191834520155"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_inicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="296" y="20" width="100" height="20" uuid="10398b8e-06dd-46d7-800a-760c154aed97"/>
+				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_fim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="20" width="14" height="20" uuid="c43aa585-bd72-4229-aadd-854cdaba718f"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[à]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -81,7 +83,7 @@ ORDER BY equipe.descricao]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="118" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="47" height="20" uuid="ccfcd250-3567-4263-8654-9db045af00be"/>
 				<textElement>
@@ -95,7 +97,7 @@ ORDER BY equipe.descricao]]>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="101" y="20" width="454" height="20" uuid="1a8b861c-4e59-4b9a-a36e-01b341797671"/>
-				<textFieldExpression><![CDATA[$F{coordenador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{coordenador}+" e "+$F{coordenadora}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="20" width="101" height="20" uuid="7e3da391-2583-4ac4-894a-5afcaac6da54"/>
@@ -104,12 +106,8 @@ ORDER BY equipe.descricao]]>
 				</textElement>
 				<text><![CDATA[COORDENADORES:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="101" y="40" width="454" height="20" uuid="d19563b0-c0d8-4680-847a-8735757ef33c"/>
-				<textFieldExpression><![CDATA[$F{coordenadora}]]></textFieldExpression>
-			</textField>
 			<subreport>
-				<reportElement x="0" y="60" width="555" height="43" uuid="5d0ad83d-d9ae-4c5b-be41-cd71cc755245"/>
+				<reportElement x="0" y="40" width="555" height="43" uuid="5d0ad83d-d9ae-4c5b-be41-cd71cc755245"/>
 				<subreportParameter name="ENCONTRO_EQUIPE_ID">
 					<subreportParameterExpression><![CDATA[$F{encontro_equipe_id}]]></subreportParameterExpression>
 				</subreportParameter>

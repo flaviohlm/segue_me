@@ -2,6 +2,7 @@ package br.gov.to.santuario.ejc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,6 +56,13 @@ public class EncontroPalestra implements Serializable {
     @ManyToOne(optional = false)
     private Palestra palestras;
 
+    
+    @ManyToMany
+    @JoinTable(schema = "segueme", name = "encontro_palestra_palestrante", joinColumns = {
+            @JoinColumn(name = "encontro_palestra_id", referencedColumnName = "ID")}, inverseJoinColumns = {
+            @JoinColumn(name = "palestrante_id", referencedColumnName = "ID")})
+    private List<Palestrante> palestranteList;
+    
     public EncontroPalestra() {
     }
 
@@ -106,6 +117,15 @@ public class EncontroPalestra implements Serializable {
     public void setPalestras(Palestra palestras) {
         this.palestras = palestras;
     }
+
+    public List<Palestrante> getPalestranteList() {
+        return palestranteList;
+    }
+
+    public void setPalestranteList(List<Palestrante> palestranteList) {
+        this.palestranteList = palestranteList;
+    }
+
 
     @Override
     public int hashCode() {

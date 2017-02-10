@@ -1,6 +1,5 @@
 package br.gov.to.santuario.ejc.view;
 
-import br.gov.to.santuario.ejc.domain.Encontro;
 import br.gov.to.santuario.ejc.domain.EncontroCirculo;
 import br.gov.to.santuario.ejc.domain.EncontroCirculoSeguimista;
 import br.gov.to.santuario.ejc.domain.Equipe;
@@ -8,7 +7,6 @@ import br.gov.to.santuario.ejc.domain.Seguidor;
 import br.gov.to.santuario.ejc.domain.Seguimista;
 import br.gov.to.santuario.ejc.service.EncontroCirculoSeguimistaService;
 import br.gov.to.santuario.ejc.service.EncontroCirculoService;
-import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.SeguidorService;
 import br.gov.to.santuario.ejc.service.SeguimistaService;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**

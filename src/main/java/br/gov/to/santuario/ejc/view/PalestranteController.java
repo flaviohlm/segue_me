@@ -1,8 +1,10 @@
 package br.gov.to.santuario.ejc.view;
 
 import br.gov.to.santuario.ejc.domain.Encontro;
+import br.gov.to.santuario.ejc.domain.EncontroPalestra;
 import br.gov.to.santuario.ejc.domain.Habilidade;
 import br.gov.to.santuario.ejc.domain.Palestrante;
+import br.gov.to.santuario.ejc.service.EncontroPalestraService;
 import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.HabilidadeService;
 import br.gov.to.santuario.ejc.service.PalestranteService;
@@ -30,6 +32,9 @@ public class PalestranteController implements Serializable {
     @ManagedProperty(value = "#{encontroService}")
     private EncontroService encontroService;
     
+    @ManagedProperty(value = "#{encontroPalestraService}")
+    private EncontroPalestraService encontroPalestraService;
+    
     private FacesMessages messages = new FacesMessages();
     
     private Integer id;
@@ -37,6 +42,8 @@ public class PalestranteController implements Serializable {
     private List<Palestrante> listaPalestrantes;
     private List<Habilidade> listaHabilidades;
     private List<Encontro> listaEncontro;
+    
+    private EncontroPalestra encontroPalestraSelecionada;    
     
     public void salvar(){
         try{        
@@ -86,6 +93,33 @@ public class PalestranteController implements Serializable {
         return "/segue-me/participantes/palestrantes/edit.xhtlm?id="+ide+"&faces-redirect=true";
     }
 
+    public void adicionarPalestrante(){
+        if(encontroPalestraSelecionada != null){
+            encontroPalestraSelecionada.getPalestranteList().add(palestrante);
+            palestrante = new Palestrante();
+        }
+    }
+    
+    public void salvarEncontroPalestra(){
+        try{                    
+            encontroPalestraService.saveEncontroPalestra(encontroPalestraSelecionada);            
+            messages.info("Palestrante salva com sucesso!");                   
+        }catch(Exception e){
+            System.out.println("error" + e.getMessage());
+            messages.error("Não foi possível salvar palestra.");
+            e.printStackTrace();
+        }
+        
+    }
+    
+    //ver depois
+    public void selecionarPalestra(){
+        if(encontroPalestraSelecionada != null){
+            listaPalestrantes = getListaPalestrantes();
+            listaPalestrantes.removeAll(encontroPalestraSelecionada.getPalestranteList());
+        }
+    }
+    
     //GETTERS AND SETTERS
     public PalestranteService getPalestranteService() {
         return palestranteService;
@@ -167,6 +201,23 @@ public class PalestranteController implements Serializable {
     public void setListaEncontro(List<Encontro> listaEncontro) {
         this.listaEncontro = listaEncontro;
     }
+
+    public EncontroPalestra getEncontroPalestraSelecionada() {
+        return encontroPalestraSelecionada;
+    }
+
+    public void setEncontroPalestraSelecionada(EncontroPalestra encontroPalestraSelecionada) {
+        this.encontroPalestraSelecionada = encontroPalestraSelecionada;
+    }
+
+    public EncontroPalestraService getEncontroPalestraService() {
+        return encontroPalestraService;
+    }
+
+    public void setEncontroPalestraService(EncontroPalestraService encontroPalestraService) {
+        this.encontroPalestraService = encontroPalestraService;
+    }
+
     
 }
 

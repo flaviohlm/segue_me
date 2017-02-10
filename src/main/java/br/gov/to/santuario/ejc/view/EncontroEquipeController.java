@@ -9,11 +9,17 @@ import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.SeguidorService;
 import br.gov.to.santuario.seg.util.FacesMessages;
+import br.gov.to.santuario.seg.util.RelatorioUtil;
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.sql.DataSource;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -33,6 +39,9 @@ public class EncontroEquipeController implements Serializable {
     
     @ManagedProperty(value = "#{encontroEquipeIntegranteService}")
     private EncontroEquipeIntegranteService encontroEquipeIntegranteService;
+    
+    @ManagedProperty(value = "#{dataSource}")
+    private DataSource dataSource;
     
     private FacesMessages messages = new FacesMessages();
     
@@ -72,10 +81,6 @@ public class EncontroEquipeController implements Serializable {
         }
     }
     
-    public String gotoEdit(Integer ide){
-        return "/segue-me/estrutura/equipes/edit.xhtlm?id="+ide+"&faces-redirect=true";
-    }
-    
     public void selecionarIntegrante(){
         try{            
             encontroEquipeService.saveEncontroEquipe(encontroEquipe);  
@@ -101,6 +106,22 @@ public class EncontroEquipeController implements Serializable {
         }catch(Exception e){
             messages.error("Não foi possível salvar o(a) coordenador(a).");
             e.printStackTrace();
+        }
+    }
+    
+    public void imprimir() throws IOException, SQLException, JRException{
+        
+        try{
+            RelatorioUtil relatorio = new RelatorioUtil();
+            ArrayList<Object> parametro = new ArrayList<>();
+            parametro.add("R_ID");
+            parametro.add(encontroEquipe.getId());
+            
+            relatorio.imprimeRelatorio(relatorio.DIR + "/equipe.jasper", parametro, dataSource.getConnection(), "Segue-me - "+encontroEquipe.getEquipe().getDescricao());  
+  
+        }catch(IOException | SQLException ex){
+            messages.error("Não foi possível imprimir o documento!");
+            System.err.println("Erro ao gerar relatório! " + ex.getMessage());
         }
     }
     
@@ -189,6 +210,14 @@ public class EncontroEquipeController implements Serializable {
 
     public void setEncontroEquipeIntegrante(EncontroEquipeIntegrante encontroEquipeIntegrante) {
         this.encontroEquipeIntegrante = encontroEquipeIntegrante;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
 }

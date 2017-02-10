@@ -2,6 +2,8 @@ package br.gov.to.santuario.ejc.view;
 
 import br.gov.to.santuario.ejc.domain.Circulo;
 import br.gov.to.santuario.ejc.domain.Encontro;
+import br.gov.to.santuario.ejc.domain.EncontroCirculo;
+import br.gov.to.santuario.ejc.domain.EncontroEquipe;
 import br.gov.to.santuario.ejc.domain.Equipe;
 import br.gov.to.santuario.ejc.domain.Palestra;
 import br.gov.to.santuario.ejc.domain.Paroquia;
@@ -11,11 +13,19 @@ import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.PalestraService;
 import br.gov.to.santuario.ejc.service.ParoquiaService;
 import br.gov.to.santuario.seg.util.FacesMessages;
+import br.gov.to.santuario.seg.util.RelatorioUtil;
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.sql.DataSource;
+import net.sf.jasperreports.engine.JRException;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -39,6 +49,9 @@ public class EncontroController implements Serializable {
     @ManagedProperty(value = "#{palestraService}")
     private PalestraService palestraService;
     
+    @ManagedProperty(value = "#{dataSource}")
+    private DataSource dataSource;
+    
     private FacesMessages messages = new FacesMessages();
     
     private Integer id;
@@ -49,6 +62,8 @@ public class EncontroController implements Serializable {
     private List<Circulo> listaCirculo;
     private List<Equipe> listaEquipe;
     private List<Palestra> listaPalestra;
+    private EncontroEquipe encontroEquipeSelecionado;
+    private EncontroCirculo encontroCirculoSelecionado;
     
     public void salvar(){        
         try{            
@@ -100,6 +115,31 @@ public class EncontroController implements Serializable {
             }
         }
     }
+    
+    public void imprimir(Integer id, String relatorioJasper) throws IOException, SQLException, JRException{
+        
+        try{
+            RelatorioUtil relatorio = new RelatorioUtil();
+            ArrayList<Object> parametro = new ArrayList<>();
+            parametro.add("R_ID");
+            parametro.add(id);
+            
+            relatorio.imprimeRelatorio(relatorio.DIR + "/"+relatorioJasper+".jasper", parametro, dataSource.getConnection(), ""+relatorioJasper);  
+  
+        }catch(IOException | SQLException ex){
+            messages.error("Não foi possível imprimir o documento!");
+            System.err.println("Erro ao gerar relatório! " + ex.getMessage());
+        }
+    }
+    
+    public void selecionarEquipe(SelectEvent event) throws IOException {                
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/equipes/edit.xhtml?id=" + encontroEquipeSelecionado.getEquipe().getId());
+    }
+    
+    public void selecionarCirculo(SelectEvent event) throws IOException {                
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/circulos/edit.xhtml?id=" + encontroCirculoSelecionado.getId());
+    }
+    
     
     //GETTERS AND SETTERS
     public EncontroService getEncontroService() {
@@ -219,6 +259,30 @@ public class EncontroController implements Serializable {
 
     public void setListaPalestra(List<Palestra> listaPalestra) {
         this.listaPalestra = listaPalestra;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public EncontroEquipe getEncontroEquipeSelecionado() {
+        return encontroEquipeSelecionado;
+    }
+
+    public void setEncontroEquipeSelecionado(EncontroEquipe encontroEquipeSelecionado) {
+        this.encontroEquipeSelecionado = encontroEquipeSelecionado;
+    }
+
+    public EncontroCirculo getEncontroCirculoSelecionado() {
+        return encontroCirculoSelecionado;
+    }
+
+    public void setEncontroCirculoSelecionado(EncontroCirculo encontroCirculoSelecionado) {
+        this.encontroCirculoSelecionado = encontroCirculoSelecionado;
     }
 
 }

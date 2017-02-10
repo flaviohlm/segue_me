@@ -5,8 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
 
     <ui:composition template="/templates/index.xhtml">
         <!--Substituir o Título padrão da Página-->
@@ -23,40 +22,38 @@
         <ui:define name="conteudo">
             <h:form id="form_1">  
                 <p:panel header="Círculos">
-                <p:messages id="messages" autoUpdate="true" closable="true"  />
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />
                 
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
                     <p:separator/>
-                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
-                            
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Filtrar: " />
-                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
-                                </p:outputPanel>
-                            </f:facet>
-                            
-                            <p:column headerText="Descrição" sortBy="#{model.circulo.cor}" filterBy="#{model.circulo.cor}" >
-                                <h:outputText value="#{model.circulo.cor}" />                                  
-                            </p:column>
-                            
-                            <p:column headerText="Apóstolo" sortBy="#{model.circulo.apostolo}" filterBy="#{model.circulo.apostolo}" >
-                                <h:outputText value="#{model.circulo.apostolo}" />                                  
-                            </p:column>
-                            
-                            <p:column headerText="Visualizar" width="100">
-                                <p:commandButton oncomplete="PF('dialog_visualizar').show()" class="iconebt visualizar" value="" title="Visualizar dados do curso." update=":form_1" >                                    
-                                    <p:ajax listener="#{encontroCirculoController.caralho(model)}" update=":form_1:dialog_visualizar"/>
-                                </p:commandButton>
-                            </p:column>
-                            
-                            <p:column headerText="Editar" width="60">
-                                <h:link id="cmdEditar" title="Editar" outcome="edit.xhtml" class="botao iconebt editar" includeViewParams="true" >
-                                    <f:param name="id" value="#{model.id}" />
-                                </h:link>
-                            </p:column>
-                            
-                        </p:dataTable>                    
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" 
+                                 selectionMode="single" selection="#{encontroController.encontroCirculoSelecionado}" rowKey="#{model.id}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:ajax event="rowSelect" listener="#{encontroController.selecionarCirculo}" />
+
+                        <p:column headerText="Descrição" sortBy="#{model.circulo.cor}" filterBy="#{model.circulo.cor}" >
+                            <h:outputText value="#{model.circulo.cor}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Apóstolo" sortBy="#{model.circulo.apostolo}" filterBy="#{model.circulo.apostolo}" >
+                            <h:outputText value="#{model.circulo.apostolo}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Visualizar" width="100">
+                            <p:commandButton oncomplete="PF('dialog_visualizar').show()" class="iconebt visualizar" value="" title="Visualizar dados do curso." update=":form_1" >                                    
+                                <p:ajax listener="#{encontroCirculoController.caralho(model)}" update=":form_1:dialog_visualizar"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
                 </p:panel> 
                 
                 
@@ -90,12 +87,6 @@
                 </p:confirmDialog>
                 
                 
-                
-                
-                
-                
-                
-                
                 <p:confirmDialog id="dialog_pessoas_padrinhos" message="Selecione Padrinho clicando no checkbox" header="Seguidores" width="800" widgetVar="dialogPessoasPadrinhos" >
                     
                     <p:panelGrid layout="grid" columns="2" >
@@ -120,8 +111,6 @@
                     
                     <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroCirculoController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogPessoasPadrinho').hide()" />
                 </p:confirmDialog>
-                
-                
                 
             </h:form>
 
