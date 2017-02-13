@@ -65,7 +65,7 @@ public class EncontroController implements Serializable {
     private EncontroEquipe encontroEquipeSelecionado;
     private EncontroCirculo encontroCirculoSelecionado;
     
-    public void salvar(){        
+    public void salvar(){
         try{            
             encontroService.saveEncontro(encontro);
             messages.info("Encontro salvo com sucesso!");
@@ -133,7 +133,7 @@ public class EncontroController implements Serializable {
     }
     
     public void selecionarEquipe(SelectEvent event) throws IOException {                
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/equipes/editar/index.xhtml?id=" + encontroEquipeSelecionado.getEquipe().getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/equipes/editar/index.xhtml?id=" + encontroEquipeSelecionado.getId());
     }
     
     public void selecionarCirculo(SelectEvent event) throws IOException {                

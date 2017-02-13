@@ -51,7 +51,7 @@ public class EquipeService {
             @Override
             public Predicate toPredicate(Root<Equipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 
-                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                query.orderBy(cb.asc(root.<Integer>get("ordemQuadrante")));                
                 return query.getRestriction();
             }
         };

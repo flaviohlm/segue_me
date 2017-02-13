@@ -252,6 +252,11 @@ table tbody tr{
 }
 .ui-fieldset, .ui-fieldset .ui-fieldset-legend{
     padding:10px !important;
+    width: 100%;
+}
+.ui-fieldset .ui-fieldset-toggler{
+    padding-right: 1.5em !important;
+    margin-top: 5px !important;
 }
 /*botões*/
 .botao2{
@@ -462,6 +467,9 @@ a.botao2{
 .perfil:focus .avatar,.perfil:active .avatar{
     background-position:bottom;
     background-size:50px;
+}
+.primeira-maiuscula {
+    text-transform: capitalize;
 }
 /*Calendário*/
 .ui-datepicker td{
@@ -1555,6 +1563,9 @@ h2{
 }
 .ui-widget.ui-selectonemenu{
     border-radius: 0 5px 5px 0 !important;
+    max-width: 200px !important;
+    min-width:200px !important;
+
 }
 /*fim novo form*/
 /*menu button, botão opções, menu opções*/
@@ -1628,6 +1639,13 @@ h2{
     height: 6px;
 }
 /*recortar imagem*/
+#imageCropper,
+.recortar{
+}
+.recorte{
+    max-width: 100% !important;
+    display: block;
+}
 
 ::-webkit-scrollbar-track-piece  {
     background-color: #D4D4D4;

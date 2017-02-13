@@ -21,8 +21,8 @@
                 <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{seguimistaController.gotoEdit()}" class="icone2 adicionar"/>
                 
                     <p:separator/>
-                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{seguimistaController.listaSeguimistas}" currentPageReportTemplate="{currentPage} de {totalPages}" 
+                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                     value="#{seguimistaController.listaSeguimistas}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"
                                      selectionMode="single" selection="#{seguimistaController.seguimistaSelecionado}" rowKey="#{model.id}">
                             
                             <f:facet name="header">
@@ -33,6 +33,10 @@
                             </f:facet>
                             
                             <p:ajax event="rowSelect" listener="#{seguimistaController.selecionarSeguimista}" />
+                            
+                            <p:column headerText="#" width="40">
+                                #{rowIndex+1}
+                            </p:column>
                             
                             <p:column headerText="Nome" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
                                 <h:outputText value="#{model.participante.nome}" />                                  

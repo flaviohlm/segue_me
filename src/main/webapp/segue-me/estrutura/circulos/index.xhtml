@@ -24,10 +24,10 @@
                 <p:panel header="Círculos">
                     <p:messages id="messages" autoUpdate="true" closable="true"  />
                 
-                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="@this"/>
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                 value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" 
+                                 value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex"
                                  selectionMode="single" selection="#{encontroController.encontroCirculoSelecionado}" rowKey="#{model.id}">
 
                         <f:facet name="header">
@@ -39,6 +39,10 @@
                         
                         <p:ajax event="rowSelect" listener="#{encontroController.selecionarCirculo}" />
 
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
                         <p:column headerText="Descrição" sortBy="#{model.circulo.cor}" filterBy="#{model.circulo.cor}" >
                             <h:outputText value="#{model.circulo.cor}" />                                  
                         </p:column>
@@ -49,7 +53,7 @@
 
                         <p:column headerText="Visualizar" width="100">
                             <p:commandButton oncomplete="PF('dialog_visualizar').show()" class="iconebt visualizar" value="" title="Visualizar dados do curso." update=":form_1" >                                    
-                                <p:ajax listener="#{encontroCirculoController.caralho(model)}" update=":form_1:dialog_visualizar"/>
+                                <p:ajax listener="#{encontroCirculoController.selecionarCirculo(model)}" update=":form_1:dialog_visualizar"/>
                             </p:commandButton>
                         </p:column>
 
@@ -91,17 +95,17 @@
                     
                     <p:panelGrid layout="grid" columns="2" >
                         <p:outputLabel value="Círculo:" />
-                        <h:outputText value="#{encontroCirculoController.encontroCirculo.circulo.cor} (#{encontroCirculoController.encontroCirculo.circulo.apostolo.toUpperCase()})" />
+                        <h:outputText value="#{encontroCirculoController.encontroCirculoSelecionado.circulo.cor} (#{encontroCirculoController.encontroCirculoSelecionado.circulo.apostolo.toUpperCase()})" />
                         
                         <p:outputLabel value="Padrinho:" >
-                            <p:selectOneMenu value="#{encontroCirculoController.encontroCirculo.seguidorPadrinho}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                            <p:selectOneMenu value="#{encontroCirculoController.encontroCirculoSelecionado.seguidorPadrinho}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
                                 <f:selectItem itemLabel="- - -" itemValue="" />                                
                                 <f:selectItems value="#{encontroCirculoController.listaSeguidoresPadrinhos}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor}" var="seguidor" />
                             </p:selectOneMenu>
                         </p:outputLabel>
                         
                         <p:outputLabel value="Madrinha:" >
-                            <p:selectOneMenu value="#{encontroCirculoController.encontroCirculo.seguidorMadrinha}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                            <p:selectOneMenu value="#{encontroCirculoController.encontroCirculoSelecionado.seguidorMadrinha}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
                                 <f:selectItem itemLabel="- - -" itemValue="" />                                
                                 <f:selectItems value="#{encontroCirculoController.listaSeguidoresMadrinhas}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor}" var="seguidor" />
                             </p:selectOneMenu>

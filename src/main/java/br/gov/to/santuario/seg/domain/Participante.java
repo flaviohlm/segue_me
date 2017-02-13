@@ -142,6 +142,9 @@ public class Participante implements Serializable, UserDetails {
     @Transient
     private Integer idade;
     
+    @Transient
+    private String habilidades;
+    
     public Participante() {          
     }
 
@@ -227,6 +230,20 @@ public class Participante implements Serializable, UserDetails {
 
     public void setIdade(Integer idade) {
         this.idade = idade;
+    }
+
+    public String getHabilidades() {
+        if(!habilidadeList.isEmpty()){            
+            habilidades = habilidadeList.get(0).getDescricao();            
+            for(int i=1; i < habilidadeList.size(); i++){                
+                habilidades += ", "+habilidadeList.get(i).getDescricao();              
+            }
+        }
+        return habilidades;
+    }
+
+    public void setHabilidades(String habilidades) {
+        this.habilidades = habilidades;
     }
 
 

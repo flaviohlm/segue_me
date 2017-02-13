@@ -169,6 +169,9 @@ h1{
 .tabular{
     background-image: url("#{resource['images/tabular.svg']}") !important;
 }
+.tesoura{
+    background-image: url("#{resource['images/tesoura.svg']}") !important;
+}
 .adicionar{
     background-image: url("#{resource['images/adicionar.svg']}") !important;
 }
@@ -459,14 +462,14 @@ h1{
     background-image:url("#{resource['images/visto.svg']}") !important;
 }
 .unicet{
-    background-image: url("#{resource['images/logo-bom-pastor.svg']}") !important;
+    background-image: url("#{resource['images/unicet.svg']}") !important;
     background-position: center center !important;
 }
 .logo.unicet{
     background-position: top -10px center !important;
 }
 .unicet1{
-    background-image: url("#{resource['images/logo-bom-pastor.svg']}") !important;
+    background-image: url("#{resource['images/unicet1.svg']}") !important;
     background-size: auto 150%;
 }
 .box:hover .unicet{

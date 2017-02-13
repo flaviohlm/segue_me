@@ -20,7 +20,7 @@
                      <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{equipeController.novo()}" class="icone2 adicionar"/>
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{equipeController.listaEquipes}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                                     value="#{equipeController.listaEquipes}" currentPageReportTemplate="{currentPage} de {totalPages}" editable="true" rowIndexVar="rowIndex" >
                             
                             <p:ajax event="rowEdit" listener="#{equipeController.onRowEdit}" update=":form_1:messages" />
                             
@@ -31,6 +31,10 @@
                                 </p:outputPanel>
                             </f:facet>
                             
+                            <p:column headerText="#" width="40">
+                                #{rowIndex+1}
+                            </p:column>
+                            
                             <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
                                 <p:cellEditor>
                                     <f:facet name="output">
@@ -40,15 +44,48 @@
                                         <p:inputText value="#{model.descricao}" />
                                     </f:facet> 
                                 </p:cellEditor>                                    
-                            </p:column>                                                    
+                            </p:column> 
                             
-                            <p:column width="50" headerText="Editar">
+                            <p:column headerText="Qnd. Integrantes" sortBy="#{model.quantidadeParticipantes}" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{model.quantidadeParticipantes}" /> 
+                                    </f:facet>
+                                    <f:facet name="input">    
+                                        <p:inputText value="#{model.quantidadeParticipantes}" />
+                                    </f:facet> 
+                                </p:cellEditor>                                    
+                            </p:column>
+                            
+                            <p:column headerText="Ordem Quadrante" sortBy="#{model.ordemQuadrante}" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{model.ordemQuadrante}" /> 
+                                    </f:facet>
+                                    <f:facet name="input">    
+                                        <p:inputText value="#{model.ordemQuadrante}" />
+                                    </f:facet> 
+                                </p:cellEditor>                                    
+                            </p:column>
+                            
+                            <p:column headerText="Ordem de Apresentação" sortBy="#{model.ordemApresentacao}" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{model.ordemApresentacao}" /> 
+                                    </f:facet>
+                                    <f:facet name="input">    
+                                        <p:inputText value="#{model.ordemApresentacao}" />
+                                    </f:facet> 
+                                </p:cellEditor>                                    
+                            </p:column>
+                            
+                            <p:column width="70" headerText="Editar">
                                 <p:rowEditor />
                             </p:column>
 
-                            <p:column headerText="Excluir" width="60">
+                            <p:column headerText="Excluir" width="70">
                                 <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
-                                    <f:setPropertyActionListener value="#{model}" target="#{equipeController.circulo}" />
+                                    <f:setPropertyActionListener value="#{model}" target="#{equipeController.equipe}" />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>                    

@@ -20,7 +20,7 @@
                      <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{habilidadeController.novo()}" class="icone2 adicionar"/>
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{habilidadeController.listaHabilidades}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                                     value="#{habilidadeController.listaHabilidades}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" editable="true" >
                             
                             <p:ajax event="rowEdit" listener="#{habilidadeController.onRowEdit}" update=":form_1:messages" />
                             
@@ -30,6 +30,10 @@
                                     <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
                                 </p:outputPanel>
                             </f:facet>
+                            
+                            <p:column headerText="#" width="40">
+                                #{rowIndex+1}
+                            </p:column>
                             
                             <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
                                 <p:cellEditor>
@@ -42,11 +46,11 @@
                                 </p:cellEditor>                                    
                             </p:column>                                                    
                             
-                            <p:column width="50" headerText="Editar">
+                            <p:column width="70" headerText="Editar">
                                 <p:rowEditor />
                             </p:column>
 
-                            <p:column headerText="Excluir" width="60">
+                            <p:column headerText="Excluir" width="70">
                                 <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
                                     <f:setPropertyActionListener value="#{model}" target="#{habilidadeController.circulo}" />
                                 </p:commandButton>

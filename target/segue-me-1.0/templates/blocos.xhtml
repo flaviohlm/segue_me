@@ -7,12 +7,12 @@
       xmlns:p="http://primefaces.org/ui" >
 <ui:composition>
     <div class="acesso">
-        <div class="caixa">
-            <a class="logo-grande logo-bom-pastor" href="#{facesContext.externalContext.requestContextPath}" title="Voltar à Capa"/>
+        <div class="caixa menu-lateral">
+            <a class="logo-grande unicet1" href="#{facesContext.externalContext.requestContextPath}" title="Voltar à Capa"/>
             <p:separator/>
             <p:dataList var="menuM"  value="#{menuBean.menuModulo(loginBean.menusAcesso, 1, 1)}"  >
                 <div class="secao">
-                    <p:accordionPanel id="secao-menu" activeIndex="null" cache="true" class="#{menuM.icone}">
+                    <p:accordionPanel id="secao-menu" activeIndex="0" cache="true" class="#{menuM.icone}">
                         <p:tab class="secao-titulo" title="#{menuM.descricao}">
                             <p:dataList var="menuSe" class="secao-conteudo"  value="#{menuBean.menuModulo(loginBean.menusAcesso, 2, menuM.id)}">
                                 <a href="#{facesContext.externalContext.requestContextPath}#{menuSe.url}" title="#{menuSe.observacoes}">

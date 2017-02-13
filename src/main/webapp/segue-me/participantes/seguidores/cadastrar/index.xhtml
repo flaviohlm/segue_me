@@ -24,15 +24,8 @@
                         <p:selectBooleanButton value="#{seguidorController.seguidor.tio}" onLabel="Tio(a)" offLabel="Seguidor(a)"  />
                                                 
                         <p:outputLabel value="Nome*:" />
-                        <p:autoComplete value="#{seguidorController.seguidor.participante}" completeMethod="#{seguidorController.find}" required="true" requiredMessage="Campo 'Nome' é obrigatório."
-                                        var="participante" itemLabel="#{participante.nome}" itemValue="#{participante}" converter="#{participanteConverter}" forceSelection="false">
-                            
-                            <p:ajax event="itemSelect" listener="#{seguidorController.onItemSelect}" update="panel_1" />
-                            <p:column>
-                                <h:outputText value="#{participante.nome}" />
-                            </p:column>
-                        </p:autoComplete>
-                        
+                        <p:inputText size="25" value="#{seguidorController.seguidor.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
+                                                
                         <p:outputLabel value="Crachá:" />
                         <p:inputText  size="25" value="#{seguidorController.seguidor.participante.apelido}" />
                         

@@ -23,7 +23,7 @@ FROM
 INNER JOIN segueme.encontro_equipe_integrantes encontro_equipe_integrantes ON seguidor.id = encontro_equipe_integrantes.seguidor_id
 INNER JOIN segueme.participante participante ON seguidor.participante_id = participante.id
 WHERE encontro_equipe_integrantes.encontro_equipe_id = $P{ENCONTRO_EQUIPE_ID}
-AND encontro_equipe_integrantes.coordenador  = false
+AND (encontro_equipe_integrantes.coordenador  = false OR encontro_equipe_integrantes.coordenador  is null)
 ORDER BY participante.nome]]>
 	</queryString>
 	<field name="seguidor_tio" class="java.lang.Boolean"/>
@@ -99,7 +99,7 @@ ORDER BY participante.nome]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{participante_telefone_celular}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="455" y="0" width="100" height="20" uuid="5f61ce9d-95e7-4f38-afa4-5079480916c5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{participante_data_nascimento}]]></textFieldExpression>

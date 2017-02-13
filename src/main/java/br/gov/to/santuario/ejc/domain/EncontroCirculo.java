@@ -50,6 +50,13 @@ public class EncontroCirculo implements Serializable {
     private Seguidor seguidorMadrinha;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "encontroCirculo")
     private EncontroCirculoSeguimista encontroCirculoSeguimista;
+    
+    @JoinColumn(name = "seguidor_tio_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Seguidor seguidorTio;
+    @JoinColumn(name = "seguidor_tia_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Seguidor seguidorTia;
 
     @ManyToMany
     @JoinTable(schema = "segueme", name = "encontro_circulo_seguimista", joinColumns = {
@@ -118,6 +125,22 @@ public class EncontroCirculo implements Serializable {
 
     public void setSeguimistaList(List<Seguimista> seguimistaList) {
         this.seguimistaList = seguimistaList;
+    }
+
+    public Seguidor getSeguidorTio() {
+        return seguidorTio;
+    }
+
+    public void setSeguidorTio(Seguidor seguidorTio) {
+        this.seguidorTio = seguidorTio;
+    }
+
+    public Seguidor getSeguidorTia() {
+        return seguidorTia;
+    }
+
+    public void setSeguidorTia(Seguidor seguidorTia) {
+        this.seguidorTia = seguidorTia;
     }
 
     @Override

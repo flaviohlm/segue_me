@@ -27,7 +27,7 @@
                     <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroController.id, 'palestras')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                 value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" 
+                                 value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
                                  selectionMode="single" selection="#{palestranteController.encontroPalestraSelecionada}" rowKey="#{model.id}">
 
                         <f:facet name="header">
@@ -38,6 +38,10 @@
                         </f:facet>
 
                         <p:ajax event="rowSelect" oncomplete="PF('dialog_palestrantes').show()" update=":form_1:dialog_palestrantes"/>
+                        
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
                         
                         <p:column headerText="Palestra" sortBy="#{model.palestras.descricao}" filterBy="#{model.palestras.descricao}" >
                             <h:outputText value="#{model.palestras.descricao}" />                                  
