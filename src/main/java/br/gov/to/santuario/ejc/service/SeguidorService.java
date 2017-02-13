@@ -54,6 +54,14 @@ public class SeguidorService {
        return repository.findSeguidoresPadrinhosDisponiveis(encontroCirculo.getEncontro().getId(), sexo);
     }
     
+    public Seguidor findByParticipante(Integer id){
+        List<Seguidor>lista = repository.findAll(where(specificationidParticipante(id)));
+        if(lista.isEmpty()){
+            return null;
+        }
+        return lista.get(0);
+    }
+    
     //SPECIFICATIONS
     public Specification<Seguidor> specificationOrder() {
         return new Specification<Seguidor>() {
@@ -62,6 +70,20 @@ public class SeguidorService {
                 
                 query.orderBy(cb.asc(root.<Integer>get("id")));                
                 return query.getRestriction();
+            }
+        };
+    }
+    
+    public Specification<Seguidor> specificationidParticipante(final Integer id) {
+        return new Specification<Seguidor>() {
+            @Override
+            public Predicate toPredicate(Root<Seguidor> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                
+                Predicate p = cb.equal(root.get("participante").<Integer>get("id"), id);
+                
+                return cb.and(p);
             }
         };
     }

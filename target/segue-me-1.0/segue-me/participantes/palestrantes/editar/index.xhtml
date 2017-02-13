@@ -10,7 +10,7 @@
     <ui:composition template="/templates/index.xhtml">
         <!--Substituir o Título padrão da Página-->
         <ui:define name="tituloDaPagina">
-            Cadastro de Palestrantes
+            Editar Palestrante
         </ui:define>
         <ui:define name="meta">
             <f:metadata>
@@ -25,9 +25,9 @@
                 
                 <p:panel id="panel_1">
                    <p:panelGrid layout="grid" columns="1" >
-                        <p:outputLabel value="Nome*:" />
-                        <p:inputText  size="25" value="#{palestranteController.palestrante.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
-                        
+                        <p:outputLabel value="Nome*:" />                       
+                        <p:inputText  size="25" value="#{palestranteController.palestrante.participante.nome}" />
+                         
                         <p:outputLabel value="Crachá:" />
                         <p:inputText  size="25" value="#{palestranteController.palestrante.participante.apelido}" />
                         

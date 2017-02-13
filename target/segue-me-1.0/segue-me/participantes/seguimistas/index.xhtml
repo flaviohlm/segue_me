@@ -12,22 +12,18 @@
         <ui:define name="tituloDaPagina">
             Gerenciar Seguimistas
         </ui:define> 
-        <ui:define name="meta">
-            <f:metadata>
-                <f:viewParam name="id" value="#{seguimistaController.id}" />
-                <f:viewAction action="#{seguimistaController.loadModel}" />
-            </f:metadata> 
-        </ui:define>
+        
         <!--Conteúdo da página-->
         <ui:define name="conteudo">
             <h:form id="form_1">  
-                <p:panel header="Seguimistaes">
+                <p:panel header="Seguimistas">
                 <p:messages id="messages" autoUpdate="true" closable="true"  />                
                 <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{seguimistaController.gotoEdit()}" class="icone2 adicionar"/>
                 
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{seguimistaController.listaSeguimistas}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                                     value="#{seguimistaController.listaSeguimistas}" currentPageReportTemplate="{currentPage} de {totalPages}" 
+                                     selectionMode="single" selection="#{seguimistaController.seguimistaSelecionado}" rowKey="#{model.id}">
                             
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -35,6 +31,8 @@
                                     <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
                                 </p:outputPanel>
                             </f:facet>
+                            
+                            <p:ajax event="rowSelect" listener="#{seguimistaController.selecionarSeguimista}" />
                             
                             <p:column headerText="Nome" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
                                 <h:outputText value="#{model.participante.nome}" />                                  
@@ -54,15 +52,7 @@
                             
                             <p:column headerText="Idade" sortBy="#{model.participante.idade}" filterBy="#{model.participante.idade}" >
                                 <h:outputText value="#{model.participante.idade}" />                                  
-                            </p:column>
-                            
-                            <p:column headerText="Opções" width="90" class="centralizar">                        
-                                <p:menuButton value="" >
-                                    <p:menuitem value="Editar" styleClass="icone2 editar"
-                                                action="#{seguimistaController.gotoEdit(model.id)}" 
-                                                title="Editar dados do encontro."/>                                    
-                                </p:menuButton>
-                            </p:column>
+                            </p:column>                            
                             
                         </p:dataTable>                    
                 </p:panel>                

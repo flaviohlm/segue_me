@@ -7,12 +7,15 @@ import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.HabilidadeService;
 import br.gov.to.santuario.ejc.service.SeguimistaService;
 import br.gov.to.santuario.seg.util.FacesMessages;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -37,6 +40,7 @@ public class SeguimistaController implements Serializable {
     private List<Seguimista> listaSeguimistas;
     private List<Habilidade> listaHabilidades;
     private List<Encontro> listaEncontro;
+    private Seguimista seguimistaSelecionado;
     
     public void salvar(){
         try{        
@@ -88,13 +92,13 @@ public class SeguimistaController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/participantes/seguimistas/edit.xhtlm?faces-redirect=true";
+        return "/segue-me/participantes/seguimistas/cadastrar/index.xhtlm?faces-redirect=true";
     }
     
-    public String gotoEdit(Integer ide){
-        return "/segue-me/participantes/seguimistas/edit.xhtlm?id="+ide+"&faces-redirect=true";
+    public void selecionarSeguimista(SelectEvent event) throws IOException {                
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/participantes/seguimistas/editar/index.xhtml?id=" + seguimistaSelecionado.getId());
     }
-
+    
     //GETTERS AND SETTERS
     public SeguimistaService getSeguimistaService() {
         return seguimistaService;
@@ -175,6 +179,14 @@ public class SeguimistaController implements Serializable {
 
     public void setListaEncontro(List<Encontro> listaEncontro) {
         this.listaEncontro = listaEncontro;
+    }
+
+    public Seguimista getSeguimistaSelecionado() {
+        return seguimistaSelecionado;
+    }
+
+    public void setSeguimistaSelecionado(Seguimista seguimistaSelecionado) {
+        this.seguimistaSelecionado = seguimistaSelecionado;
     }
     
 }

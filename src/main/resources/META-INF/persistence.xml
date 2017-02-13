@@ -32,6 +32,7 @@
       <property name="eclipselink.weaving" value="false"/>
       <property name="eclipselink.cache.shared.default" value="false"/>
       <property name="eclipselink.logging.level" value="FINE"/>
+      <!--property name="eclipselink.ddl-generation" value="create-tables"/-->
     </properties>
   </persistence-unit>
 </persistence>

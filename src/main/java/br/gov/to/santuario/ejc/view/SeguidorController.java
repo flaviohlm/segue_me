@@ -1,16 +1,22 @@
 package br.gov.to.santuario.ejc.view;
 
 import br.gov.to.santuario.ejc.domain.Habilidade;
+import br.gov.to.santuario.ejc.domain.Palestrante;
 import br.gov.to.santuario.ejc.domain.Seguidor;
 import br.gov.to.santuario.ejc.service.HabilidadeService;
 import br.gov.to.santuario.ejc.service.SeguidorService;
+import br.gov.to.santuario.seg.domain.Participante;
+import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.util.FacesMessages;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -25,15 +31,19 @@ public class SeguidorController implements Serializable {
     @ManagedProperty(value = "#{habilidadeService}")
     private HabilidadeService habilidadeService;
     
+    @ManagedProperty(value = "#{participanteService}")
+    private ParticipanteService participanteService;
+    
     private FacesMessages messages = new FacesMessages();
     
     private Integer id;
     private Seguidor seguidor = new Seguidor();
     private List<Seguidor> listaSeguidores;
     private List<Habilidade> listaHabilidades;
+    private Seguidor seguidorSelecionado;
     
-    public void salvar(){
-        try{        
+    public void salvar(){        
+        try{
             if(seguidor.getParticipante().getDataCadastro() == null){
                 seguidor.getParticipante().setDataCadastro(new Date());
             }
@@ -73,13 +83,29 @@ public class SeguidorController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/participantes/seguidores/edit.xhtlm?faces-redirect=true";
+        return "/segue-me/participantes/seguidores/cadastrar/index.xhtlm?faces-redirect=true";
+    }    
+
+    public void selecionarSeguidor(SelectEvent event) throws IOException {                
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/participantes/seguidores/editar/index.xhtml?id=" + seguidorSelecionado.getId());
     }
     
-    public String gotoEdit(Integer ide){
-        return "/segue-me/participantes/seguidores/edit.xhtlm?id="+ide+"&faces-redirect=true";
+    public List<Participante> find(String nome){
+        return participanteService.findByNome(nome);
     }
-
+    
+    public void onItemSelect(SelectEvent event) {
+        Participante participante = (Participante) event.getObject(); 
+        
+        Seguidor s = seguidorService.findByParticipante(participante.getId());
+        
+        if(s == null){
+            seguidor.setParticipante(participante);
+        }else{
+            seguidor = s;
+        }
+    }
+    
     //GETTERS AND SETTERS
     public SeguidorService getSeguidorService() {
         return seguidorService;
@@ -141,6 +167,22 @@ public class SeguidorController implements Serializable {
 
     public void setListaHabilidades(List<Habilidade> listaHabilidades) {
         this.listaHabilidades = listaHabilidades;
+    }
+
+    public Seguidor getSeguidorSelecionado() {
+        return seguidorSelecionado;
+    }
+
+    public void setSeguidorSelecionado(Seguidor seguidorSelecionado) {
+        this.seguidorSelecionado = seguidorSelecionado;
+    }
+
+    public ParticipanteService getParticipanteService() {
+        return participanteService;
+    }
+
+    public void setParticipanteService(ParticipanteService participanteService) {
+        this.participanteService = participanteService;
     }
     
 }

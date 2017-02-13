@@ -8,13 +8,18 @@ import br.gov.to.santuario.ejc.service.EncontroPalestraService;
 import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.HabilidadeService;
 import br.gov.to.santuario.ejc.service.PalestranteService;
+import br.gov.to.santuario.seg.domain.Participante;
+import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.util.FacesMessages;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -35,6 +40,9 @@ public class PalestranteController implements Serializable {
     @ManagedProperty(value = "#{encontroPalestraService}")
     private EncontroPalestraService encontroPalestraService;
     
+    @ManagedProperty(value = "#{participanteService}")
+    private ParticipanteService participanteService;
+    
     private FacesMessages messages = new FacesMessages();
     
     private Integer id;
@@ -42,10 +50,10 @@ public class PalestranteController implements Serializable {
     private List<Palestrante> listaPalestrantes;
     private List<Habilidade> listaHabilidades;
     private List<Encontro> listaEncontro;
-    
+    private Palestrante palestranteSelecionado;
     private EncontroPalestra encontroPalestraSelecionada;    
     
-    public void salvar(){
+    public void salvar(){        
         try{        
             if(palestrante.getParticipante().getDataCadastro() == null){
                 palestrante.getParticipante().setDataCadastro(new Date());
@@ -86,12 +94,8 @@ public class PalestranteController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/participantes/palestrantes/edit.xhtlm?faces-redirect=true";
-    }
-    
-    public String gotoEdit(Integer ide){
-        return "/segue-me/participantes/palestrantes/edit.xhtlm?id="+ide+"&faces-redirect=true";
-    }
+        return "/segue-me/participantes/palestrantes/cadastrar/index.xhtlm?faces-redirect=true";
+    }    
 
     public void adicionarPalestrante(){
         if(encontroPalestraSelecionada != null){
@@ -110,6 +114,26 @@ public class PalestranteController implements Serializable {
             e.printStackTrace();
         }
         
+    }
+    
+    public void selecionarPalestrante(SelectEvent event) throws IOException {                
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/participantes/palestrantes/editar/index.xhtml?id=" + palestranteSelecionado.getId());
+    }
+    
+    public List<Participante> find(String nome){
+        return participanteService.findByNome(nome);
+    }
+    
+    public void onItemSelect(SelectEvent event) {
+        Participante participante = (Participante) event.getObject(); 
+        
+        Palestrante p = palestranteService.findByParticipante(participante.getId());
+        
+        if(p == null){
+            palestrante.setParticipante(participante);
+        }else{
+            palestrante = p;
+        }
     }
     
     //ver depois
@@ -218,6 +242,21 @@ public class PalestranteController implements Serializable {
         this.encontroPalestraService = encontroPalestraService;
     }
 
-    
+    public Palestrante getPalestranteSelecionado() {
+        return palestranteSelecionado;
+    }
+
+    public void setPalestranteSelecionado(Palestrante palestranteSelecionado) {
+        this.palestranteSelecionado = palestranteSelecionado;
+    }
+
+    public ParticipanteService getParticipanteService() {
+        return participanteService;
+    }
+
+    public void setParticipanteService(ParticipanteService participanteService) {
+        this.participanteService = participanteService;
+    }
+   
 }
 

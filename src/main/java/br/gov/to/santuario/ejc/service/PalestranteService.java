@@ -44,6 +44,21 @@ public class PalestranteService {
        return repository.findAll(where(specificationOrder()));
     }
     
+    public Palestrante findByNome(String nome){
+        List<Palestrante>lista = repository.findAll(where(specificationNome(nome)));
+        if(lista.isEmpty()){
+            return null;
+        }
+        return lista.get(0);
+    }
+    
+    public Palestrante findByParticipante(Integer id){
+        List<Palestrante>lista = repository.findAll(where(specificationidParticipante(id)));
+        if(lista.isEmpty()){
+            return null;
+        }
+        return lista.get(0);
+    }
     
     //SPECIFICATIONS
     public Specification<Palestrante> specificationOrder() {
@@ -57,4 +72,31 @@ public class PalestranteService {
         };
     }
     
+    public Specification<Palestrante> specificationNome(final String nome) {
+        return new Specification<Palestrante>() {
+            @Override
+            public Predicate toPredicate(Root<Palestrante> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                
+                Predicate p = cb.like(root.get("participante").<String>get("nome"), nome);
+                
+                return query.getRestriction();
+            }
+        };
+    }
+
+    public Specification<Palestrante> specificationidParticipante(final Integer id) {
+        return new Specification<Palestrante>() {
+            @Override
+            public Predicate toPredicate(Root<Palestrante> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                
+                Predicate p = cb.equal(root.get("participante").<Integer>get("id"), id);
+                
+                return cb.and(p);
+            }
+        };
+    }
 }

@@ -12,12 +12,7 @@
         <ui:define name="tituloDaPagina">
             Gerenciar Seguidores
         </ui:define> 
-        <ui:define name="meta">
-            <f:metadata>
-                <f:viewParam name="id" value="#{seguidorController.id}" />
-                <f:viewAction action="#{seguidorController.loadModel}" />
-            </f:metadata> 
-        </ui:define>
+        
         <!--Conteúdo da página-->
         <ui:define name="conteudo">
             <h:form id="form_1">  
@@ -27,7 +22,8 @@
                 
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{seguidorController.listaSeguidores}" currentPageReportTemplate="{currentPage} de {totalPages}"  editable="true" >
+                                     value="#{seguidorController.listaSeguidores}" currentPageReportTemplate="{currentPage} de {totalPages}"
+                                     selectionMode="single" selection="#{seguidorController.seguidorSelecionado}" rowKey="#{model.id}">
                             
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -35,6 +31,8 @@
                                     <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
                                 </p:outputPanel>
                             </f:facet>
+                            
+                            <p:ajax event="rowSelect" listener="#{seguidorController.selecionarSeguidor}" />
                             
                             <p:column headerText="Nome" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
                                 <h:outputText value="#{model.participante.nome}" />                                  
@@ -53,15 +51,7 @@
                                 <h:outputText value="Tia" rendered="#{model.tio == true and model.participante.sexo == 'F'}" />
                                 <h:outputText value="Seguidor" rendered="#{model.tio == false and model.participante.sexo == 'M'}" />
                                 <h:outputText value="Seguidora" rendered="#{model.tio == false and model.participante.sexo == 'F'}" />
-                            </p:column>
-                            
-                            <p:column headerText="Opções" width="90" class="centralizar">                        
-                                <p:menuButton value="" >
-                                    <p:menuitem value="Editar" styleClass="icone2 editar"
-                                                action="#{seguidorController.gotoEdit(model.id)}" 
-                                                title="Editar dados do encontro."/>                                    
-                                </p:menuButton>
-                            </p:column>
+                            </p:column>                            
                             
                         </p:dataTable>                    
                 </p:panel>                

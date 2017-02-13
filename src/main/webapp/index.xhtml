@@ -4,27 +4,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/index.xhtml">
+    <!--Substituir o Título padrão da Página-->
     <ui:define name="tituloDaPagina">
-        Principal
+        Encontro de Jovens com Cristo
     </ui:define>
-    <ui:define name="script">
-    </ui:define>
-    <ui:define name="blocos">
-    </ui:define>
-    <ui:define name="conteudo">
-        <ui:insert name="notificacao" >
-            <ui:include src="/templates/notificacao.xhtml"/>
-        </ui:insert>
-        <ui:insert name="blocos" >
-            <ui:include src="/templates/blocos.xhtml"/>
-        </ui:insert>
+
+    <!--Conteúdo da página-->
+    <ui:define name="conteudo">        
+        
+        <p:messages id="messages" autoUpdate="true" closable="true"  />
+        
+        
+        <p:dataList value="#{indexController.listaEncontros}" var="model" widgetVar="model_w" emptyMessage="Nenhum curso encontrado." class="caixa cursos-lista">
+            <article class="curso">
+                <h:graphicImage class="destaque" library="images" name="padrao.png" />
+
+                <h1>#{model.descricao}</h1>
+                <h1>#{model.paroquias}</h1>
+
+                <h:link title="Editar informações do encontro" outcome="/segue-me/estrutura/encontro/editar/index.xhtlm?id=#{model.id}" value="" class="botao iconebt editar" />
+                
+                <h:link title="Equipes de trabalho" outcome="/segue-me/estrutura/equipes/index.xhtlm?id=#{model.id}" value="" class="botao iconebt grupo" />
+
+                <h:link title="Círculos" outcome="/segue-me/estrutura/circulos/index.xhtlm?id=#{model.id}" value="" class="botao iconebt pontos" />
+
+                <h:link title="Palestras" outcome="/segue-me/estrutura/palestras/index.xhtlm?id=#{model.id}" value="" class="botao iconebt dupla" />
+
+            </article>
+        </p:dataList>
+        
     </ui:define>
     <ui:define name="recursos">
     </ui:define>
 </ui:composition>
-
 </html>

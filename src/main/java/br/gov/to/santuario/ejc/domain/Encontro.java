@@ -2,6 +2,7 @@ package br.gov.to.santuario.ejc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,10 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -93,6 +94,8 @@ public class Encontro implements Serializable {
             @JoinColumn(name = "palestra_id", referencedColumnName = "ID")})
     private List<Palestra> palestraList;
     
+    @Transient
+    private String paroquias;
     
     public Encontro() {
     }
@@ -212,6 +215,25 @@ public class Encontro implements Serializable {
 
     public void setPalestraList(List<Palestra> palestraList) {
         this.palestraList = palestraList;
+    }
+
+    public String getParoquias() {        
+        if(!paroquiaList.isEmpty()){
+            paroquias = paroquiaList.get(0).getDescricao();
+            int a = paroquiaList.size();
+            for(int i=1; i < a; i++){
+                if(i == (a-1)){
+                    paroquias = paroquias + " e "+ paroquiaList.get(i).getDescricao();
+                }else{
+                    paroquias = paroquias + ", "+ paroquiaList.get(i).getDescricao();
+                }
+            }
+        }
+        return paroquias;
+    }
+
+    public void setParoquias(String paroquias) {
+        this.paroquias = paroquias;
     }
 
     @Override

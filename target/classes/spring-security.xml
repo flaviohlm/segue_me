@@ -32,14 +32,24 @@
         
         <intercept-url pattern="/segue-me/estrutura/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/circulos/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/circulos/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipes/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/equipes/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/palestras/*" access="isAuthenticated()" />
         
         <intercept-url pattern="/segue-me/participantes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/palestrantes/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/participantes/palestrantes/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/participantes/palestrantes/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/seguidores/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/participantes/seguidores/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/participantes/seguidores/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/seguimistas/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/participantes/seguimistas/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/participantes/seguimistas/editar/*" access="isAuthenticated()" />
         
         
         <security:access-denied-handler error-page="/login/semPermissao.xhtml" />

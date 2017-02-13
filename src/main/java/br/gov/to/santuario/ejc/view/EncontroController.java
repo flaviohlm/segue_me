@@ -87,11 +87,11 @@ public class EncontroController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/estrutura/encontro/edit.xhtlm?faces-redirect=true";
+        return "/segue-me/estrutura/encontro/cadastrar/index.xhtlm?faces-redirect=true";
     }
     
     public String gotoEdit(Integer ide){
-        return "/segue-me/estrutura/encontro/edit.xhtlm?id="+ide+"&faces-redirect=true";
+        return "/segue-me/estrutura/encontro/editar/index.xhtlm?id="+ide+"&faces-redirect=true";
     }
     
     public String gotoEquipes(Integer ide){
@@ -133,11 +133,11 @@ public class EncontroController implements Serializable {
     }
     
     public void selecionarEquipe(SelectEvent event) throws IOException {                
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/equipes/edit.xhtml?id=" + encontroEquipeSelecionado.getEquipe().getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/equipes/editar/index.xhtml?id=" + encontroEquipeSelecionado.getEquipe().getId());
     }
     
     public void selecionarCirculo(SelectEvent event) throws IOException {                
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/circulos/edit.xhtml?id=" + encontroCirculoSelecionado.getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/circulos/editar/index.xhtml?id=" + encontroCirculoSelecionado.getId());
     }
     
     
