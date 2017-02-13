@@ -60,9 +60,7 @@ public class LoginBean implements Serializable{
 
     // LOGIN
     public String login() throws NoSuchAlgorithmException {        
-        System.out.println("CPF");
-        System.out.println(participante.getCpf());
-        System.out.println(participante.getCpf().replaceAll("[^0-9]", ""));
+
         listaPerfilUsuario = perfilUsuarioService.findATivosByCpf(participante.getCpf().replaceAll("[^0-9]", ""));
         
         System.out.println(listaPerfilUsuario.get(0).getParticipante());
