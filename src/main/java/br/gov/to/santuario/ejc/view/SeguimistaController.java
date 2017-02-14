@@ -65,6 +65,28 @@ public class SeguimistaController implements Serializable {
         }
     }
     
+    public String atualizar(){
+        try{                   
+            if(seguimista.getParticipante().getApelido().equals("") || seguimista.getParticipante().getApelido() == null){
+                String[] apelido = seguimista.getParticipante().getNome().split(" ");
+                seguimista.getParticipante().setApelido(apelido[0]);
+            }
+            seguimistaService.saveSeguimista(seguimista);            
+            messages.info("Seguimista salvo com sucesso!");
+            seguimista = new Seguimista();
+            if(getListaEncontro().size() > 0){                            
+                seguimista.setEncontro(listaEncontro.get(0));
+            }
+            
+        }catch(Exception e){
+            System.out.println("error" + e.getMessage());
+            messages.error("Não foi possível salvar o seguimista.");
+            e.printStackTrace();
+            return "";
+        }
+        return "/segue-me/participantes/seguimistas/index.xhtml";
+    }
+    
     public void deletar(){
         try{            
             seguimistaService.deleteSeguimista(seguimista);

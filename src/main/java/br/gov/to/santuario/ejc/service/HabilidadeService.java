@@ -51,7 +51,7 @@ public class HabilidadeService {
             @Override
             public Predicate toPredicate(Root<Habilidade> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 
-                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                query.orderBy(cb.asc(root.<String>get("descricao")));                
                 return query.getRestriction();
             }
         };

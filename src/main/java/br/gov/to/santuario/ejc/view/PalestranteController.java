@@ -72,6 +72,25 @@ public class PalestranteController implements Serializable {
         }
     }
     
+    public String atualizar(){        
+        try{                    
+            if(palestrante.getParticipante().getApelido().equals("") || palestrante.getParticipante().getApelido() == null){
+                String[] apelido = palestrante.getParticipante().getNome().split(" ");
+                palestrante.getParticipante().setApelido(apelido[0]);
+            }
+            palestranteService.savePalestrante(palestrante);            
+            messages.info("Palestrante salvo com sucesso!");
+            palestrante = new Palestrante();            
+        }catch(Exception e){
+            System.out.println("error" + e.getMessage());
+            messages.error("Não foi possível salvar o palestrante.");
+            e.printStackTrace();
+            return "";
+        }
+        
+        return "/segue-me/participantes/palestrantes/index.xhtml";
+    }
+    
     public void deletar(){
         try{            
             palestranteService.deletePalestrante(palestrante);

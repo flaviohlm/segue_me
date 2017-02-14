@@ -53,6 +53,7 @@ public class EncontroCirculoController implements Serializable {
     private List<Seguidor> listaSeguidoresMadrinhas;
     private Seguidor padrinho;
     private Seguidor madrinha;
+    private EncontroCirculo encontroCirculoSelecionado = new EncontroCirculo();
     
     private EncontroCirculoSeguimista encontroCirculoSeguimista = new EncontroCirculoSeguimista();
     
@@ -114,8 +115,8 @@ public class EncontroCirculoController implements Serializable {
         }
     }
     
-    public void caralho(EncontroCirculo ec){
-        encontroCirculo = ec;
+    public void selecionarCirculo(EncontroCirculo ec){
+        encontroCirculoSelecionado = ec;
         padrinho = ec.getSeguidorPadrinho();
         madrinha = ec.getSeguidorMadrinha();
         getListaSeguidoresPadrinhos();
@@ -272,6 +273,14 @@ public class EncontroCirculoController implements Serializable {
 
     public void setListaEncontroCirculo(List<EncontroCirculo> listaEncontroCirculo) {
         this.listaEncontroCirculo = listaEncontroCirculo;
+    }
+
+    public EncontroCirculo getEncontroCirculoSelecionado() {
+        return encontroCirculoSelecionado;
+    }
+
+    public void setEncontroCirculoSelecionado(EncontroCirculo encontroCirculoSelecionado) {
+        this.encontroCirculoSelecionado = encontroCirculoSelecionado;
     }
 
 }

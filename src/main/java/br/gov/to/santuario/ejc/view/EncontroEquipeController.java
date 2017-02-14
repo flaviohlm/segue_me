@@ -3,10 +3,12 @@ package br.gov.to.santuario.ejc.view;
 import br.gov.to.santuario.ejc.domain.EncontroEquipe;
 import br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante;
 import br.gov.to.santuario.ejc.domain.Equipe;
+import br.gov.to.santuario.ejc.domain.Habilidade;
 import br.gov.to.santuario.ejc.domain.Seguidor;
 import br.gov.to.santuario.ejc.service.EncontroEquipeIntegranteService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EquipeService;
+import br.gov.to.santuario.ejc.service.HabilidadeService;
 import br.gov.to.santuario.ejc.service.SeguidorService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import br.gov.to.santuario.seg.util.RelatorioUtil;
@@ -38,7 +40,7 @@ public class EncontroEquipeController implements Serializable {
     private SeguidorService seguidorService;
     
     @ManagedProperty(value = "#{encontroEquipeIntegranteService}")
-    private EncontroEquipeIntegranteService encontroEquipeIntegranteService;
+    private EncontroEquipeIntegranteService encontroEquipeIntegranteService;    
     
     @ManagedProperty(value = "#{dataSource}")
     private DataSource dataSource;
@@ -49,7 +51,8 @@ public class EncontroEquipeController implements Serializable {
     private EncontroEquipe encontroEquipe = new EncontroEquipe();
     private List<Equipe> listaEquipe;    
     private List<Seguidor> listaSeguidores; 
-    private EncontroEquipeIntegrante encontroEquipeIntegrante = new EncontroEquipeIntegrante();
+    private EncontroEquipeIntegrante encontroEquipeIntegrante = new EncontroEquipeIntegrante();    
+    
     
     public void salvar(){        
         try{            
@@ -82,7 +85,7 @@ public class EncontroEquipeController implements Serializable {
     }
     
     public void selecionarIntegrante(){
-        try{            
+        try{             
             encontroEquipeService.saveEncontroEquipe(encontroEquipe);  
             this.loadModel();
         }catch(Exception e){
@@ -186,7 +189,7 @@ public class EncontroEquipeController implements Serializable {
     }
 
     public List<Seguidor> getListaSeguidores() {
-        if(encontroEquipe != null){
+        if(encontroEquipe != null && listaSeguidores == null){
             listaSeguidores = seguidorService.findSeguidoresDisponiveis(encontroEquipe);
         }
         return listaSeguidores;

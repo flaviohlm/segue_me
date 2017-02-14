@@ -11,10 +11,12 @@
                     <h:form prependId="false">
                         <p:messages showSummary="true" />
                         <p:panelGrid layout="grid" columns="2">
-                            <p:outputLabel value="Login" for="username" />
+                            <p:outputLabel value="Login" for="username" >
                             <h:inputText id="username" value="#{loginBean.usuario.username}" size="30" maxlength="20" required="true" requiredMessage="Informe o Login." />
-                            <p:outputLabel value="Senha" for="password" />
+                            </p:outputLabel>
+                            <p:outputLabel value="Senha" for="password" >
                             <h:inputSecret id="password" value="#{loginBean.usuario.password}" size="30" maxlength="10" required="true" requiredMessage="Informe a Senha."/>
+                            </p:outputLabel>
                         </p:panelGrid>
                         <p:spacer height="15" />
                         <p:commandButton value="Entrar" action="#{loginBean.login}" ajax="false"/>

@@ -55,7 +55,7 @@ public class CirculoService {
             @Override
             public Predicate toPredicate(Root<Circulo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 
-                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                query.orderBy(cb.asc(root.<String>get("cor")));                
                 return query.getRestriction();
             }
         };

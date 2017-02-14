@@ -43,6 +43,15 @@ public class Equipe implements Serializable {
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipe")
     private List<EncontroEquipe> encontroEquipeList;
+    
+    @Column(name = "ordem_apresentacao")
+    private Integer ordemApresentacao;
+    
+    @Column(name = "ordem_quadrante")
+    private Integer ordemQuadrante;
+    
+    @Column(name = "quantidade_participantes")
+    private Integer quantidadeParticipantes;
 
     public Equipe() {
     }
@@ -79,6 +88,30 @@ public class Equipe implements Serializable {
 
     public void setEncontroEquipeList(List<EncontroEquipe> encontroEquipeList) {
         this.encontroEquipeList = encontroEquipeList;
+    }
+
+    public Integer getQuantidadeParticipantes() {
+        return quantidadeParticipantes;
+    }
+
+    public void setQuantidadeParticipantes(Integer quantidadeParticipantes) {
+        this.quantidadeParticipantes = quantidadeParticipantes;
+    }
+
+    public Integer getOrdemApresentacao() {
+        return ordemApresentacao;
+    }
+
+    public void setOrdemApresentacao(Integer ordemApresentacao) {
+        this.ordemApresentacao = ordemApresentacao;
+    }
+
+    public Integer getOrdemQuadrante() {
+        return ordemQuadrante;
+    }
+
+    public void setOrdemQuadrante(Integer ordemQuadrante) {
+        this.ordemQuadrante = ordemQuadrante;
     }
 
     @Override

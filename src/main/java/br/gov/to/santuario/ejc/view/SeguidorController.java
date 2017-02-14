@@ -61,6 +61,24 @@ public class SeguidorController implements Serializable {
         }
     }
     
+    public String atualizar(){        
+        try{           
+            if(seguidor.getParticipante().getApelido().equals("") || seguidor.getParticipante().getApelido() == null){
+                String[] apelido = seguidor.getParticipante().getNome().split(" ");
+                seguidor.getParticipante().setApelido(apelido[0]);
+            }
+            seguidorService.saveSeguidor(seguidor);            
+            messages.info("Seguidor salvo com sucesso!");
+            seguidor = new Seguidor();
+        }catch(Exception e){
+            System.out.println("error" + e.getMessage());
+            messages.error("Não foi possível salvar o seguidor.");
+            e.printStackTrace();
+            return "";
+        }
+        return "/segue-me/participantes/seguidores/index.xhtml";
+    }
+    
     public void deletar(){
         try{            
             seguidorService.deleteSeguidor(seguidor);

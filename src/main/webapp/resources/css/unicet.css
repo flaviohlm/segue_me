@@ -244,7 +244,7 @@ main .acesso .logo-grande{
     background-color: #fff;
 }
 .unicet-pagina header .logo.unicet1{
-    background-image: url("#{resource['images/unicet1.svg']}") !important;
+    background-image: url("#{resource['images/logo-bom-pastor2.svg']}") !important;
 }
 .unicet-pagina .ui-tabs .ui-tabs-panel .ui-widget-content{
     border: 0;
@@ -322,6 +322,10 @@ main .acesso .logo-grande{
 .unicet-bg{
     background:#2f4d8b !important;
 }
+.ui-selectonemenu-label.ui-inputfield{
+    max-width: 200px !important;
+}
+
 .unicet-pagina .ui-button{
     background-color:#2f4d8b !important;
 }
@@ -370,6 +374,10 @@ main .acesso .logo-grande{
 }
 .unicet-pagina .ui-datalist-item img{
     width: 100%;
+}
+.unicet-pagina .cursos-lista .destaque{
+    width: 100%;
+    max-width: 700px;
 }
 .unicet-pagina .ui-datalist-item .botao2{
     width: 100%;
@@ -454,4 +462,3 @@ main .acesso .logo-grande{
 .ui-selectoneradio .ui-radiobutton{
     padding:0 0px !important;
 }
-
