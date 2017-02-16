@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+              http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd" version="2.2">
+
+    <!-- Settings for application -->
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+            
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <render-kit>
+            <renderer>
+                <component-family>org.primefaces.component</component-family>
+                <renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+                <renderer-class>br.gov.to.santuario.seg.util.MyFileUploadRenderer</renderer-class>
+            </renderer>
+        </render-kit>
+    </application>
+    
+    <!-- Implementação para entender melhor o Ciclo de Vida do JSF -->
+    <!--
+    <lifecycle>
+        <phase-listener>
+            br.gov.to.secad.seg.util.LogPhaseListener
+        </phase-listener>
+    </lifecycle>
+    -->
+</faces-config>

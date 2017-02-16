@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Palestras do Encontro
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{encontroController.id}" />
+                <f:viewAction action="#{encontroController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Palestras">
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />
+                
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroController.id, 'palestras')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
+                    <p:separator/>
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                 selectionMode="single" selection="#{palestranteController.encontroPalestraSelecionada}" rowKey="#{model.id}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""  />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" oncomplete="PF('dialog_palestrantes').show()" update=":form_1:dialog_palestrantes"/>
+                        
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
+                        <p:column headerText="Palestra" sortBy="#{model.palestras.descricao}" filterBy="#{model.palestras.descricao}" >
+                            <h:outputText value="#{model.palestras.descricao}" />                                  
+                        </p:column>
+
+                    </p:dataTable>                    
+                </p:panel> 
+                
+                <p:confirmDialog id="dialog_palestrantes" widgetVar="dialog_palestrantes" message="Selecionar Palestrantes" width="630"
+                                 header="Palestrantes da Palestra: #{palestranteController.encontroPalestraSelecionada.palestras.descricao}"  >
+                    <p:scrollPanel class="rolagem" mode="native" >  
+                        
+                        <p:panelGrid layout="grid" columns="1">
+                            <p:outputLabel value="Palestrantes: " >
+                                <p:selectOneMenu id="palestrante_select" value="#{palestranteController.palestrante}" converter="#{palestranteConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                                    <f:selectItem itemLabel="- - -" itemValue="" />                                
+                                    <f:selectItems value="#{palestranteController.listaPalestrantes}" itemLabel="#{palestrante.participante.nome}" itemValue="#{palestrante}" var="palestrante" />
+                                </p:selectOneMenu>
+                            </p:outputLabel>
+
+                            <p:commandButton value="Adicionar Palestrante" action="#{palestranteController.adicionarPalestrante()}" update="palestrante_select data_table_palestrantes" />
+                            
+                        </p:panelGrid>
+
+                        <p:dataTable id="data_table_palestrantes" paginator="false" reflow="true" emptyMessage="Nenhum registro encontrado." var="palestrante"
+                                     value="#{palestranteController.encontroPalestraSelecionada.palestranteList}"  >
+
+                            <p:column headerText="Palestrante" sortBy="#{palestrante.participante.nome}" filterBy="#{palestrante.participante.nome}" >
+                                <h:outputText value="#{palestrante.participante.nome}" />                                  
+                            </p:column>
+
+                            <p:column headerText="Celular" sortBy="#{palestrante.participante.telefoneCelular}" filterBy="#{palestrante.participante.telefoneCelular}" >
+                                <h:outputText value="#{palestrante.participante.telefoneCelular}" />                                  
+                            </p:column>
+                            
+                        </p:dataTable>
+                                            
+                    </p:scrollPanel>
+                    
+                    <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{palestranteController.salvarEncontroPalestra()}" class="icone2" oncomplete="PF('dialog_palestrantes').hide()" />
+                    
+                </p:confirmDialog>
+                
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

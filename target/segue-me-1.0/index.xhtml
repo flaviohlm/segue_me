@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/index.xhtml">
+    <!--Substituir o Título padrão da Página-->
+    <ui:define name="tituloDaPagina">
+        Início
+    </ui:define>
+    <!--Conteúdo da página-->
+    <ui:define name="conteudo">        
+        <p:messages id="messages" autoUpdate="true" closable="true"  />
+        <p:dataList var="model"  value="#{indexController.listaEncontros}" widgetVar="model_w" emptyMessage="" class="caixa cursos-lista quadro-curso">
+            <article class="curso">     
+                <h:link outcome="/segue-me/estrutura/encontro/editar/index.xhtlm?id=#{model.id}" >
+                    <h:graphicImage class="destaque" library="images" name="padrao.png" />
+                </h:link>
+                
+                <h1 class="cursos-capa">#{model.descricao} <br />#{model.paroquias}</h1>
+                
+                <h:link title="Editar informações do encontro" outcome="/segue-me/estrutura/encontro/editar/index.xhtlm?id=#{model.id}" value="" class="botao iconebt editar" />
+                
+                <h:link title="Equipes de trabalho" outcome="/segue-me/estrutura/equipes/index.xhtlm?id=#{model.id}" value="" class="botao iconebt grupo" />
+
+                <h:link title="Círculos" outcome="/segue-me/estrutura/circulos/index.xhtlm?id=#{model.id}" value="" class="botao iconebt pontos" />
+
+                <h:link title="Palestras" outcome="/segue-me/estrutura/palestras/index.xhtlm?id=#{model.id}" value="" class="botao iconebt dupla" />
+                
+            </article>
+        </p:dataList>
+    </ui:define>
+    <ui:define name="recursos">
+    </ui:define>
+</ui:composition>
+</html>

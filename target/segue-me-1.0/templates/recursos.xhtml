@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:composition>
+        <p:separator/>
+        <p:panel class="grupo_botoes">
+            <h:form>
+            <p:commandButton onclick="history.go(-1); return false;" value="Voltar" class=" icone2 voltar" />
+            <p:commandButton immediate="true" onclick="window.location.replace(window.location.href)" value="Atualizar" title="Recarregar Página" class="icone2 atualizar" />
+            <p:commandButton immediate="true" action="/index?faces-redirect=true" value="Inicial" title="Voltar à Capa" class="icone2 casa" />
+            <p:commandButton onclick="history.go(1); return false;" value="Avançar" class=" icone2 avancar" />
+            </h:form>
+        </p:panel>
+    </ui:composition>
+</html>

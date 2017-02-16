@@ -10,6 +10,7 @@ import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -47,7 +48,7 @@ public class SeguidorController implements Serializable {
             if(seguidor.getParticipante().getDataCadastro() == null){
                 seguidor.getParticipante().setDataCadastro(new Date());
             }
-            if(seguidor.getParticipante().getApelido().equals("") || seguidor.getParticipante().getApelido() == null){
+            if(seguidor.getParticipante().getApelido() == null || seguidor.getParticipante().getApelido().equals("")){
                 String[] apelido = seguidor.getParticipante().getNome().split(" ");
                 seguidor.getParticipante().setApelido(apelido[0]);
             }
@@ -123,6 +124,25 @@ public class SeguidorController implements Serializable {
             seguidor = s;
         }
     }
+//    
+//    
+//    public void copiar(){
+//        List<Participante> lista = participanteService.findAllParticipantes();
+//        if(!lista.isEmpty() && lista.get(0).getId() == 1){
+//            lista.remove(0);
+//        }
+//        Seguidor s;
+//        List<Seguidor> listaS = new ArrayList<>();
+//        for(Participante p : lista){
+//            s = new Seguidor();
+//            s.setTio(false);
+//            s.setParticipante(p);
+//            //listaS.add(s);
+////            seguidorService.saveSeguidor(s);
+//        }
+////        seguidorService.saveSeguidor(listaS);
+//        listaSeguidores = null;
+//    }
     
     //GETTERS AND SETTERS
     public SeguidorService getSeguidorService() {

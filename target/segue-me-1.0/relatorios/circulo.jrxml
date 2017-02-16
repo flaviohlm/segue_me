@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="R_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT encontro_circulo.id AS encontro_circulo_id,
+       encontro.descricao AS encontro_descricao,
+       encontro.data_realizacao_inicio AS encontro_data_realizacao_inicio,
+       encontro.data_realizacao_fim AS encontro_data_realizacao_fim,
+       circulo.cor AS circulo_cor,
+       circulo.apostolo AS circulo_apostolo,
+       paroquia.descricao AS paroquia,
+       (SELECT nome FROM segueme.participante p, segueme.seguidor s WHERE p.id = s.participante_id AND s.id = encontro_circulo.seguidor_padrinho_id ) AS PADRINHO,
+       (SELECT nome FROM segueme.participante p, segueme.seguidor s WHERE p.id = s.participante_id AND s.id = encontro_circulo.seguidor_madrinha_id ) AS MADRINHA
+
+FROM segueme.encontro_circulo encontro_circulo
+INNER JOIN segueme.circulo circulo ON encontro_circulo.circulo_id = circulo.id
+INNER JOIN segueme.encontro encontro ON encontro.id = encontro_circulo.encontro_id
+INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
+INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
+
+WHERE encontro_circulo.id = $P{R_ID}
+ORDER BY circulo.cor]]>
+	</queryString>
+	<field name="encontro_circulo_id" class="java.lang.Integer"/>
+	<field name="encontro_descricao" class="java.lang.String"/>
+	<field name="encontro_data_realizacao_inicio" class="java.sql.Date"/>
+	<field name="encontro_data_realizacao_fim" class="java.sql.Date"/>
+	<field name="circulo_cor" class="java.lang.String"/>
+	<field name="circulo_apostolo" class="java.lang.String"/>
+	<field name="paroquia" class="java.lang.String"/>
+	<field name="padrinho" class="java.lang.String"/>
+	<field name="madrinha" class="java.lang.String"/>
+	<title>
+		<band height="64" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="37" width="555" height="20" uuid="1c9f3bad-33b7-416c-9ae3-176408f1839b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="f9307728-143c-40ab-b58d-43962a648937"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="182" y="20" width="100" height="20" uuid="11e529ed-33eb-41da-b385-e4b0fb7bb06d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_inicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="297" y="20" width="100" height="20" uuid="8aa078dd-826d-40c8-9110-18ed1482c250"/>
+				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_fim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="282" y="20" width="14" height="20" uuid="5e4f78bd-072d-4ad2-b885-e14b0d6c52d4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[à]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="12" width="555" height="20" uuid="a089290d-5d2f-40a9-b705-c1f03ecf0276"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CÍRCULO: "+$F{circulo_cor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="84" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="40" width="555" height="43" uuid="5d0ad83d-d9ae-4c5b-be41-cd71cc755245"/>
+				<subreportParameter name="ENCONTRO_CIRCULO_ID">
+					<subreportParameterExpression><![CDATA[$F{encontro_circulo_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "circulo_integrantes.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="62" height="20" uuid="17970362-6731-4280-a2ae-e84d38fa171d"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Padrinhos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="28" height="20" uuid="7c0fac44-bb1a-458f-a201-482ac840bdd3"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tios:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="0" width="493" height="20" uuid="cceea570-9016-4042-af59-03f177deaeff"/>
+				<textFieldExpression><![CDATA[$F{padrinho} == null ? "" : $F{padrinho}+" e "+$F{madrinha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

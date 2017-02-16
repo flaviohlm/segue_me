@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Gerenciar Círculos do Encontro
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{encontroCirculoController.id}" />
+                <f:viewAction action="#{encontroCirculoController.loadModelEncontro}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Círculos">
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />
+                
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="@this"/>
+                    <p:separator/>
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex"
+                                 selectionMode="single" selection="#{encontroController.encontroCirculoSelecionado}" rowKey="#{model.id}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:ajax event="rowSelect" listener="#{encontroController.selecionarCirculo}" />
+
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
+                        <p:column headerText="Descrição" sortBy="#{model.circulo.cor}" filterBy="#{model.circulo.cor}" >
+                            <h:outputText value="#{model.circulo.cor}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Apóstolo" sortBy="#{model.circulo.apostolo}" filterBy="#{model.circulo.apostolo}" >
+                            <h:outputText value="#{model.circulo.apostolo}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Visualizar" width="100">
+                            <p:commandButton oncomplete="PF('dialog_visualizar').show()" class="iconebt visualizar" value="" title="Visualizar dados do curso." update=":form_1" >                                    
+                                <p:ajax listener="#{encontroCirculoController.selecionarCirculo(model)}" update=":form_1:dialog_visualizar"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel> 
+                
+                
+                <p:confirmDialog id="dialog_visualizar" widgetVar="dialog_visualizar" message="Selecionar Padrinhos e Tios do Círculo" 
+                                 header="Selecionar Padrinhos e Tios do Círculo"  >
+                    <p:scrollPanel class="rolagem" mode="native" >  
+                        
+                        <p:fieldset legend="Círculo: #{encontroCirculoController.encontroCirculo.circulo.cor}">
+                            
+                            <p:panelGrid layout="grid" columns="1">
+                                <p:outputLabel value="Padrinho:" >
+                                <p:selectOneMenu value="#{encontroCirculoController.padrinho}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                                    <f:selectItem itemLabel="- - -" itemValue="" />                                
+                                    <f:selectItems value="#{encontroCirculoController.listaSeguidoresPadrinhos}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor}" var="seguidor" />
+                                </p:selectOneMenu>
+                            </p:outputLabel>
+
+                            <p:outputLabel value="Madrinha:" >
+                                <p:selectOneMenu value="#{encontroCirculoController.madrinha}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                                    <f:selectItem itemLabel="- - -" itemValue="" />                                
+                                    <f:selectItems value="#{encontroCirculoController.listaSeguidoresMadrinhas}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor}" var="seguidor" />
+                                </p:selectOneMenu>
+                            </p:outputLabel>
+                                
+                            </p:panelGrid>
+                        </p:fieldset>                       
+                    </p:scrollPanel>
+                    
+                    <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{encontroCirculoController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogTrocar').hide()" />
+                    
+                </p:confirmDialog>
+                
+                
+                <p:confirmDialog id="dialog_pessoas_padrinhos" message="Selecione Padrinho clicando no checkbox" header="Seguidores" width="800" widgetVar="dialogPessoasPadrinhos" >
+                    
+                    <p:panelGrid layout="grid" columns="2" >
+                        <p:outputLabel value="Círculo:" />
+                        <h:outputText value="#{encontroCirculoController.encontroCirculoSelecionado.circulo.cor} (#{encontroCirculoController.encontroCirculoSelecionado.circulo.apostolo.toUpperCase()})" />
+                        
+                        <p:outputLabel value="Padrinho:" >
+                            <p:selectOneMenu value="#{encontroCirculoController.encontroCirculoSelecionado.seguidorPadrinho}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                                <f:selectItem itemLabel="- - -" itemValue="" />                                
+                                <f:selectItems value="#{encontroCirculoController.listaSeguidoresPadrinhos}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor}" var="seguidor" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Madrinha:" >
+                            <p:selectOneMenu value="#{encontroCirculoController.encontroCirculoSelecionado.seguidorMadrinha}" converter="#{seguidorConverter}" filter="true" filterMatchMode="contains" effect="fade">
+                                <f:selectItem itemLabel="- - -" itemValue="" />                                
+                                <f:selectItems value="#{encontroCirculoController.listaSeguidoresMadrinhas}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor}" var="seguidor" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                        
+                    </p:panelGrid>
+                    
+                    <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroCirculoController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogPessoasPadrinho').hide()" />
+                </p:confirmDialog>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

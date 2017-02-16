@@ -55,7 +55,7 @@ public class EncontroCirculoController implements Serializable {
     private Seguidor madrinha;
     private EncontroCirculo encontroCirculoSelecionado = new EncontroCirculo();
     
-    private EncontroCirculoSeguimista encontroCirculoSeguimista = new EncontroCirculoSeguimista();
+    private EncontroCirculoSeguimista encontroCirculoSeguimista;
     
     
     public void deletar(){
@@ -116,10 +116,13 @@ public class EncontroCirculoController implements Serializable {
     }
     
     public void selecionarCirculo(EncontroCirculo ec){
+        System.out.println("SELECIONAR PADRINHOS");
+        encontroCirculo = ec;
         encontroCirculoSelecionado = ec;
         padrinho = ec.getSeguidorPadrinho();
         madrinha = ec.getSeguidorMadrinha();
         getListaSeguidoresPadrinhos();
+        getListaSeguidoresMadrinhas();
     }
     
     
@@ -229,8 +232,10 @@ public class EncontroCirculoController implements Serializable {
         this.listaSeguimista = listaSeguimista;
     }
 
-    public List<Seguidor> getListaSeguidoresPadrinhos() {              
-        if(listaSeguidoresPadrinhos == null && encontroCirculo != null){            
+    public List<Seguidor> getListaSeguidoresPadrinhos() { 
+        System.out.println("ENTROU M");        
+        if(encontroCirculo != null){   
+            System.out.println("ENCONTRO ESTA NAO NULL");
             listaSeguidoresPadrinhos = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "M");
         }
         return listaSeguidoresPadrinhos;
@@ -241,7 +246,7 @@ public class EncontroCirculoController implements Serializable {
     }
 
     public List<Seguidor> getListaSeguidoresMadrinhas() {
-        if(listaSeguidoresMadrinhas == null && encontroCirculo != null){
+        if(encontroCirculo != null){
             listaSeguidoresMadrinhas = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "F");
         }
         return listaSeguidoresMadrinhas;

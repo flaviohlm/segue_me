@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120.65mm" height="603.25mm" viewBox="0 0 9956 49779">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:#30719E}
+    .fil2 {fill:#CCCBCB}
+    .fil1 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+  <polygon class="fil0" points="0,0 9956,0 9956,49779 0,49779 "/>
+  <g id="_842274076960">
+   <circle class="fil1" cx="4978" cy="3543" r="1127"/>
+   <g>
+    <circle class="fil1" transform="matrix(-0.314185 0.544185 -0.544185 -0.314185 6634.09 6409.77)" r="1794"/>
+    <circle class="fil1" transform="matrix(-0.314185 -0.544185 0.544185 -0.314185 3321.66 6412.9)" r="1794"/>
+   </g>
+  </g>
+  <g id="_842274077088">
+   <circle class="fil2" cx="4978" cy="23454" r="1127"/>
+   <g>
+    <circle class="fil2" transform="matrix(-0.314185 0.544185 -0.544185 -0.314185 6634.09 26321.2)" r="1794"/>
+    <circle class="fil2" transform="matrix(-0.314185 -0.544185 0.544185 -0.314185 3321.66 26324.4)" r="1794"/>
+   </g>
+  </g>
+  <g id="_842274078784">
+   <circle class="fil3" cx="4978" cy="43366" r="1127"/>
+   <g>
+    <circle class="fil3" transform="matrix(-0.314185 0.544185 -0.544185 -0.314185 6634.09 46232.7)" r="1794"/>
+    <circle class="fil3" transform="matrix(-0.314185 -0.544185 0.544185 -0.314185 3321.66 46235.8)" r="1794"/>
+   </g>
+  </g>
+ </g>
+</svg>

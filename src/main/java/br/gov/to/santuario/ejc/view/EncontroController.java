@@ -65,7 +65,7 @@ public class EncontroController implements Serializable {
     private EncontroEquipe encontroEquipeSelecionado;
     private EncontroCirculo encontroCirculoSelecionado;
     
-    public void salvar(){
+    public String salvar(){
         try{            
             encontroService.saveEncontro(encontro);
             messages.info("Encontro salvo com sucesso!");
@@ -73,7 +73,7 @@ public class EncontroController implements Serializable {
             messages.error("Não foi possível salvar o encontro.");
             e.printStackTrace();
         }
-        
+        return "/segue-me/estrutura/encontro/index.xhtlm?faces-redirect=true";
     }
     
     public void deletar(){
