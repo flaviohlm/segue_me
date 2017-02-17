@@ -38,6 +38,19 @@ public class EncontroEquipeIntegrante implements Serializable {
     @NotNull
     @Column(name = "coordenador")
     private boolean coordenador = false;
+    
+    @Column(name = "convite_aceito")
+    private boolean conviteAceito = false;
+    
+    @Column(name = "desistiu")
+    private boolean desistiu = false;
+    
+    @Column(name = "aptidao_coordenacao")
+    private boolean aptidaoCoordenacao = false;
+    
+    @Column(name = "observacoes")
+    private String observacoes;
+    
     @JoinColumn(name = "encontro_equipe_id", referencedColumnName = "id")
     @OneToOne(optional = false)
     private EncontroEquipe encontroEquipe;
@@ -87,6 +100,38 @@ public class EncontroEquipeIntegrante implements Serializable {
 
     public void setSeguidor(Seguidor seguidor) {
         this.seguidor = seguidor;
+    }
+
+    public boolean isConviteAceito() {
+        return conviteAceito;
+    }
+
+    public void setConviteAceito(boolean conviteAceito) {
+        this.conviteAceito = conviteAceito;
+    }
+
+    public boolean isDesistiu() {
+        return desistiu;
+    }
+
+    public void setDesistiu(boolean desistiu) {
+        this.desistiu = desistiu;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
+    public boolean isAptidaoCoordenacao() {
+        return aptidaoCoordenacao;
+    }
+
+    public void setAptidaoCoordenacao(boolean aptidaoCoordenacao) {
+        this.aptidaoCoordenacao = aptidaoCoordenacao;
     }
 
     @Override

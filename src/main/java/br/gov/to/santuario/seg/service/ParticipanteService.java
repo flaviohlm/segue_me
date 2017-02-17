@@ -38,6 +38,13 @@ public class ParticipanteService implements UserDetailsService {
             System.out.println(e);            
         }
     }
+    public void saveParticipante(List<Participante> usuario){
+        try{
+            repository.save(usuario);
+        }catch(Exception e){
+            System.out.println(e);            
+        }
+    }
     
     public void deleteParticipante(Participante usuario){
         repository.delete(usuario);

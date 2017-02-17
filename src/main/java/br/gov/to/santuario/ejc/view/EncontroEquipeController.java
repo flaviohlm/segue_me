@@ -103,6 +103,15 @@ public class EncontroEquipeController implements Serializable {
         }
     }
     
+    public void conviteAceito(EncontroEquipeIntegrante encontroEquipeIntegrantes){
+        try{
+            encontroEquipeIntegranteService.saveEncontroEquipeIntegrante(encontroEquipeIntegrantes);
+        }catch(Exception e){
+            messages.error("Não foi possível salvar o(a) coordenador(a).");
+            e.printStackTrace();
+        }
+    }
+    
     public void salvarEncontroEquipeIntegrante(){
         try{
             encontroEquipeIntegranteService.saveEncontroEquipeIntegrante(encontroEquipeIntegrante);

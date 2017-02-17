@@ -59,12 +59,23 @@
                                 <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
                             </p:selectBooleanButton>
                         </p:column>
-
+                        
+                        <p:column headerText="Convite Aceito" >                            
+                            <p:selectBooleanButton value="#{model.conviteAceito}" onLabel="Sim" offLabel="Não" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
+                            </p:selectBooleanButton>
+                        </p:column>
+                        
                         <p:column headerText="Opções" width="90" class="centralizar">                        
                             <p:menuButton value="" >                                
                                 <p:menuitem value="Trocar de Equipe" styleClass="icone2 atualizar" oncomplete="PF('dialogTrocar').show()" update=":form_1" title="Trocar o Seguidor de Equipe." rendered="#{model.coordenador == false}">
                                     <f:setPropertyActionListener value="#{model}" target="#{encontroEquipeController.encontroEquipeIntegrante}"  />
                                 </p:menuitem>
+                                
+                                <p:menuitem value="Relatório Individual" styleClass="icone2 atualizar" oncomplete="PF('dialogRelatorio').show()" update=":form_1" title="Relatório individual do seguidor." >
+                                    <f:setPropertyActionListener value="#{model}" target="#{encontroEquipeController.encontroEquipeIntegrante}"  />
+                                </p:menuitem>
+                                
                             </p:menuButton>
                         </p:column>
                     </p:dataTable>                     
@@ -115,6 +126,26 @@
                         </p:selectOneMenu>
 
                         <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2" oncomplete="PF('dialogTrocar').hide()" />
+                    </p:panelGrid>
+                </p:confirmDialog>
+                
+                <p:confirmDialog id="relatorio" message="Relatório individual do seguidor" header="Relatório Individual" width="800" widgetVar="dialogRelatorio" >
+                    
+                    <p:panelGrid layout="grid" columns="2" >
+                    
+                        <p:outputLabel value="Nome:" />
+                        <h:outputText value="#{encontroEquipeController.encontroEquipeIntegrante.seguidor.participante.nome}" /> 
+                        
+                        <p:outputLabel value="Aptidão para Coordenação:" />
+                        <p:selectBooleanButton value="#{encontroEquipeController.encontroEquipeIntegrante.aptidaoCoordenacao}" onLabel="Sim" offLabel="Não" />
+                        
+                        <p:outputLabel value="Desistiu do encontro:" />
+                        <p:selectBooleanButton value="#{encontroEquipeController.encontroEquipeIntegrante.desistiu}" onLabel="Sim" offLabel="Não" />
+                        
+                        <p:outputLabel value="Observações:" />
+                        <h:inputTextarea rows="4" value="#{encontroEquipeController.encontroEquipeIntegrante.observacoes}" />
+
+                        <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2" oncomplete="PF('dialogRelatorio').hide()" />
                     </p:panelGrid>
                 </p:confirmDialog>
                 

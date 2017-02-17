@@ -124,8 +124,36 @@ public class SeguidorController implements Serializable {
             seguidor = s;
         }
     }
-//    
-//    
+    
+    public void atualizarTelefone(){
+        List<Participante> lista = participanteService.findAllParticipantes();
+        
+        for(Participante p : lista){
+            if(p.getTelefoneCelular() != null){
+                System.out.println("Antes: "+p.getTelefoneCelular());
+                p.setTelefoneCelular(p.getTelefoneCelular().replaceAll("[^0-9]", "").trim());
+                System.out.println("LENGHT: "+p.getTelefoneCelular().length());
+                 if(p.getTelefoneCelular().length() == 10){//6 9 9 9 9 27272                    
+                    p.setTelefoneCelular("("+p.getTelefoneCelular().substring(0, 1)+ "3) "+p.getTelefoneCelular().substring(1, 6)+"-"+p.getTelefoneCelular().substring(6));
+                    System.out.println("Depois: "+p.getTelefoneCelular());                    
+                }else if(p.getTelefoneCelular().length() == 11){//6 9 9 9 9 2 27272                    
+                    p.setTelefoneCelular("("+p.getTelefoneCelular().substring(0, 1)+ "3) "+p.getTelefoneCelular().substring(1, 6)+"-"+p.getTelefoneCelular().substring(7));
+                    System.out.println("Depois: "+p.getTelefoneCelular());                    
+                }
+//                Antes: (63) 98447-4545
+                //LENGHT: 11
+//                Depois: (6) 98447-74545         "(6) 99992-27272" 6999927272 (63) 99992-7272
+                else{
+                    System.out.println("----------------");
+                }
+                System.out.println("");
+            }
+        }
+        
+        participanteService.saveParticipante(lista);
+        
+    }
+    
 //    public void copiar(){
 //        List<Participante> lista = participanteService.findAllParticipantes();
 //        if(!lista.isEmpty() && lista.get(0).getId() == 1){
