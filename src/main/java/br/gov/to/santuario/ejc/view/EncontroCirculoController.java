@@ -51,8 +51,12 @@ public class EncontroCirculoController implements Serializable {
     
     private List<Seguidor> listaSeguidoresPadrinhos;
     private List<Seguidor> listaSeguidoresMadrinhas;
+    private List<Seguidor> listaSeguidoresTios;
+    private List<Seguidor> listaSeguidoresTias;
     private Seguidor padrinho;
     private Seguidor madrinha;
+    private Seguidor tio;
+    private Seguidor tia;
     private EncontroCirculo encontroCirculoSelecionado = new EncontroCirculo();
     
     private EncontroCirculoSeguimista encontroCirculoSeguimista;
@@ -98,6 +102,14 @@ public class EncontroCirculoController implements Serializable {
                 encontroCirculo.setSeguidorMadrinha(madrinha);
                 madrinha = null;
             }
+            if(tio != null){
+                encontroCirculo.setSeguidorTio(tio);
+                tio = null;
+            }
+            if(tia != null){
+                encontroCirculo.setSeguidorTia(tia);
+                tia = null;
+            }
             encontroCirculoService.saveEncontroCirculo(encontroCirculo);  
             this.loadModel();
         }catch(Exception e){
@@ -115,12 +127,13 @@ public class EncontroCirculoController implements Serializable {
         }
     }
     
-    public void selecionarCirculo(EncontroCirculo ec){
-        System.out.println("SELECIONAR PADRINHOS");
+    public void selecionarCirculo(EncontroCirculo ec){        
         encontroCirculo = ec;
         encontroCirculoSelecionado = ec;
         padrinho = ec.getSeguidorPadrinho();
         madrinha = ec.getSeguidorMadrinha();
+        tio = ec.getSeguidorTio();
+        tia = ec.getSeguidorTia();
         getListaSeguidoresPadrinhos();
         getListaSeguidoresMadrinhas();
     }
@@ -232,11 +245,9 @@ public class EncontroCirculoController implements Serializable {
         this.listaSeguimista = listaSeguimista;
     }
 
-    public List<Seguidor> getListaSeguidoresPadrinhos() { 
-        System.out.println("ENTROU M");        
-        if(encontroCirculo != null){   
-            System.out.println("ENCONTRO ESTA NAO NULL");
-            listaSeguidoresPadrinhos = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "M");
+    public List<Seguidor> getListaSeguidoresPadrinhos() {                 
+        if(encontroCirculo != null){               
+            listaSeguidoresPadrinhos = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "M", false);
         }
         return listaSeguidoresPadrinhos;
     }
@@ -247,7 +258,7 @@ public class EncontroCirculoController implements Serializable {
 
     public List<Seguidor> getListaSeguidoresMadrinhas() {
         if(encontroCirculo != null){
-            listaSeguidoresMadrinhas = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "F");
+            listaSeguidoresMadrinhas = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "F", false);
         }
         return listaSeguidoresMadrinhas;
     }
@@ -256,6 +267,29 @@ public class EncontroCirculoController implements Serializable {
         this.listaSeguidoresMadrinhas = listaSeguidoresMadrinhas;
     }
 
+    public List<Seguidor> getListaSeguidoresTios() {
+        if(encontroCirculo != null){               
+            listaSeguidoresTios = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "M", true);
+        }
+        return listaSeguidoresTios;
+    }
+
+    public void setListaSeguidoresTios(List<Seguidor> listaSeguidoresTios) {
+        this.listaSeguidoresTios = listaSeguidoresTios;
+    }
+
+    public List<Seguidor> getListaSeguidoresTias() {
+        if(encontroCirculo != null){
+            listaSeguidoresTias = seguidorService.findSeguidoresPadrinhosDisponiveis(encontroCirculo, "F", true);
+        }
+        return listaSeguidoresTias;
+    }
+
+    public void setListaSeguidoresTias(List<Seguidor> listaSeguidoresTias) {
+        this.listaSeguidoresTias = listaSeguidoresTias;
+    }
+
+    
     public Seguidor getPadrinho() {
         return padrinho;
     }
@@ -286,6 +320,22 @@ public class EncontroCirculoController implements Serializable {
 
     public void setEncontroCirculoSelecionado(EncontroCirculo encontroCirculoSelecionado) {
         this.encontroCirculoSelecionado = encontroCirculoSelecionado;
+    }
+
+    public Seguidor getTio() {
+        return tio;
+    }
+
+    public void setTio(Seguidor tio) {
+        this.tio = tio;
+    }
+
+    public Seguidor getTia() {
+        return tia;
+    }
+
+    public void setTia(Seguidor tia) {
+        this.tia = tia;
     }
 
 }

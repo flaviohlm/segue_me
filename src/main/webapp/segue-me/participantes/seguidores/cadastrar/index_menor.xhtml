@@ -47,12 +47,7 @@
                         
                         <p:outputLabel value="Telefone Residencial:" >
                             <p:inputMask mask="(99) 9999-9999" value="#{seguidorController.seguidor.participante.telefoneResidencial}"/>
-                        </p:outputLabel>
-                        
-                        <p:outputLabel value="Habilidades:" />
-                        <p:selectManyCheckbox id="habilidades" value="#{seguidorController.seguidor.participante.habilidadeList}" layout="responsive" columns="3" converter="#{habilidadeConverter}" >
-                            <f:selectItems value="#{seguidorController.listaHabilidades}" var="habilidade" itemLabel="#{habilidade.descricao}" itemValue="#{habilidade}" />
-                        </p:selectManyCheckbox> 
+                        </p:outputLabel>                        
                         
                     </p:panelGrid>                      
                     <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{seguidorController.salvar()}" update=":frmCadApontamento"/>

@@ -40,7 +40,7 @@ public class EncontroEquipeIntegrante implements Serializable {
     private boolean coordenador = false;
     
     @Column(name = "convite_aceito")
-    private boolean conviteAceito = false;
+    private boolean conviteAceito = true;
     
     @Column(name = "desistiu")
     private boolean desistiu = false;
@@ -59,6 +59,10 @@ public class EncontroEquipeIntegrante implements Serializable {
     private Seguidor seguidor;
 
     public EncontroEquipeIntegrante() {
+        conviteAceito = true;
+        coordenador = false;
+        desistiu = false;
+        aptidaoCoordenacao = false;
     }
 
     public EncontroEquipeIntegrante(Integer id) {

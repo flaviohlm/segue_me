@@ -1,5 +1,6 @@
 package br.gov.to.santuario.ejc.service;
 
+import br.gov.to.santuario.ejc.domain.Encontro;
 import br.gov.to.santuario.ejc.domain.EncontroEquipe;
 import br.gov.to.santuario.ejc.repository.IEncontroEquipeRepository;
 import java.util.List;
@@ -44,6 +45,9 @@ public class EncontroEquipeService {
        return repository.findAll(where(specificationOrder()));
     }
     
+    public List<EncontroEquipe> findAllByEncontro(Encontro encontro){
+       return repository.findAll(where(specificationEncontro(encontro)));
+    }
     
     //SPECIFICATIONS
     public Specification<EncontroEquipe> specificationOrder() {
@@ -53,6 +57,20 @@ public class EncontroEquipeService {
                 
                 query.orderBy(cb.asc(root.<Integer>get("id")));                
                 return query.getRestriction();
+            }
+        };
+    }
+    
+    public Specification<EncontroEquipe> specificationEncontro(final Encontro encontro) {
+        return new Specification<EncontroEquipe>() {
+            @Override
+            public Predicate toPredicate(Root<EncontroEquipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.get("equipe").<String>get("descricao")));                
+                
+                Predicate p1 = cb.equal(root.get("encontro"), encontro);
+                
+                return cb.and(p1);
             }
         };
     }

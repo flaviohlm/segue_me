@@ -8,6 +8,7 @@ import br.gov.to.santuario.ejc.domain.Equipe;
 import br.gov.to.santuario.ejc.domain.Palestra;
 import br.gov.to.santuario.ejc.domain.Paroquia;
 import br.gov.to.santuario.ejc.service.CirculoService;
+import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.PalestraService;
@@ -49,6 +50,9 @@ public class EncontroController implements Serializable {
     @ManagedProperty(value = "#{palestraService}")
     private PalestraService palestraService;
     
+    @ManagedProperty(value = "#{encontroEquipeService}")
+    private EncontroEquipeService encontroEquipeService;
+    
     @ManagedProperty(value = "#{dataSource}")
     private DataSource dataSource;
     
@@ -62,6 +66,7 @@ public class EncontroController implements Serializable {
     private List<Circulo> listaCirculo;
     private List<Equipe> listaEquipe;
     private List<Palestra> listaPalestra;
+    private List<EncontroEquipe> listaEncontroEquipe;
     private EncontroEquipe encontroEquipeSelecionado;
     private EncontroCirculo encontroCirculoSelecionado;
     
@@ -113,6 +118,7 @@ public class EncontroController implements Serializable {
                 messages.info("O registro que você está tentando acessar não existe.");
                 return;
             }
+            listaEncontroEquipe = encontroEquipeService.findAllByEncontro(encontro);
         }
     }
     
@@ -283,6 +289,22 @@ public class EncontroController implements Serializable {
 
     public void setEncontroCirculoSelecionado(EncontroCirculo encontroCirculoSelecionado) {
         this.encontroCirculoSelecionado = encontroCirculoSelecionado;
+    }
+
+    public EncontroEquipeService getEncontroEquipeService() {
+        return encontroEquipeService;
+    }
+
+    public void setEncontroEquipeService(EncontroEquipeService encontroEquipeService) {
+        this.encontroEquipeService = encontroEquipeService;
+    }
+
+    public List<EncontroEquipe> getListaEncontroEquipe() {
+        return listaEncontroEquipe;
+    }
+
+    public void setListaEncontroEquipe(List<EncontroEquipe> listaEncontroEquipe) {
+        this.listaEncontroEquipe = listaEncontroEquipe;
     }
 
 }

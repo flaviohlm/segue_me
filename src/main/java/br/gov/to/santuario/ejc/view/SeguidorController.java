@@ -133,16 +133,10 @@ public class SeguidorController implements Serializable {
                 System.out.println("Antes: "+p.getTelefoneCelular());
                 p.setTelefoneCelular(p.getTelefoneCelular().replaceAll("[^0-9]", "").trim());
                 System.out.println("LENGHT: "+p.getTelefoneCelular().length());
-                 if(p.getTelefoneCelular().length() == 10){//6 9 9 9 9 27272                    
-                    p.setTelefoneCelular("("+p.getTelefoneCelular().substring(0, 1)+ "3) "+p.getTelefoneCelular().substring(1, 6)+"-"+p.getTelefoneCelular().substring(6));
-                    System.out.println("Depois: "+p.getTelefoneCelular());                    
-                }else if(p.getTelefoneCelular().length() == 11){//6 9 9 9 9 2 27272                    
-                    p.setTelefoneCelular("("+p.getTelefoneCelular().substring(0, 1)+ "3) "+p.getTelefoneCelular().substring(1, 6)+"-"+p.getTelefoneCelular().substring(7));
+                 if(p.getTelefoneCelular().length() == 8){//81143586
+                    p.setTelefoneCelular("(63) 9"+p.getTelefoneCelular().substring(0, 4)+"-"+p.getTelefoneCelular().substring(4));
                     System.out.println("Depois: "+p.getTelefoneCelular());                    
                 }
-//                Antes: (63) 98447-4545
-                //LENGHT: 11
-//                Depois: (6) 98447-74545         "(6) 99992-27272" 6999927272 (63) 99992-7272
                 else{
                     System.out.println("----------------");
                 }
@@ -150,27 +144,28 @@ public class SeguidorController implements Serializable {
             }
         }
         
-        participanteService.saveParticipante(lista);
+        //participanteService.saveParticipante(lista);
         
     }
     
-//    public void copiar(){
-//        List<Participante> lista = participanteService.findAllParticipantes();
-//        if(!lista.isEmpty() && lista.get(0).getId() == 1){
-//            lista.remove(0);
-//        }
-//        Seguidor s;
-//        List<Seguidor> listaS = new ArrayList<>();
-//        for(Participante p : lista){
-//            s = new Seguidor();
-//            s.setTio(false);
-//            s.setParticipante(p);
-//            //listaS.add(s);
-////            seguidorService.saveSeguidor(s);
-//        }
-////        seguidorService.saveSeguidor(listaS);
-//        listaSeguidores = null;
-//    }
+    public void copiar(){
+        //LEMBRAR DE COMENTAR O CASCADE EM SEGUIDOR PRA NAO DUPLICAR OS PARTICIPANTES
+        List<Participante> lista = participanteService.findAllParticipantes();
+        if(!lista.isEmpty() && lista.get(0).getId() == 1){
+            lista.remove(0);
+        }
+        Seguidor s;
+        List<Seguidor> listaS = new ArrayList<>();
+        for(Participante p : lista){
+            s = new Seguidor();
+            s.setTio(false);
+            s.setParticipante(p);
+            //listaS.add(s);
+            //seguidorService.saveSeguidor(s);
+        }
+//        seguidorService.saveSeguidor(listaS);
+        listaSeguidores = null;
+    }
     
     //GETTERS AND SETTERS
     public SeguidorService getSeguidorService() {

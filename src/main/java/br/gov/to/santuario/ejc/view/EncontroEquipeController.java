@@ -52,7 +52,7 @@ public class EncontroEquipeController implements Serializable {
     private List<Equipe> listaEquipe;    
     private List<Seguidor> listaSeguidores; 
     private EncontroEquipeIntegrante encontroEquipeIntegrante = new EncontroEquipeIntegrante();    
-    
+    private List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante;
     
     public void salvar(){        
         try{            
@@ -80,12 +80,13 @@ public class EncontroEquipeController implements Serializable {
             if(encontroEquipe == null){
                 messages.info("O registro que você está tentando acessar não existe.");
                 return;
-            }       
+            }
+            listaEncontroEquipeIntegrante = encontroEquipeIntegranteService.findSeguidoresDaEquipe(encontroEquipe);
         }
     }
     
     public void selecionarIntegrante(){
-        try{             
+        try{            
             encontroEquipeService.saveEncontroEquipe(encontroEquipe);  
             this.loadModel();
         }catch(Exception e){
@@ -230,6 +231,14 @@ public class EncontroEquipeController implements Serializable {
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public List<EncontroEquipeIntegrante> getListaEncontroEquipeIntegrante() {
+        return listaEncontroEquipeIntegrante;
+    }
+
+    public void setListaEncontroEquipeIntegrante(List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante) {
+        this.listaEncontroEquipeIntegrante = listaEncontroEquipeIntegrante;
     }
 
 }

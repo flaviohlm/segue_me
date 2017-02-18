@@ -22,52 +22,55 @@
         <ui:define name="conteudo">
             <h:form id="form_1">  
                 <p:panel header="Círculo: #{encontroCirculoController.encontroCirculo.circulo.cor}">
-                <p:messages id="messages" autoUpdate="true" closable="true"  />     
-                
-                <p:panelGrid layout="grid" columns="1" >
-                    <p:outputLabel value="Padrinhos de Círculo:" />
-                    <h:outputText value="#{encontroCirculoController.encontroCirculo.seguidorPadrinho.participante.nome} e #{encontroCirculoController.encontroCirculo.seguidorMadrinha.participante.nome}" />
-                </p:panelGrid>
-                
-                <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Circulo"  />                
-                <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulo')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>                    
-                
-                <p:separator/>
-                <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                             value="#{encontroCirculoController.encontroCirculo.seguimistaList}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex" >
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />     
 
-                    <f:facet name="header">
-                        <p:outputPanel>
-                            <h:outputText value="Filtrar: " />
-                            <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
-                        </p:outputPanel>
-                    </f:facet>
+                    <p:panelGrid layout="grid" columns="1" >
+                        <p:outputLabel value="Padrinhos de Círculo:" />
+                        <h:outputText value="#{encontroCirculoController.encontroCirculo.seguidorPadrinho.participante.nome} e #{encontroCirculoController.encontroCirculo.seguidorMadrinha.participante.nome}" />
 
-                    <p:column headerText="#" width="40">
-                        #{rowIndex+1}
-                    </p:column>
-                    
-                    <p:column headerText="Nome" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
-                        <h:outputText value="#{model.participante.nome}" />                                  
-                    </p:column>
+                        <p:outputLabel value="Tios:" />
+                        <h:outputText value="#{encontroCirculoController.encontroCirculo.seguidorTio.participante.nome} e #{encontroCirculoController.encontroCirculo.seguidorTia.participante.nome}" />
+                    </p:panelGrid>
 
-                    <p:column headerText="Crachá" sortBy="#{model.participante.apelido}" filterBy="#{model.participante.apelido}" >
-                        <h:outputText value="#{model.participante.apelido}" />                                  
-                    </p:column>
+                    <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Circulo"  />                
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulo')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>                    
 
-                    <p:column headerText="Telefone" sortBy="#{model.participante.telefoneCelular}" filterBy="#{model.participante.telefoneCelular}" >
-                        <h:outputText value="#{model.participante.telefoneCelular}" />                                  
-                    </p:column>
-                    
-                    <p:column headerText="Idade" sortBy="#{model.participante.idade}" filterBy="#{model.participante.idade}" >
-                        <h:outputText value="#{model.participante.idade}" />                                    
-                    </p:column>
+                    <p:separator/>
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroCirculoController.encontroCirculo.seguimistaList}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex" >
 
-                </p:dataTable> 
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+
+                        <p:column headerText="Nome" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
+                            <h:outputText value="#{model.participante.nome}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Crachá" sortBy="#{model.participante.apelido}" filterBy="#{model.participante.apelido}" >
+                            <h:outputText value="#{model.participante.apelido}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Telefone" sortBy="#{model.participante.telefoneCelular}" filterBy="#{model.participante.telefoneCelular}" >
+                            <h:outputText value="#{model.participante.telefoneCelular}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Idade" sortBy="#{model.participante.idade}" filterBy="#{model.participante.idade}" >
+                            <h:outputText value="#{model.participante.idade}" />                                    
+                        </p:column>
+
+                    </p:dataTable> 
                 
                 </p:panel>   
                 
-                <p:confirmDialog id="dialog_pessoas" message="Selecione clicando no checkbox" header="Seguidores" width="800" widgetVar="dialogPessoas" >
+                <p:confirmDialog id="dialog_pessoas" message="Selecione clicando no checkbox" header="Seguimistas" width="800" widgetVar="dialogPessoas" >
                     <p:dataTable paginatorAlwaysVisible="false" reflow="true"  widgetVar="model_x" emptyMessage="Nenhum registro encontrado." var="model" rowSelectMode="checkbox"
                                  value="#{encontroCirculoController.listaSeguimista}" selection="#{encontroCirculoController.encontroCirculo.seguimistaList}" rowKey="#{model.id}" >
 

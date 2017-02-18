@@ -1,5 +1,6 @@
 package br.gov.to.santuario.ejc.service;
 
+import br.gov.to.santuario.ejc.domain.EncontroEquipe;
 import br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante;
 import br.gov.to.santuario.ejc.repository.IEncontroEquipeIntegranteRepository;
 import java.util.List;
@@ -44,6 +45,9 @@ public class EncontroEquipeIntegranteService {
        return repository.findAll(where(specificationOrder()));
     }
     
+    public List<EncontroEquipeIntegrante> findSeguidoresDaEquipe(EncontroEquipe encontroEquipe){        
+       return repository.findSeguidoresDaEquipe(encontroEquipe.getId());
+    }
     
     //SPECIFICATIONS
     public Specification<EncontroEquipeIntegrante> specificationOrder() {

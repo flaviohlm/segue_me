@@ -29,7 +29,7 @@
                     <p:commandButton id="imprimir2" value="Imprimir Ordem Apresentação" title="Imprimir ordem de entrada" action="#{encontroController.imprimir(encontroController.id, 'equipes_trabalho')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                 value="#{encontroController.encontro.encontroEquipeList}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                 value="#{encontroController.listaEncontroEquipe}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
                                  selectionMode="single" selection="#{encontroController.encontroEquipeSelecionado}" rowKey="#{model.id}">
 
                         <f:facet name="header">

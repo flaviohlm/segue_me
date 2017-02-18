@@ -50,8 +50,8 @@ public class SeguidorService {
        return repository.findSeguidoresDisponiveis(encontroEquipe.getId(), encontroEquipe.getEncontro().getId());
     }
     
-    public List<Seguidor> findSeguidoresPadrinhosDisponiveis(EncontroCirculo encontroCirculo, String sexo){                 
-       return repository.findSeguidoresPadrinhosDisponiveis(encontroCirculo.getEncontro().getId(), sexo);
+    public List<Seguidor> findSeguidoresPadrinhosDisponiveis(EncontroCirculo encontroCirculo, String sexo, Boolean tio){                 
+       return repository.findSeguidoresPadrinhosDisponiveis(encontroCirculo.getEncontro().getId(), sexo, tio);
     }
     
     public Seguidor findByParticipante(Integer id){
