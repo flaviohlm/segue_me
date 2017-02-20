@@ -2,6 +2,7 @@ package br.gov.to.santuario.ejc.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,8 +55,9 @@ public class EncontroEquipeIntegrante implements Serializable {
     @JoinColumn(name = "encontro_equipe_id", referencedColumnName = "id")
     @OneToOne(optional = false)
     private EncontroEquipe encontroEquipe;
+    
     @JoinColumn(name = "seguidor_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     private Seguidor seguidor;
 
     public EncontroEquipeIntegrante() {

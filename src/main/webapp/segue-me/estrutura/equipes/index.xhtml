@@ -24,9 +24,12 @@
                 <p:panel header="Equipes">
                     <p:messages id="messages" autoUpdate="true" closable="true"  />
 
-                    <p:commandButton id="imprimir" value="Imprimir Coordenadores" title="Imprimir Lista de Coordenadores" action="#{encontroController.imprimir(encontroController.id, 'equipes_trabalho_coordenadores')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    <p:commandButton value="Listar Integrates" title="Listar todos os integrantes de equipes do encontro." image="" action="#{encontroController.gotoIntegrantes(encontroController.id)}" class="icone2 pessoa"/>
                     
-                    <p:commandButton id="imprimir2" value="Imprimir Ordem Apresentação" title="Imprimir ordem de entrada" action="#{encontroController.imprimir(encontroController.id, 'equipes_trabalho')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    <p:commandButton value="Coordenadores" title=" Lista de Coordenadores" action="#{encontroController.imprimir(encontroController.id, 'equipes_trabalho_coordenadores')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    <p:commandButton value="Equipe e Integrantes" title="Imprimir todas as equipes e seus integrantes" action="#{encontroController.imprimir(encontroController.id, 'equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    <p:commandButton value="Ordem Apresentação" title="Imprimir ordem de entrada" action="#{encontroController.imprimir(encontroController.id, 'equipes_trabalho')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>                    
+                    
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroController.listaEncontroEquipe}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
@@ -49,6 +52,10 @@
                             <h:outputText value="#{model.equipe.descricao}" />                                  
                         </p:column>                        
 
+                        <p:column headerText="Qnd. Integrantes" sortBy="#{model.encontroEquipeIntegrantesList.size()}" >
+                            <h:outputText value="#{model.encontroEquipeIntegrantesList.size()}" />                                  
+                        </p:column>                        
+                        
                     </p:dataTable>                    
                 </p:panel>    
                 

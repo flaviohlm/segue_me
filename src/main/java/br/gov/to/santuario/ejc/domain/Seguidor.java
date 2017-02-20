@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.annotations.JoinFetch;
 
 /**
  *
@@ -41,15 +43,15 @@ public class Seguidor implements Serializable {
     @Column(name = "tio")
     private boolean tio = false;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguidorPadrinho")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguidorPadrinho", fetch = FetchType.LAZY)
     private List<EncontroCirculo> encontroCirculoList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguidorMadrinha")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguidorMadrinha", fetch = FetchType.LAZY)
     private List<EncontroCirculo> encontroCirculoList1;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguidor")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguidor", fetch = FetchType.LAZY)
     private List<EncontroEquipeIntegrante> encontroEquipeIntegrantesList;
-    
+        
     @JoinColumn(name = "participante_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private Participante participante;

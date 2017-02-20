@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloDaPagina">
+            Integrantes das Equipes
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{encontroController.id}" />
+                <f:viewAction action="#{encontroController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Integrantes das Equipes">
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />                
+
+                    <p:commandButton value="Equipe e Integrantes" title="Imprimir todas as equipes e seus integrantes" action="#{encontroController.imprimir(encontroController.id, 'equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroController.listaIntegrantes}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                 editable="true" editMode="cell" >
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="cellEdit" listener="#{encontroController.onCellEdit}" update=":form_1:messages" />
+                        
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
+                        <p:column headerText="Nome" sortBy="#{model.seguidor.participante.nome}" filterBy="#{model.seguidor.participante.nome}" >
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{model.seguidor.participante.nome}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{model.seguidor.participante.nome}" style="width:96%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>                        
+
+                        <p:column headerText="Crachá" width="160" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >                             
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{model.seguidor.participante.apelido}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{model.seguidor.participante.apelido}" style="width:96%" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Celular" width="160" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >                            
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{model.seguidor.participante.telefoneCelular}" /></f:facet>
+                                <f:facet name="input"><p:inputMask mask="(99) 99999-9999" value="#{model.seguidor.participante.telefoneCelular}" style="width:96%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Res./Outro" width="160" sortBy="#{model.seguidor.participante.telefoneResidencial}" filterBy="#{model.seguidor.participante.telefoneResidencial}" >                            
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{model.seguidor.participante.telefoneResidencial}" /></f:facet>
+                                <f:facet name="input"><p:inputMask mask="(99) 9999-9999?9" value="#{model.seguidor.participante.telefoneResidencial}" style="width:96%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Endereço" sortBy="#{model.seguidor.participante.endereco}" filterBy="#{model.seguidor.participante.endereco}" >                            
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{model.seguidor.participante.endereco}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{model.seguidor.participante.endereco}" style="width:96%" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Equipe" width="160" sortBy="#{model.encontroEquipe.equipe.descricao}" filterBy="#{model.encontroEquipe.equipe.descricao}" >
+                            <h:outputText value="#{model.encontroEquipe.equipe.descricao}" />                            
+                        </p:column>
+                        
+                    </p:dataTable>                     
+                </p:panel>                   
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+    
+</html>

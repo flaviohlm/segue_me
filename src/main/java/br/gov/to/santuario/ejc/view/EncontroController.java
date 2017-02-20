@@ -4,10 +4,12 @@ import br.gov.to.santuario.ejc.domain.Circulo;
 import br.gov.to.santuario.ejc.domain.Encontro;
 import br.gov.to.santuario.ejc.domain.EncontroCirculo;
 import br.gov.to.santuario.ejc.domain.EncontroEquipe;
+import br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante;
 import br.gov.to.santuario.ejc.domain.Equipe;
 import br.gov.to.santuario.ejc.domain.Palestra;
 import br.gov.to.santuario.ejc.domain.Paroquia;
 import br.gov.to.santuario.ejc.service.CirculoService;
+import br.gov.to.santuario.ejc.service.EncontroEquipeIntegranteService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.EquipeService;
@@ -26,6 +28,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -53,6 +57,9 @@ public class EncontroController implements Serializable {
     @ManagedProperty(value = "#{encontroEquipeService}")
     private EncontroEquipeService encontroEquipeService;
     
+    @ManagedProperty(value = "#{encontroEquipeIntegranteService}")
+    private EncontroEquipeIntegranteService encontroEquipeIntegranteService;
+    
     @ManagedProperty(value = "#{dataSource}")
     private DataSource dataSource;
     
@@ -69,6 +76,7 @@ public class EncontroController implements Serializable {
     private List<EncontroEquipe> listaEncontroEquipe;
     private EncontroEquipe encontroEquipeSelecionado;
     private EncontroCirculo encontroCirculoSelecionado;
+    private List<EncontroEquipeIntegrante> listaIntegrantes;
     
     public String salvar(){
         try{            
@@ -111,6 +119,10 @@ public class EncontroController implements Serializable {
         return "/segue-me/estrutura/palestras/index.xhtlm?id="+ide+"&faces-redirect=true";
     }
     
+    public String gotoIntegrantes(Integer ide){
+        return "/segue-me/estrutura/equipes/integrantes/index.xhtlm?id="+ide+"&faces-redirect=true";
+    }
+    
     public void loadModel(){
         if(id != null){
             encontro = encontroService.findOneEncontro(id);
@@ -146,6 +158,18 @@ public class EncontroController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/circulos/editar/index.xhtml?id=" + encontroCirculoSelecionado.getId());
     }
     
+    public void onCellEdit(CellEditEvent event) {
+        DataTable s = (DataTable) event.getSource();
+        EncontroEquipeIntegrante eei = (EncontroEquipeIntegrante) s.getRowData();
+        
+        try{
+            encontroEquipeIntegranteService.saveEncontroEquipeIntegrante(eei);
+            //messages.info("Dados salvos com sucesso!");
+        }catch(Exception e){
+            messages.error("Erro ao salvar os dados!");
+            e.printStackTrace();
+        } 
+    }
     
     //GETTERS AND SETTERS
     public EncontroService getEncontroService() {
@@ -305,6 +329,25 @@ public class EncontroController implements Serializable {
 
     public void setListaEncontroEquipe(List<EncontroEquipe> listaEncontroEquipe) {
         this.listaEncontroEquipe = listaEncontroEquipe;
+    }
+
+    public EncontroEquipeIntegranteService getEncontroEquipeIntegranteService() {
+        return encontroEquipeIntegranteService;
+    }
+
+    public void setEncontroEquipeIntegranteService(EncontroEquipeIntegranteService encontroEquipeIntegranteService) {
+        this.encontroEquipeIntegranteService = encontroEquipeIntegranteService;
+    }
+
+    public List<EncontroEquipeIntegrante> getListaIntegrantes() {
+        if(listaIntegrantes == null){
+            listaIntegrantes = encontroEquipeIntegranteService.findAllByEncontro(encontro);
+        }
+        return listaIntegrantes;
+    }
+
+    public void setListaIntegrantes(List<EncontroEquipeIntegrante> listaIntegrantes) {
+        this.listaIntegrantes = listaIntegrantes;
     }
 
 }

@@ -1,5 +1,6 @@
 package br.gov.to.santuario.ejc.service;
 
+import br.gov.to.santuario.ejc.domain.Encontro;
 import br.gov.to.santuario.ejc.domain.EncontroEquipe;
 import br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante;
 import br.gov.to.santuario.ejc.repository.IEncontroEquipeIntegranteRepository;
@@ -49,6 +50,10 @@ public class EncontroEquipeIntegranteService {
        return repository.findSeguidoresDaEquipe(encontroEquipe.getId());
     }
     
+    public List<EncontroEquipeIntegrante> findAllByEncontro(Encontro encontro){
+       return repository.findAll(where(specificationOrderByEncontro(encontro)));
+    }
+    
     //SPECIFICATIONS
     public Specification<EncontroEquipeIntegrante> specificationOrder() {
         return new Specification<EncontroEquipeIntegrante>() {
@@ -61,4 +66,17 @@ public class EncontroEquipeIntegranteService {
         };
     }
     
+    public Specification<EncontroEquipeIntegrante> specificationOrderByEncontro(final Encontro encontro) {
+        return new Specification<EncontroEquipeIntegrante>() {
+            @Override
+            public Predicate toPredicate(Root<EncontroEquipeIntegrante> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.get("encontroEquipe").get("equipe").<Integer>get("ordemQuadrante")), cb.asc(root.get("seguidor").get("participante").<String>get("nome")));     
+                
+                Predicate p1 = cb.equal(root.get("encontroEquipe").get("encontro"), encontro);
+                
+                return cb.and(p1);
+            }
+        };
+    }
 }

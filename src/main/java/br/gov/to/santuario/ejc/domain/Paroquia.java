@@ -36,11 +36,13 @@ public class Paroquia implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
     @Column(name = "descricao")
     private String descricao;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paroquia")
     private List<EncontroParoquia> encontroParoquiaList;
 

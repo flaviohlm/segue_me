@@ -43,52 +43,45 @@ ORDER BY TIPO desc, participante.nome]]>
 	<field name="participante_telefone_celular" class="java.lang.String"/>
 	<field name="tipo" class="java.lang.String"/>
 	<columnHeader>
-		<band height="40">
+		<band height="20">
 			<rectangle>
-				<reportElement x="0" y="20" width="23" height="20" backcolor="#99CCFF" uuid="37ccad2c-5614-4528-8f78-68538f3efca6"/>
+				<reportElement x="0" y="0" width="23" height="20" backcolor="#99CCFF" uuid="37ccad2c-5614-4528-8f78-68538f3efca6"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="23" y="20" width="286" height="20" backcolor="#99CCFF" uuid="11c59e0e-761f-42d6-903d-65be79eb10d7"/>
+				<reportElement x="23" y="0" width="286" height="20" backcolor="#99CCFF" uuid="11c59e0e-761f-42d6-903d-65be79eb10d7"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="309" y="20" width="101" height="20" backcolor="#99CCFF" uuid="f38fb87a-3394-4a42-a609-3a4259f4393a"/>
+				<reportElement x="309" y="0" width="101" height="20" backcolor="#99CCFF" uuid="f38fb87a-3394-4a42-a609-3a4259f4393a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="20" width="23" height="20" uuid="7abd6c84-f7b6-4b01-83bd-ca2d5fa72a36"/>
+				<reportElement x="0" y="0" width="23" height="20" uuid="7abd6c84-f7b6-4b01-83bd-ca2d5fa72a36"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[#]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="20" width="286" height="20" uuid="8d14aec2-0d06-496d-a26c-a383b0969187"/>
+				<reportElement x="23" y="0" width="286" height="20" uuid="8d14aec2-0d06-496d-a26c-a383b0969187"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="20" width="101" height="20" uuid="56b5b0ff-5f6f-46a9-8d57-e7a8ca395df1"/>
+				<reportElement x="309" y="0" width="101" height="20" uuid="56b5b0ff-5f6f-46a9-8d57-e7a8ca395df1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Celular]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="20" uuid="08442f7f-f92c-458c-ae2b-17f55949eb22"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[COORDENADORES]]></text>
-			</staticText>
 			<rectangle>
-				<reportElement x="503" y="20" width="52" height="20" backcolor="#99CCFF" uuid="6e15da2d-a11a-43f4-81ea-e837a9322f01"/>
+				<reportElement x="503" y="0" width="52" height="20" backcolor="#99CCFF" uuid="6e15da2d-a11a-43f4-81ea-e837a9322f01"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="410" y="20" width="93" height="20" backcolor="#99CCFF" uuid="7d1d9f2e-92dc-4a93-9388-88a234f06473"/>
+				<reportElement x="410" y="0" width="93" height="20" backcolor="#99CCFF" uuid="7d1d9f2e-92dc-4a93-9388-88a234f06473"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="410" y="20" width="93" height="20" uuid="3d3a2df9-2da4-464b-813d-e05340546c73"/>
+				<reportElement x="410" y="0" width="93" height="20" uuid="3d3a2df9-2da4-464b-813d-e05340546c73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -97,15 +90,15 @@ ORDER BY TIPO desc, participante.nome]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="21" width="555" height="1" uuid="b3e296f4-d34f-4875-8b94-8a0e4b6ecb2b"/>
+			</line>
 			<textField>
 				<reportElement x="33" y="0" width="276" height="20" uuid="82f86aa6-b0e0-4e69-9ced-c8cae94608c0"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{participante_nome}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="20" width="555" height="1" uuid="b3e296f4-d34f-4875-8b94-8a0e4b6ecb2b"/>
-			</line>
 			<textField>
 				<reportElement x="0" y="0" width="23" height="20" uuid="7c4644d7-d922-4b6f-a8ab-a761ac98b98f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>

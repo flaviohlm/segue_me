@@ -17,10 +17,10 @@
      equipe.descricao AS equipe_descricao,
      equipe.ordem_apresentacao AS ordem_apresentacao,
      paroquia.descricao AS paroquia,
-     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = false AND p.sexo = 'M' AND e.encontro_equipe_id = encontro_equipe.id) AS COORDENADOR,
-     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = false AND p.sexo = 'F' AND e.encontro_equipe_id = encontro_equipe.id) AS COORDENADORA,
-     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = true AND p.sexo = 'M' AND e.encontro_equipe_id = encontro_equipe.id) AS TIO,
-     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = true AND p.sexo = 'F' AND e.encontro_equipe_id = encontro_equipe.id) AS TIA
+     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = false AND p.sexo = 'M' AND e.encontro_equipe_id = encontro_equipe.id AND convite_aceito = true) AS COORDENADOR,
+     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = false AND p.sexo = 'F' AND e.encontro_equipe_id = encontro_equipe.id AND convite_aceito = true) AS COORDENADORA,
+     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = true AND p.sexo = 'M' AND e.encontro_equipe_id = encontro_equipe.id AND convite_aceito = true) AS TIO,
+     (SELECT nome FROM segueme.participante p, segueme.seguidor s, segueme.encontro_equipe_integrantes e WHERE p.id = s.participante_id AND s.id = e.seguidor_id AND e.coordenador = true AND s.tio = true AND p.sexo = 'F' AND e.encontro_equipe_id = encontro_equipe.id AND convite_aceito = true) AS TIA
 FROM segueme.encontro_equipe encontro_equipe
 INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
 INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_id
@@ -45,30 +45,31 @@ ORDER BY ordem_apresentacao, equipe.descricao]]>
 		<band height="100" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="37" width="555" height="20" uuid="1c9f3bad-33b7-416c-9ae3-176408f1839b"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{encontro_descricao}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="57" width="555" height="20" uuid="f9307728-143c-40ab-b58d-43962a648937"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="178" y="77" width="100" height="20" uuid="d6b2ae5f-3ebb-49fe-8714-ec16ad3828a1"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_inicio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="293" y="77" width="100" height="20" uuid="c9e16c86-4b93-40c6-bcfb-8422154d4689"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_fim}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="278" y="77" width="14" height="20" uuid="f4cb5d64-7ccb-444f-bdd8-98f35f0e1c0a"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[à]]></text>
 			</staticText>
 		</band>
@@ -77,57 +78,26 @@ ORDER BY ordem_apresentacao, equipe.descricao]]>
 		<band height="23" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="20" uuid="a6ad3df3-bae9-453e-bdee-82b021c9a5c9"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EQUIPES DE TRABALHO]]></text>
+				<text><![CDATA[ORDEM DE APRESENTAÇÃO DAS EQUIPES]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="82" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="20" width="47" height="20" uuid="e33b80b8-acee-4795-b09c-4b873e74b643"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[EQUIPE:]]></text>
-			</staticText>
+		<band height="27" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="47" y="20" width="508" height="20" uuid="fc92eb91-4e37-4f13-9b0e-fdf3555acee4"/>
+				<reportElement x="31" y="0" width="524" height="20" uuid="fc92eb91-4e37-4f13-9b0e-fdf3555acee4"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{equipe_descricao}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="40" width="84" height="20" uuid="a4bd84f3-4c48-4833-b35e-ab774d205c14"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Coordenadores:]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="84" y="40" width="471" height="20" uuid="ce99aa16-ff02-4a2f-87a2-43fd2c1c603a"/>
-				<textFieldExpression><![CDATA[$F{coordenador} == null ? "" : $F{coordenador}+" e "+$F{coordenadora}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="80" width="555" height="1" uuid="c8fdd79a-0d10-4fa5-9135-07fca6e32bc4"/>
-			</line>
-			<staticText>
-				<reportElement x="0" y="60" width="28" height="20" uuid="397f2a15-29dc-4367-9d45-94d5bc4a0274"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Tios:]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="28" y="60" width="527" height="20" uuid="2535b9ea-642f-4b6d-92ec-4505c01d82fc"/>
-				<textFieldExpression><![CDATA[$F{tio} == null ? "" : $F{tio}+" da "+$F{tia}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="141" height="20" uuid="ef78fca7-1b92-498f-b036-c3c16b137050"/>
+				<reportElement x="0" y="0" width="31" height="20" uuid="ef78fca7-1b92-498f-b036-c3c16b137050"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} + "."]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

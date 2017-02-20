@@ -20,9 +20,10 @@
                      <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{palestraController.novo()}" class="icone2 adicionar"/>
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{palestraController.listaPalestras}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"  editable="true">
+                                     value="#{palestraController.listaPalestras}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                     editable="true" editMode="cell" >
                             
-                            <p:ajax event="rowEdit" listener="#{palestraController.onRowEdit}" update=":form_1:messages" />
+                            <p:ajax event="cellEdit" listener="#{palestraController.onCellEdit}" update=":form_1:messages" />
                             
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -55,13 +56,9 @@
                                         <p:inputText value="#{model.descricao}" />
                                     </f:facet> 
                                 </p:cellEditor>                                    
-                            </p:column>                                                    
-                            
-                            <p:column width="70" headerText="Editar">
-                                <p:rowEditor />
-                            </p:column>
+                            </p:column>                                                                                
 
-                            <p:column headerText="Excluir" width="70">
+                            <p:column headerText="Excluir" width="80">
                                 <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
                                     <f:setPropertyActionListener value="#{model}" target="#{palestraController.circulo}" />
                                 </p:commandButton>

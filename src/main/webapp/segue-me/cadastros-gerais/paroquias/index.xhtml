@@ -20,9 +20,10 @@
                      <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{paroquiaController.novo()}" class="icone2 adicionar"/>
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{paroquiaController.listaParoquias}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" editable="true" >
+                                     value="#{paroquiaController.listaParoquias}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                     editable="true" editMode="cell" >
                             
-                            <p:ajax event="rowEdit" listener="#{paroquiaController.onRowEdit}" update=":form_1:messages" />
+                            <p:ajax event="cellEdit" listener="#{paroquiaController.onCellEdit}" update=":form_1:messages" />
                             
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -43,14 +44,10 @@
                                     <f:facet name="input">    
                                         <p:inputText value="#{model.descricao}" />
                                     </f:facet> 
-                                </p:cellEditor>                                    
-                            </p:column>                                                    
-                            
-                            <p:column width="70" headerText="Editar">
-                                <p:rowEditor />
-                            </p:column>
+                                </p:cellEditor>
+                            </p:column>                                                                                
 
-                            <p:column headerText="Excluir" width="70">
+                            <p:column headerText="Excluir" width="80">
                                 <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
                                     <f:setPropertyActionListener value="#{model}" target="#{paroquiaController.circulo}" />
                                 </p:commandButton>

@@ -38,9 +38,7 @@ public interface ISeguidorRepository extends JpaRepository<Seguidor, Serializabl
     
     @Query(value =  "SELECT s.id, s.participante_id, s.tio, p.nome\n" +
                     "FROM segueme.seguidor s, segueme.participante p \n" +
-                    "WHERE s.id NOT IN ( SELECT eei.seguidor_id FROM segueme.encontro_equipe_integrantes eei INNER JOIN segueme.encontro_equipe ee ON ee.id = eei.encontro_equipe_id WHERE ee.encontro_id = ?1 ) \n" +                    
-                    //"AND s.id NOT IN ( SELECT ec.seguidor_padrinho_id FROM segueme.encontro_circulo ec WHERE encontro_id = ?1 AND seguidor_padrinho_id IS NOT NULL ) \n" +
-                    //"AND s.id NOT IN ( SELECT ec.seguidor_madrinha_id FROM segueme.encontro_circulo ec WHERE encontro_id = ?1 AND seguidor_madrinha_id IS NOT NULL ) \n" +
+                    "WHERE s.id IN ( SELECT eei.seguidor_id FROM segueme.encontro_equipe_integrantes eei INNER JOIN segueme.encontro_equipe ee ON ee.id = eei.encontro_equipe_id INNER JOIN segueme.equipe e ON e.id = ee.equipe_id WHERE ee.encontro_id = ?1 AND e.descricao ILIKE 'c_rculo%' ) \n" +                    
                     "AND p.id = s.participante_id \n" +
                     "AND p.sexo = ?2\n " +
                     "AND s.tio = ?3\n "+

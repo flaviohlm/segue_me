@@ -1,5 +1,6 @@
 package br.gov.to.santuario.ejc.view;
 
+import br.gov.to.santuario.ejc.domain.Equipe;
 import br.gov.to.santuario.ejc.domain.Palestra;
 import br.gov.to.santuario.ejc.service.PalestraService;
 import br.gov.to.santuario.seg.util.FacesMessages;
@@ -8,6 +9,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -41,20 +44,16 @@ public class PalestraController implements Serializable {
         }     
     }
     
-    public void onRowEdit(RowEditEvent event) {
-        Palestra o = (Palestra) event.getObject();                
+    public void onCellEdit(CellEditEvent event) {
+        DataTable s = (DataTable) event.getSource();
+        Palestra obj = (Palestra) s.getRowData();
         
         try{
-//            if(o.getDataCadastro() == null){
-//                o.setDataCadastro(new Date());
-//            }
-            palestraService.savePalestras(o);        
-            messages.info("Dados salvos com sucesso!!!");
-        }catch(Exception ex){
-            messages.error("Não foi possível salvar os dados.");
-            ex.printStackTrace();
+            palestraService.savePalestras(obj);
+        }catch(Exception e){
+            messages.error("Erro ao salvar os dados!");
+            e.printStackTrace();
         } 
-        
     }
     
     //GETTERS AND SETTERS

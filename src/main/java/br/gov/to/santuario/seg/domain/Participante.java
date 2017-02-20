@@ -18,6 +18,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -96,20 +97,23 @@ public class Participante implements Serializable, UserDetails {
     
     @Column(name = "nome_mae")
     private String nomeMae;
-        
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante")
+
+    @Column(name = "score_participacao")
+    private Double scoreParticipacao = 100.0;    
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<DiretorEspiritual> diretorEspiritualList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<ParticipanteHabilidade> participanteHabilidadeList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<Palestrante> palestranteList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<Seguimista> seguimistaList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<Seguidor> seguidorList;
     
     @Column(name = "cpf")
@@ -124,16 +128,16 @@ public class Participante implements Serializable, UserDetails {
     @Column(name = "ativo")
     private boolean ativo = true;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<PerfilUsuario> perfilParticipanteList;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(schema = "segueme", name = "perfil_usuario", joinColumns = {
             @JoinColumn(name = "participante_id", referencedColumnName = "ID")}, inverseJoinColumns = {
             @JoinColumn(name = "perfil_id", referencedColumnName = "ID")})
     private List<Perfil> listaPerfis;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(schema = "segueme", name = "participante_habilidade", joinColumns = {
             @JoinColumn(name = "participante_id", referencedColumnName = "ID")}, inverseJoinColumns = {
             @JoinColumn(name = "habilidade_id", referencedColumnName = "ID")})
@@ -471,6 +475,14 @@ public class Participante implements Serializable, UserDetails {
 
     public void setHabilidadeList(List<Habilidade> habilidadeList) {
         this.habilidadeList = habilidadeList;
+    }
+
+    public Double getScoreParticipacao() {
+        return scoreParticipacao;
+    }
+
+    public void setScoreParticipacao(Double scoreParticipacao) {
+        this.scoreParticipacao = scoreParticipacao;
     }
     
 }

@@ -50,7 +50,8 @@ public class SeguidorService {
        return repository.findSeguidoresDisponiveis(encontroEquipe.getId(), encontroEquipe.getEncontro().getId());
     }
     
-    public List<Seguidor> findSeguidoresPadrinhosDisponiveis(EncontroCirculo encontroCirculo, String sexo, Boolean tio){                 
+    //Retorna os seguidores que estao na equipe de circulos
+    public List<Seguidor> findSeguidoresPadrinhosDisponiveis(EncontroCirculo encontroCirculo, String sexo, Boolean tio){           
        return repository.findSeguidoresPadrinhosDisponiveis(encontroCirculo.getEncontro().getId(), sexo, tio);
     }
     

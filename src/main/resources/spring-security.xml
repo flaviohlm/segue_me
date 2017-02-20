@@ -35,6 +35,7 @@
         <intercept-url pattern="/segue-me/estrutura/circulos/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipes/editar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/equipes/integrantes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/cadastrar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/editar/*" access="isAuthenticated()" />

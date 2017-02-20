@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
-	<property name="ireport.zoom" value="4.0"/>
-	<property name="ireport.x" value="1384"/>
-	<property name="ireport.y" value="421"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="R_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -23,7 +23,7 @@ INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro
 INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
 
 WHERE encontro.id = $P{R_ID}
-ORDER BY equipe.descricao]]>
+ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 	</queryString>
 	<field name="encontro_equipe_id" class="java.lang.Integer"/>
 	<field name="encontro_descricao" class="java.lang.String"/>
@@ -70,7 +70,7 @@ ORDER BY equipe.descricao]]>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EQUIPES DE TRABALHOS]]></text>
+				<text><![CDATA[COORDENADORES DAS EQUIPES DE TRABALHO]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

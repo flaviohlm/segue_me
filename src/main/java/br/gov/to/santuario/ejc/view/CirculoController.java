@@ -1,6 +1,7 @@
 package br.gov.to.santuario.ejc.view;
 
 import br.gov.to.santuario.ejc.domain.Circulo;
+import br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante;
 import br.gov.to.santuario.ejc.service.CirculoService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import java.io.Serializable;
@@ -8,6 +9,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -27,7 +30,8 @@ public class CirculoController implements Serializable {
 
     public void novo(){
         circulo = new Circulo(); 
-        circulo.setApostolo("Insira a descrição");        
+        circulo.setApostolo("Insira aqui o nome do apóstolo do círculo");        
+        circulo.setCor("Insira aqui o nome da cor para o círculo");
         listaCirculos.add(0, circulo);
     }
     
@@ -41,20 +45,16 @@ public class CirculoController implements Serializable {
         }     
     }
     
-    public void onRowEdit(RowEditEvent event) {
-        Circulo o = (Circulo) event.getObject();                
+    public void onCellEdit(CellEditEvent event) {
+        DataTable s = (DataTable) event.getSource();
+        Circulo obj = (Circulo) s.getRowData();
         
         try{
-//            if(o.getDataCadastro() == null){
-//                o.setDataCadastro(new Date());
-//            }
-            circuloService.saveCirculo(o);        
-            messages.info("Dados salvos com sucesso!!!");
-        }catch(Exception ex){
-            messages.error("Não foi possível salvar os dados.");
-            ex.printStackTrace();
+            circuloService.saveCirculo(obj);            
+        }catch(Exception e){
+            messages.error("Erro ao salvar os dados!");
+            e.printStackTrace();
         } 
-        
     }
     
     //GETTERS AND SETTERS

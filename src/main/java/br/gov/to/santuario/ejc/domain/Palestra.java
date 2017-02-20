@@ -6,6 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,15 +38,18 @@ public class Palestra implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "tema")
     private String tema;
+    
     @Size(max = 250)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "palestras")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "palestras", fetch = FetchType.LAZY)
     private List<EncontroPalestra> encontroPalestraList;
 
     public Palestra() {

@@ -1,5 +1,6 @@
 package br.gov.to.santuario.ejc.view;
 
+import br.gov.to.santuario.ejc.domain.Circulo;
 import br.gov.to.santuario.ejc.domain.Equipe;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.seg.util.FacesMessages;
@@ -8,6 +9,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -41,20 +44,16 @@ public class EquipeController implements Serializable {
         }     
     }
     
-    public void onRowEdit(RowEditEvent event) {
-        Equipe o = (Equipe) event.getObject();                
+    public void onCellEdit(CellEditEvent event) {
+        DataTable s = (DataTable) event.getSource();
+        Equipe obj = (Equipe) s.getRowData();
         
         try{
-//            if(o.getDataCadastro() == null){
-//                o.setDataCadastro(new Date());
-//            }
-            equipeService.saveEquipe(o);        
-            messages.info("Dados salvos com sucesso!!!");
-        }catch(Exception ex){
-            messages.error("Não foi possível salvar os dados.");
-            ex.printStackTrace();
+            equipeService.saveEquipe(obj);
+        }catch(Exception e){
+            messages.error("Erro ao salvar os dados!");
+            e.printStackTrace();
         } 
-        
     }
     
     //GETTERS AND SETTERS
