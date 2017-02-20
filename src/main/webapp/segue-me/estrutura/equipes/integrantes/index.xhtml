@@ -78,8 +78,12 @@
                             </p:cellEditor>
                         </p:column>
                         
-                        <p:column headerText="Equipe" width="160" sortBy="#{model.encontroEquipe.equipe.descricao}" filterBy="#{model.encontroEquipe.equipe.descricao}" >
-                            <h:outputText value="#{model.encontroEquipe.equipe.descricao}" />                            
+                        <p:column headerText="Equipe" width="160" sortBy="#{model.encontroEquipe.equipe.descricao}" filterBy="#{model.encontroEquipe.equipe.descricao}" >                            
+                            <h:link value="#{model.encontroEquipe.equipe.descricao}" outcome="/segue-me/estrutura/equipes/editar/index.xhtlm?id=#{model.encontroEquipe.id}" />                            
+                        </p:column>
+                        
+                        <p:column headerText="Convite" >                            
+                            <p:selectBooleanButton value="#{model.conviteAceito}" onLabel="Aceito" offLabel="Recusado" disabled="true" />
                         </p:column>
                         
                     </p:dataTable>                     
