@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="120.65mm" version="1.1" style="clip-rule:evenodd;fill-rule:evenodd" viewBox="0 0 900 900">
+  <!-- Created by: Treedbox, treedbox.com.br -->
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil1 {fill:black}
+    .fil2 {fill:red}
+    #g1{
+    animation: girar 10s infinite linear;
+    transform-origin:center;
+    }
+    #g2{
+    animation: girar 7s infinite linear;
+    transform-origin:center;
+    }
+    .zoom{animation: zoom 10s infinite linear; transform-origin:center}
+    @keyframes girar {
+      0%{
+        -webkit-transform: rotate(0deg);
+      }
+      100%{
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @keyframes zoom {
+      0%{
+        transform: scale(1);
+      }
+      43%{
+        transform: scale(1) skew(0deg);
+      }
+      45%{
+        transform: scale(.7);
+      }
+      46%{
+        transform: scale(.8) skew(20deg);
+      }
+      47%{
+        transform: scale(.7);
+      }
+      51%{
+        transform: scale(1) skew(0deg);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+   ]]>
+  </style>
+ </defs>
+ <g id="geo" class="zoom">
+  <rect class="fil0" transform="matrix(2.64845E-014 -1 1 2.64845E-014 0.000780495 899.814)" width="900" height="900"/>
+  <path class="fil1" d="M450 0c248,0 450,201 450,450 0,248 -202,450 -450,450 -249,0 -450,-202 -450,-450 0,-249 201,-450 450,-450zm0 78c205,0 372,167 372,372 0,205 -167,372 -372,372 -205,0 -372,-167 -372,-372 0,-205 167,-372 372,-372zm0 313c32,0 59,27 59,59 0,32 -27,59 -59,59 -32,0 -59,-27 -59,-59 0,-32 27,-59 59,-59z"/>
+  <g id="g1">
+   <rect class="fil0" transform="matrix(2.64845E-014 -1 1 2.64845E-014 0.000780495 899.814)" width="900" height="900"/>
+   <path class="fil1" d="M450 86c15,70 76,301 78,362 -2,-42 -36,-76 -78,-76 -42,0 -77,34 -78,76 2,-61 63,-292 78,-362z"/>
+  </g>
+  <g id="g2">
+   <rect class="fil0" transform="matrix(2.64845E-014 -1 1 2.64845E-014 0.000780495 899.814)" width="900" height="900"/>
+   <path class="fil1" d="M450 176c8,38 35,143 50,214 -4,-3 -7,-5 -11,-7 -29,-17 -65,-13 -89,7 14,-71 42,-176 50,-214z"/>
+  </g>
+ </g>
+</svg>

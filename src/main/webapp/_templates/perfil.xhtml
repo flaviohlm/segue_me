@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <h:form id="usuario_form">
+            <p:panel class="perfil">
+                <div class="avatar">
+                    <h:link id="cmdEditar" title="Editar" outcome="/configuracoes/meusdados/index.xhtml" includeViewParams="true" >
+                        <p:commandLink value="" title="Editar Meus Dados" action="#{usuarioBean.gotoEditarMeusDados()}" class="avatar-imagem" />
+                        <!--Upload de Imagem-->
+                        <!--<p:graphicImage id="icon" value="" width="44" height="44" />-->
+                        <f:param name="idElemento" value="#{loginBean.usuarioLogado.id}" />
+                    </h:link>
+                </div>
+                <ul>                    
+                    <li class="usuario"><h:outputText value="Nome: "/><h:outputText value="#{loginBean.usuarioLogado.nome}" /></li>
+                    <li class="cpf"><h:outputText value="CPF: "/><h:outputText value="#{loginBean.usuarioLogado.cpf}" ><f:converter converterId="CPFConverter" /></h:outputText></li>                                    
+                    <li class="usuario"><h:outputText value="Perfil: "/><h:outputText value="#{loginBean.perfil.nome}" /></li>
+                    <li class="sair"><p:commandButton oncomplete="PF('dialogListaPerfil').show()"  value="Trocar" title="Trocar de Perfil" update=":usuario_form"  /></li>
+                    
+                    <li class="sair"><h:commandLink value="Sair" action="#{loginBean.logout()}" /></li>
+                </ul>                
+            </p:panel>
+            
+        </h:form>
+    </ui:composition>
+</html>

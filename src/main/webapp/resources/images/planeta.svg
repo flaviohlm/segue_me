@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="120.65mm" version="1.1" style="clip-rule:evenodd" viewBox="0 0 5003 5003">
+  <!-- Created by: Treedbox, treedbox.com.br -->
+  <defs>
+    <style type="text/css">
+     <![CDATA[
+     .fil0 {fill:none}
+     .fil1 {fill:black}
+     #g2 {animation: girar 10s infinite linear; transform-origin:center;
+     position: relative;
+     z-index:2;}
+
+     #zoom{animation: zoom 5s infinite ease-in-out alternate; transform-origin:center;
+     position: relative;
+     z-index:1;}
+     @keyframes girar {
+     0%{
+     -webkit-transform: rotate(-50deg);
+     }
+     100%{
+     -webkit-transform: rotate(310deg);
+     }
+     }
+     @keyframes zoom {
+     0%{
+     transform: scale(.6);
+     }
+     100%{
+     transform: scale(1);
+     }
+     }
+     ]]>
+   </style>
+ </defs>
+ <g id="geo">
+  <g id="g1">
+   <rect class="fil0" transform="matrix(2.65343E-014 -1 1 2.65343E-014 0.00312528 5003.38)" width="5003" height="5003"/>
+   <circle class="fil1" cx="2502" cy="2502" r="1227"/>
+ </g>
+ <g id="zoom">
+  <g id="g2">
+   <rect class="fil0" transform="matrix(2.65343E-014 -1 1 2.65343E-014 0.000192894 5003.38)" width="5003" height="5003"/>
+   <circle class="fil1" transform="matrix(0.120284 0.120284 -0.120284 0.120284 3845.1 1158.29)" r="2502"/>
+ </g>
+</g>
+</g>
+</svg>

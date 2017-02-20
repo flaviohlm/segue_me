@@ -9,8 +9,8 @@
 
     <ui:composition template="/templates/index.xhtml">
         <!--Substituir o Título padrão da Página-->
-        <ui:define name="tituloDaPagina">
-            Cadastro de Seguidores/Tios
+        <ui:define name="tituloPagina">
+            Cadastrar Seguidores/Tios
         </ui:define>
         
         <!--Conteúdo da página-->
@@ -19,36 +19,40 @@
                 <p:messages id="messages"  autoUpdate="true" closable="true" />
                 
                 <p:panel id="panel_1">
-                   <p:panelGrid layout="grid" columns="1" >
-                        <p:outputLabel value="Tipo*:" />
-                        <p:selectBooleanButton value="#{seguidorController.seguidor.tio}" onLabel="Tio(a)" offLabel="Seguidor(a)"  />
-                                                
-                        <p:outputLabel value="Nome*:" />
-                        <p:inputText size="25" value="#{seguidorController.seguidor.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
-                                                
-                        <p:outputLabel value="Crachá:" />
-                        <p:inputText  size="25" value="#{seguidorController.seguidor.participante.apelido}" />
+                   <p:panelGrid layout="grid" columns="2" >
+                        <p:outputLabel value="Tipo*:" >
+                            <p:selectBooleanButton value="#{seguidorController.seguidor.tio}" onLabel="Tio(a)" offLabel="Seguidor(a)"  />
+                        </p:outputLabel>
+                   </p:panelGrid>
+                    <p:panelGrid layout="grid" columns="2" >
+                        <p:outputLabel value="Nome*:">
+                            <p:inputText size="25" value="#{seguidorController.seguidor.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
+                        </p:outputLabel>
                         
-                        <p:outputLabel value="E-mail:" />
-                        <p:inputText  size="25" value="#{seguidorController.seguidor.participante.email}" />
+                        <p:outputLabel value="Sexo*:" >
+                            <p:selectOneRadio id="console" value="#{seguidorController.seguidor.participante.sexo}">
+                                <f:selectItem itemLabel="Feminino" itemValue="F" />
+                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                            </p:selectOneRadio>
+                        </p:outputLabel>
                         
-                        <p:outputLabel value="Sexo*:" />
-                        <p:selectOneRadio id="console" value="#{seguidorController.seguidor.participante.sexo}">
-                            <f:selectItem itemLabel="Feminino" itemValue="F" />
-                            <f:selectItem itemLabel="Masculino" itemValue="M" />
-                        </p:selectOneRadio>
-
+                        <p:outputLabel value="Crachá:">
+                            <p:inputText  size="25" value="#{seguidorController.seguidor.participante.apelido}" />
+                        </p:outputLabel>
+                        
                         <p:outputLabel value="Data de Nascimento*:">
                             <p:calendar locale="pt" showButtonPanel="true" value="#{seguidorController.seguidor.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1" required="true" requiredMessage="Campo 'Data de Nascimento' é obrigatório." >
                                 <h:outputScript name="primefaces-locales.js" library="js" />
                             </p:calendar>
                         </p:outputLabel>
-                                                
-                        <p:outputLabel value="Endereço:" />
-                        <p:inputText  size="25" value="#{seguidorController.seguidor.participante.endereco}" />
                         
-                        <p:outputLabel value="Bairro:" />
-                        <p:inputText  size="25" value="#{seguidorController.seguidor.participante.bairro}" />
+                        <p:outputLabel value="Endereço:" >
+                            <p:inputText  size="25" value="#{seguidorController.seguidor.participante.endereco}" /> 
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Bairro:" >
+                            <p:inputText  size="25" value="#{seguidorController.seguidor.participante.bairro}" />
+                        </p:outputLabel>
                         
                         <p:outputLabel value="Telefone Celular:" >
                             <p:inputMask mask="(99) 99999-9999" value="#{seguidorController.seguidor.participante.telefoneCelular}" />
@@ -56,22 +60,22 @@
                         
                         <p:outputLabel value="Telefone Residencial:" >
                             <p:inputMask mask="(99) 9999-9999" value="#{seguidorController.seguidor.participante.telefoneResidencial}"/>
+                        </p:outputLabel>                        
+                        
+                        <p:outputLabel value="E-mail:" >
+                            <p:inputText  size="25" value="#{seguidorController.seguidor.participante.email}" />
                         </p:outputLabel>
                         
-                        <p:outputLabel value="Nome do Pai:" />
-                        <p:inputText  size="25" value="#{seguidorController.seguidor.participante.nomePai}" />
-                        
-                        <p:outputLabel value="Nome da Mãe:" />
-                        <p:inputText  size="25" value="#{seguidorController.seguidor.participante.nomeMae}" />
-                        
-                        <p:outputLabel value="CPF:" />
-                        <p:inputMask mask="99999999999" value="#{seguidorController.seguidor.participante.cpf}"/>                        
-                        
-                        <p:outputLabel value="Habilidades:" />
-                        <p:selectManyCheckbox id="habilidades" value="#{seguidorController.seguidor.participante.habilidadeList}" layout="responsive" columns="3" converter="#{habilidadeConverter}" >
-                            <f:selectItems value="#{seguidorController.listaHabilidades}" var="habilidade" itemLabel="#{habilidade.descricao}" itemValue="#{habilidade}" />
-                        </p:selectManyCheckbox> 
-                        
+                        <p:outputLabel value="CPF:" >
+                            <p:inputMask mask="99999999999" value="#{seguidorController.seguidor.participante.cpf}"/> 
+                        </p:outputLabel>
+                    </p:panelGrid>
+                    <p:panelGrid layout="grid" columns="1" >
+                        <p:outputLabel value="Habilidades:" >
+                            <p:selectManyCheckbox id="habilidades" value="#{seguidorController.seguidor.participante.habilidadeList}" layout="responsive" columns="3" converter="#{habilidadeConverter}" >
+                                <f:selectItems value="#{seguidorController.listaHabilidades}" var="habilidade" itemLabel="#{habilidade.descricao}" itemValue="#{habilidade}" />
+                            </p:selectManyCheckbox> 
+                        </p:outputLabel>
                     </p:panelGrid>                      
                     <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{seguidorController.salvar()}" update=":frmCadApontamento"/>
                 </p:panel>

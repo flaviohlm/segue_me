@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120.65mm" height="120.65mm" style="fill-rule:evenodd"
+     viewBox="0 0 3477 3477">
+    <!--by TreedBox.com.br-->
+    <defs>
+        <style type="text/css">
+            <![CDATA[
+    .fil0 {fill:none}
+    .fil1 {fill:#003399}
+    .fil3 {fill:#006633}
+    .fil2 {fill:#FFCC00}
+    .fil4 {fill:white}
+   ]]>
+        </style>
+    </defs>
+    <g id="geo">
+        <rect class="fil0" transform="matrix(2.64845E-014 1 1 -2.64845E-014 0.00301558 0.000134032)" width="3477"
+              height="3477"/>
+        <g id="_1089590103520">
+            <path class="fil1"
+                  d="M1413 1154l253 0 0 291 -253 0 0 -291zm0 882l253 0 0 -292 -253 0 0 292zm567 -568l0 253 -292 0 0 -253 292 0zm-882 0l0 253 292 0 0 -253 -292 0z"/>
+            <path class="fil2" d="M2052 839l253 0 0 292 -253 0 0 -292zm0 882l253 0 0 -292 -253 0 0 292z"/>
+            <path class="fil2" d="M2619 1153l0 253 -292 0 0 -253 292 0zm-882 0l0 253 292 0 0 -253 -292 0z"/>
+            <path class="fil3" d="M2697 1154l253 0 0 291 -253 0 0 -291zm0 882l253 0 0 -292 -253 0 0 292z"/>
+            <path class="fil3" d="M3265 1468l0 253 -292 0 0 -253 292 0zm-882 0l0 253 292 0 0 -253 -292 0z"/>
+            <path class="fil4"
+                  d="M36 1018c1812,1808 3393,1896 3359,131 326,901 -389,1569 -1078,1481 -829,-99 -1618,-811 -2317,-1646l36 34z"/>
+        </g>
+    </g>
+</svg>

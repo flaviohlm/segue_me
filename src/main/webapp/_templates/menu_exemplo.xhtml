@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+      
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Início" action="/login/principal.xhtml?faces-redirect=true" />
+                    
+                    <p:submenu label="Cadastro" rendered="#{sec:ifAnyGranted('ADMIN')}" >
+                         <p:menuitem value="Componente" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/componenteEdit.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+
+                        <p:menuitem value="Tipo de Penalidade" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/tipoDePenalidadeView.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Unidade" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/unidadeView.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Condômino" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/condominoView.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Cargo/Escolaridade" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/cargoEscolaridadeView.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Função" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/funcaoView.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Jornada" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/jornadaView.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Usuário" 
+                                  rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                  action="/usuario/usuarioEdit.xhtml?faces-redirect=true">
+                        </p:menuitem>
+                    </p:submenu>                
+
+                    <p:submenu label="Apontamento/Penalidade" rendered="#{sec:ifAnyGranted('ADMIN')}" >
+                        <p:menuitem value="Cadastrar" 
+                                     rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                     action="/auxiliares/apontamentoPenalidadeEdit.xhtml?faces-redirect=true"/> 
+                        
+                        <p:menuitem value="Gerenciar" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/apontamentoPenalidadeManage.xhtml?faces-redirect=true"/>
+                    </p:submenu>
+
+                    <p:submenu label="Pesquisa de Satisfação" rendered="#{sec:ifAnyGranted('ADMIN')}" >
+                        <p:menuitem value="Cadastrar Pesquisa de Satisfação" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/pesquisaSatisfacaoEdit.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                    </p:submenu>
+                    
+                    <p:submenu label="Lançamento de Falta" rendered="#{sec:ifAnyGranted('ADMIN')}" >
+                        <p:menuitem value="Lançar Falta" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/auxiliares/lancamentoFaltaEdit.xhtml?faces-redirect=true"> 
+                        </p:menuitem>
+                    </p:submenu>
+                    
+                    <p:submenu label="Relatório" rendered="#{sec:ifAnyGranted('ADMIN')}" >
+                        <p:menuitem value="Auxílio Financeiro" 
+                                    rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                    action="/relatorio/relatorioAfin.xhtml?faces-redirect=true">
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Relatório de Apontamento" 
+                                  rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                  action="/relatorio/relatorioApontamento.xhtml?faces-redirect=true">
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Relatório de Penalidade" 
+                                  rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                  action="/relatorio/relatorioPenalidade.xhtml?faces-redirect=true">
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Relatório de Penalidade Individual" 
+                                  rendered="#{sec:ifAnyGranted('ADMIN')}"
+                                  action="/relatorio/relatorioPenalidadeIndividual?faces-redirect=true">
+                        </p:menuitem>
+                    </p:submenu>    
+
+                    <p:menuitem value="Sair" action="#{loginBean.logout}" />
+                    
+                </p:menubar>
+            </h:form>        
+    </ui:composition>
+</html>

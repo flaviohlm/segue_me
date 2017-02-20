@@ -1,0 +1,134 @@
+/*animações*/
+.ani-pregar {
+    animation: pregar .2s 1 linear;
+}
+
+@keyframes tempo {
+    0% {
+        pointer-events: none;
+    }
+    99% {
+        pointer-events: none;
+    }
+    100% {
+        pointer-events: auto;
+    }
+}
+
+@keyframes aparecer {
+    0% {
+        margin-bottom: -100px;
+    }
+    100% {
+        margin-bottom: 0px;
+    }
+}
+
+@keyframes pregar {
+    0% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes girarr {
+    0% {
+    }
+    50% {
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes girarl {
+    0% {
+    }
+    50% {
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes balancar {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(30deg);
+    }
+    75% {
+        transform: rotate(-30deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes mostrar_nota {
+    0% {
+        bottom: -100px;
+        right: 0;
+    }
+    5% {
+        bottom: 0px;
+        right: 0;
+    }
+    95% {
+        bottom: 0px;
+        right: 0;
+    }
+    100% {
+        bottom: -100px;
+        right: 0;
+    }
+}
+
+@keyframes slide {
+    from {
+        margin-top: 100px;
+    }
+    to {
+        margin-top: 50px;
+    }
+}
+
+@keyframes mudar {
+    0% {
+        background-image: url("#{resource['images/carregar3.svg']}");
+    }
+    20% {
+        background-image: url("#{resource['images/carregar3.svg']}");
+    }
+    21% {
+        background-image: url("#{resource['images/carregar2.svg']}");
+
+    }
+    40% {
+        background-image: url("#{resource['images/carregar2.svg']}");
+
+    }
+    41% {
+        background-image: url("#{resource['images/carregar.svg']}");
+
+    }
+    60% {
+        background-image: url("#{resource['images/carregar.svg']}");
+
+    }
+    61% {
+        background-image: url("#{resource['images/planeta.svg']}");
+
+    }
+    99% {
+        background-image: url("#{resource['images/planeta.svg']}");
+
+    }
+    100% {
+        background-image: url("#{resource['images/carregar3.svg']}");
+
+    }
+}

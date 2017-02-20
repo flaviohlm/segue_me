@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="603.25mm" version="1.1" sstyle="fill-rule:evenodd"
+viewBox="0 0 9956 49779">
+<!--by TreedBox.com.br-->
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:black}
+    .fil2 {fill:#CCCBCB}
+    .fil1 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="geo">
+  <polygon class="fil0" points="0,0 9956,0 9956,49779 0,49779 "/>
+  <polygon class="fil1" points="6984,2373 6280,1669 2971,4978 6280,8287 6984,7582 4380,4978 "/>
+  <polygon class="fil2" points="6984,22285 6280,21581 2971,24889 6280,28198 6984,27494 4380,24889 "/>
+  <polygon class="fil3" points="6984,42196 6280,41492 2971,44801 6280,48110 6984,47405 4380,44801 "/>
+ </g>
+</svg>

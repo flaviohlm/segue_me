@@ -1,0 +1,210 @@
+/*
+colors
+#5D4037 marrom
+#795548 marrom-claro
+*/
+.sap-pagina {
+
+}
+
+.sap-pagina .ui-button.ui-state-default {
+    background-color: #5D4037;
+    background: #5D4037;
+}
+
+.sap-pagina::-webkit-scrollbar-thumb,
+.sap-pagina .perfil .avatar,
+.sap-pagina .acesso,
+.sap-pagina .ui-button.ui-state-default,
+.sap-pagina a.botao {
+    background-color: #5D4037 !important;
+}
+
+.sap-pagina .acesso:hover {
+    background-color: rgba(255, 255, 255, .9) !important;
+}
+
+
+.sap-pagina main .acesso {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+.sap-pagina main .acesso:hover {
+    background-color: transparent !important;
+}
+
+.sap-pagina .ui-button.ui-state-hover,
+.sap-pagina a.botao:hover {
+    background-color: #795548;
+}
+
+.sap-pagina footer {
+    background-color: #5D4037;
+}
+
+.sap-pagina header h1,
+.sap-pagina header h2,
+.sap-pagina footer a {
+    color: #5D4037;
+}
+
+.sap-pagina footer a:hover {
+    background-color: #795548;
+    color: #fff;
+}
+
+.sap-pagina .resumo .ui-panelgrid-header,
+.sap-pagina .resumo .ui-accordion-header.ui-state-active,
+.sap-pagina .ui-accordion .ui-accordion-header.ui-state-active {
+    background-color: #5D4037;
+}
+
+.sap-pagina .resumo .ui-accordion-content,
+.sap-pagina .ui-accordion .ui-accordion-content {
+    background-color: #fff;
+    color: #313131;
+}
+
+.sap-pagina .ui-accordion .ui-accordion-content {
+    padding: 0 !important;
+}
+
+.sap-pagina .ui-datatable .ui-datatable-header {
+    background: #795548;
+}
+
+.sap-pagina .ui-datatable .ui-paginator {
+    background: #5D4037;
+    border: 0;
+}
+
+.sap-pagina .ui-paginator .ui-paginator-page.ui-state-active {
+    color: #5D4037;
+}
+
+.sap-pagina .ui-selectonemenu-panel .ui-selectonemenu-list-item.ui-state-highlight {
+    background: #5D4037;
+}
+
+.sap-pagina .ui-datatable .ui-row-editor .ui-icon-pencil.ui-icon,
+.sap-pagina .ui-datatable .ui-row-editor .ui-icon-check.ui-icon,
+.sap-pagina .ui-datatable .ui-row-editor .ui-icon-close.ui-icon {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-breadcrumb ul li a.ui-icon-home {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-datepicker .ui-datepicker-header {
+    background: #5D4037;
+}
+
+.sap-pagina .ui-datepicker select.ui-datepicker-month,
+.sap-pagina .ui-datepicker select.ui-datepicker-year {
+    background: #5D4037;
+}
+
+.sap-pagina .ui-datepicker .ui-datepicker-next {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-tree .ui-tree-toggler {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-fieldset-toggleable .ui-fieldset-legend.ui-state-hover {
+    background: #5D4037;
+}
+
+.sap-pagina .ui-fieldset-toggleable .ui-fieldset-legend {
+    background: #5D4037;
+}
+
+.sap-pagina .ui-dialog .ui-dialog-titlebar-close {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-datatable .ui-datatable-header input,
+.sap-pagina .ui-datatable .ui-datatable-header .ui-inputfield.ui-state-default {
+    background-color: #fff;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+.sap-pagina .ui-datatable .ui-datatable-header input:hover,
+.sap-pagina .ui-datatable .ui-datatable-header .ui-inputfield.ui-state-hover {
+    background-color: #fdff97 !important;
+}
+.sap-pagina .ui-datatable .ui-row-toggler{
+    background-color: #5D4037;
+}
+.sap-pagina .ui-datatable .ui-row-toggler:hover,
+.sap-pagina .ui-datatable .ui-row-toggler:active{
+    background-color: #795548;
+}
+/*calendário, calendar*/
+.sap-pagina .ui-datepicker .ui-datepicker-next {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-datepicker .ui-datepicker-buttonpane button {
+    background-color: #5D4037;
+}
+
+.sap-pagina .ui-selectonemenu-panel .ui-selectonemenu-list-item:active {
+    background: #5D4037;
+}
+/*datalist*/
+.sap-pagina .ui-datalist .ui-datalist-header {
+    background: #5D4037;
+}
+.sap-pagina .ui-datagrid .ui-datagrid-header{
+    background: #5D4037;
+}
+/*SAEDE nota avaliação*/
+.sap-pagina .nota-avaliacao {
+    font-size: 35px;
+    text-align: center;
+    padding: 5px;
+    line-height: 50px;
+    width: 60px;
+    display: block;
+    vertical-align: middle;
+    border-radius: 100%;
+}
+/*botão selecionado*/
+.sap-pagina .ui-button.ui-state-default.selecionado{
+    background-color: #795548 !important;
+}
+
+/*barra de rolagem*/
+.sap-pagina ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.sap-pagina ::-webkit-scrollbar-track {
+}
+
+.sap-pagina ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #5D4037;
+}
+
+
+
+/*limite mobile do primefaces*/
+@media (max-width: 640px) {
+}
+
+@media (min-width: 640px) {
+
+}

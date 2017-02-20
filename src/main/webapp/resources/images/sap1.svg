@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="120.65mm" version="1.1"
+  style="fill-rule:evenodd"
+viewBox="0 0 2735 2735"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil1 {fill:#5D4037}
+   ]]>
+  </style>
+ </defs>
+ <g>
+  <rect class="fil0" transform="matrix(2.64845E-014 1 1 -2.64845E-014 0.000105441 0.000105441)" width="2735" height="2735"/>
+  <path class="fil1" d="M2564 2081c0,272 -1063,272 -1063,0l113 0 386 -1037 -546 0 -76 1418 -21 0 -75 -1418 -546 0 385 1037 112 0c0,272 -1062,272 -1062,0l113 0 395 -1064c41,-93 284,-166 592,-178l-30 -566 254 0 -30 566c307,12 550,85 591,178l396 1064 112 0 0 0zm-1839 -940l0 940 349 0 -349 -940zm-395 940l349 0 0 -940 -349 940zm1331 0l349 0 0 -940 -349 940zm395 -940l0 940 350 0 -350 -940z"/>
+ </g>
+</svg>

@@ -1,49 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/templates/index.xhtml">
-        <!--Substituir o Título padrão do Sistema-->
-        <ui:define name="tituloDaPagina">
-            Login
-        </ui:define>
-        <ui:define name="func">
-            <f:metadata>
-                <f:event type="preRenderView" listener="#{loginBean.checkAuthentication()}" />
-            </f:metadata>
-        </ui:define>
-        <ui:define name="perfil">
-        </ui:define>
-        <ui:define name="cabecalho">
-        </ui:define>
-        <!--Conteúdo da página-->
-        <ui:define name="conteudo">            
-            <p:panel id="welcome">
-                <a class="logo-grande unicet1" href="#" title="Secad em Dados"/>
+<ui:composition template="/templates/index.xhtml">
+    <!--Substituir o Título padrão da Página-->
+    <ui:define name="titulo">
+        Login
+    </ui:define>
+    <ui:define name="cabecalho">
+    </ui:define>
+    <ui:define name="menus">
+    </ui:define>
+    <ui:define name="perfil">
+    </ui:define>
+    <ui:define name="blocos">
+    </ui:define>
+    <ui:define name="breadCrumb">
+    </ui:define>
+    <ui:define name="conteudo">
+        <h:form prependId="false" id="form1" class="login">
+            <p:growl id="login_messages"/>
+            <p:panel id="login">
+                <a class="logo-grande sap1" href="#{facesContext.externalContext.requestContextPath}"
+                   title="Segue-me - Sistema de Gerenciamento de Encontros"
+                   onclick="location.reload(true)"/>
                 <h1 class="centralizar">Segue-me</h1>
-                <p:separator/>
-                <!-- LOGIN -->
-                <h:form prependId="false" class="formulario">                    
-                    <p:messages showSummary="true" />
-                    <p:panelGrid layout="grid" columns="1">
-                        <p:outputLabel value="CPF" for="username" />
-                        <p:inputMask id="username" mask="999.999.999-99" value="#{loginBean.participante.cpf}" size="22" maxlength="15" required="true" requiredMessage="Informe o Login." />
-                        <p:outputLabel value="Senha" for="password" />
-                        <h:inputSecret id="password" value="#{loginBean.participante.password}" size="22" maxlength="30" required="true" requiredMessage="Informe a Senha."/>
-                    </p:panelGrid>
-                    <p:commandButton value="Entrar" action="#{loginBean.login}" ajax="false" class="dir icone2 chave"/>
-
-                </h:form>
+                <p:panelGrid columns="1" layout="grid">
+                    <p:outputLabel value="CPF:" for="userCpf">
+                        <p:inputText class="texto" id="userCpf" placeholder="999.999.999-99"
+                                     value="#{loginBean.participante.cpf}"
+                                     maxlength="14" required="true" requiredMessage="Digite o CPF"/>
+                    </p:outputLabel>
+                    <p:outputLabel value="Senha:" for="password">
+                        <h:inputSecret class="texto" id="password" required="true" value="#{loginBean.participante.password}"
+                                       requiredMessage="Digite a Senha"/>
+                    </p:outputLabel>
+                    <p:commandButton id="entrar" update="form1" value="Entrar" action="#{loginBean.login}"
+                                     class="chave"/>
+                    <!--<p:link href="/acesso/primeiro" value="Primeiro acesso?"-->
+                    <!--title="Faça o seu primeiro acesso no Portal do Servidor."/>-->
+                    <!--<p:link href="/acesso/senha" value="Esqueceu a Senha?" title="Recupere seu acesso."/>-->
+                </p:panelGrid>
             </p:panel>
-        </ui:define>
-        <ui:define name="blocos">
-        </ui:define>
-        <ui:define name="recursos">
-        </ui:define>
-    </ui:composition>
+            <p:blockUI block="login" trigger="entrar"/>
+        </h:form>
+        <h:outputScript>
+            //remover caracteres não numéricos
+            function removeNotNum(e) {
+            var el = e.target;
+            var regExp = /\D/g;
+
+            if (el.value.match(regExp)) {
+            el.value = el.value.replace(regExp, '');
+            }
+            if (el.value.length > 11) {
+            var limite = el.value.slice(0, 11);
+            el.value = limite;
+            console.log('limite:', limite);
+            }
+            }
+
+            //quando focar o CPF
+            $("#userCpf").on('focus', removeNotNum);
+            //quando digitar o CPF
+            $("#userCpf").on('input', removeNotNum);
+
+            //formatar CPF
+            function formatCPF(e) {
+            var el = e.target;
+            if (el.value.length == 11) {
+            var arr = el.value.match(/.{1,3}/g);
+            el.value = arr[0] + '.' + arr[1] + '.' + arr[2] + '-' + arr[3];
+            }
+            }
+
+            //quando desfocar o CPF
+            $("#userCpf").on('focusout', formatCPF);
+
+        </h:outputScript>
+    </ui:define>
+    <ui:define name="recursos">
+    </ui:define>
+</ui:composition>
 </html>

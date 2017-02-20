@@ -1,0 +1,390 @@
+/*icones*/
+.fechar,
+.cancelar,
+.excluir {
+    background-image: url("#{resource['images/excluir.svg']}") !important;
+}
+
+.vinculo {
+    background-image: url("#{resource['images/vinculo.svg']}") !important;
+}
+
+.grupo {
+    background-image: url("#{resource['images/grupo.svg']}") !important;
+}
+
+.grupo2 {
+    background-image: url("#{resource['images/grupo2.svg']}") !important;
+}
+
+.trocar {
+    background-image: url("#{resource['images/trocar.svg']}") !important;
+}
+
+.transferir {
+    background-image: url("#{resource['images/transferir.svg']}") !important;
+}
+
+.imprimir {
+    background-image: url("#{resource['images/imprimir.svg']}") !important;
+}
+
+.usuario {
+    background-image: url("#{resource['images/usuario.svg']}") !important;
+}
+
+.menu {
+    background-image: url("#{resource['images/menu.svg']}") !important;
+}
+
+.mala {
+    background-image: url("#{resource['images/mala.svg']}") !important;
+}
+
+.educacao {
+    background-image: url("#{resource['images/educacao.svg']}") !important;
+}
+
+.formulario {
+    background-image: url("#{resource['images/formulario.svg']}") !important;
+}
+
+.tabular {
+    background-image: url("#{resource['images/tabular.svg']}") !important;
+}
+
+.mais,
+.adicionar {
+    background-image: url("#{resource['images/adicionar.svg']}") !important;
+}
+
+.visualizar {
+    background-image: url("#{resource['images/olho.svg']}") !important;
+}
+
+.pesquisar {
+    background-image: url("#{resource['images/pesquisar.svg']}") !important;
+}
+
+.salvar {
+    background-image: url("#{resource['images/salvar.svg']}") !important;
+}
+
+.limpar {
+    background-image: url("#{resource['images/limpar.svg']}") !important;
+}
+
+.medalha {
+    background-image: url("#{resource['images/medalha.svg']}") !important;
+}
+
+.trofeu {
+    background-image: url("#{resource['images/trofeu.svg']}") !important;
+}
+
+.doc {
+    background-image: url("#{resource['images/doc.svg']}") !important;
+}
+
+.to-gov1 {
+    background-image: url("#{resource['images/to-gov1.svg']}") !important;
+}
+
+.to-gov-br {
+    background-image: url("#{resource['images/to-gov.svg']}") !important;
+}
+
+.tocantins-gov {
+    background-image: url("#{resource['images/tocantins-gov.svg']}") !important;
+}
+
+.pagina {
+    background-image: url("#{resource['images/pagina.svg']}") !important;
+}
+
+.ponto {
+    background-image: url("#{resource['images/ponto.svg']}") !important;
+}
+
+.pontos {
+    background-image: url("#{resource['images/pontos.svg']}") !important;
+}
+
+/*avaliação*/
+.otimo {
+    background-image: url("#{resource['images/otimo.svg']}") !important;
+}
+
+.bom {
+    background-image: url("#{resource['images/bom.svg']}") !important;
+}
+
+.regular {
+    background-image: url("#{resource['images/regular.svg']}") !important;
+}
+
+.ruim {
+    background-image: url("#{resource['images/ruim.svg']}") !important;
+}
+
+.predio {
+    background-image: url("#{resource['images/predio.svg']}") !important;
+}
+
+.casa {
+    background-image: url("#{resource['images/casa.svg']}") !important;
+}
+
+.clips {
+    background-image: url("#{resource['images/clips.svg']}") !important;
+}
+
+.pc {
+    background-image: url("#{resource['images/pc.svg']}") !important;
+}
+
+.agenda {
+    background-image: url("#{resource['images/agenda.svg']}") !important;
+}
+
+.raio {
+    background-image: url("#{resource['images/raio.svg']}") !important;
+}
+
+.boia {
+    background-image: url("#{resource['images/boia.svg']}") !important;
+}
+
+.sino {
+    background-image: url("#{resource['images/sino.svg']}") !important;
+}
+
+.pessoa9 {
+    background-image: url("#{resource['images/pessoa9.svg']}") !important;
+}
+
+.capelo {
+    background-image: url("#{resource['images/capelo.svg']}") !important;
+}
+
+.user-doc {
+    background-image: url("#{resource['images/user-doc.svg']}") !important;
+}
+
+.relogio {
+    background-image: url("#{resource['images/relogio.svg']}") !important;
+}
+
+.cadeado {
+    background-image: url("#{resource['images/cadeado.svg']}") !important;
+}
+
+.chave {
+    background-image: url("#{resource['images/chave2.svg']}") !important;
+}
+
+.pessoa {
+    background-image: url("#{resource['images/pessoa.svg']}") !important;
+}
+
+.apontar {
+    background-image: url("#{resource['images/apontar.svg']}") !important;
+}
+
+.visto {
+    background-image: url("#{resource['images/visto.svg']}") !important;
+}
+
+.visto2 {
+    background-image: url("#{resource['images/visto2.svg']}") !important;
+}
+
+.editar {
+    background-image: url("#{resource['images/editar.svg']}") !important;
+}
+
+.moeda {
+    background-image: url("#{resource['images/moeda.svg']}") !important;
+}
+
+.dinheiro {
+    background-image: url("#{resource['images/dinheiro.svg']}") !important;
+}
+
+.dir2 {
+    background-image: url("#{resource['images/dir2.svg']}") !important;
+}
+
+.bandeira {
+    background-image: url("#{resource['images/bandeira.svg']}") !important;
+}
+
+.finalizar {
+    background-image: url("#{resource['images/finalizar.svg']}") !important;
+}
+
+.grafico {
+    background-image: url("#{resource['images/grafico.svg']}") !important;
+}
+
+.pizza {
+    background-image: url("#{resource['images/pizza.svg']}") !important;
+}
+
+.grafico2 {
+    background-image: url("#{resource['images/painel2.svg']}") !important;
+}
+
+.atencao {
+    background-image: url("#{resource['images/atencao.svg']}") !important;
+}
+
+.comentario {
+    background-image: url("#{resource['images/comentario.svg']}") !important;
+}
+
+.configuracao {
+    background-image: url("#{resource['images/configuracao.svg']}") !important;
+}
+
+.ferramentas {
+    background-image: url("#{resource['images/ferramentas.svg']}") !important;
+}
+
+.lixeira {
+    background-image: url("#{resource['images/lixeira.svg']}") !important;
+}
+
+.like {
+    background-image: url("#{resource['images/like.svg']}") !important;
+}
+
+.dislike {
+    background-image: url("#{resource['images/dislike.svg']}") !important;
+}
+
+.upload {
+    background-image: url("#{resource['images/upload.svg']}") !important;
+}
+
+.download {
+    background-image: url("#{resource['images/download.svg']}") !important;
+}
+
+.importar {
+    background-image: url("#{resource['images/avancar-inf.svg']}") !important;
+}
+
+.lista {
+    background-image: url("#{resource['images/lista.svg']}") !important;
+}
+
+.abrir {
+    background-image: url("#{resource['images/abrir.svg']}") !important;
+}
+
+.entrar {
+    background-image: url("#{resource['images/entrar.svg']}") !important;
+}
+
+.sair {
+    background-image: url("#{resource['images/sair.svg']}") !important;
+}
+
+.cafe {
+    background-image: url("#{resource['images/cafe2.svg']}") !important;
+}
+
+.filtro {
+    background-image: url("#{resource['images/filtro.svg']}") !important;
+}
+
+.atualizar {
+    background-image: url("#{resource['images/atualizar.svg']}") !important;
+}
+
+.diagonal-inferior-direita {
+    background-image: url("#{resource['images/diagonal-inferior-direita.svg']}") !important;
+}
+
+.diagonal-superior-esquerda {
+    background-image: url("#{resource['images/diagonal-superior-esquerda.svg']}") !important;
+}
+
+/*logos de sistemas*/
+.sap {
+    background-image: url("#{resource['images/sap.svg']}") !important;
+}
+.sap1 {
+    background-image: url("#{resource['images/sap1.svg']}") !important;
+}
+.sef {
+    background-image: url("#{resource['images/sef.svg']}") !important;
+}
+
+.sef1 {
+    background-image: url("#{resource['images/sef1.svg']}") !important;
+}
+
+.unicet {
+    background-image: url("#{resource['images/unicet.svg']}") !important;
+}
+
+.unicet1 {
+    background-image: url("#{resource['images/unicet1.svg']}") !important;
+}
+
+.saede {
+    background-image: url("#{resource['images/saede.svg']}") !important;
+}
+
+.saede1 {
+    background-image: url("#{resource['images/saede1.svg']}") !important;
+}
+
+.portal {
+    background-image: url("#{resource['images/portal-servidor.svg']}") !important;
+}
+
+.portal1 {
+    background-image: url("#{resource['images/portal-servidor1.svg']}") !important;
+}
+
+.plansaude1 {
+    background-image: url("#{resource['images/plansaude1.svg']}") !important;
+}
+
+.secad-dados1 {
+    background-image: url("#{resource['images/secad-dados1.svg']}") !important;
+}
+
+.email {
+    background-image: url("#{resource['images/email.svg']}") !important;
+}
+
+.cima {
+    background-image: url("#{resource['images/cima.svg']}") !important;
+}
+
+.baixo {
+    background-image: url("#{resource['images/baixo.svg']}") !important;
+}
+
+.esquerda {
+    background-image: url("#{resource['images/esquerda.svg']}") !important;
+}
+
+.direita {
+    background-image: url("#{resource['images/direita.svg']}") !important;
+}
+
+.ferias {
+    background-image: url("#{resource['images/ferias.svg']}") !important;
+}
+
+.pdf {
+    background-image: url("#{resource['images/pdf.svg']}") !important;
+}
+.pena {
+    background-image: url("#{resource['images/pena.svg']}") !important;
+}

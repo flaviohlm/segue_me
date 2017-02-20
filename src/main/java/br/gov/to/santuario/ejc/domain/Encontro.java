@@ -65,7 +65,7 @@ public class Encontro implements Serializable {
     private List<EncontroParoquia> encontroParoquiaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")
     private List<EncontroPalestra> encontroPalestraList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")        
     private List<EncontroEquipe> encontroEquipeList;
     @JoinColumn(name = "diretor_espiritual_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

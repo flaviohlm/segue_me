@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd" width="120.65mm" height="603.25mm"
+     viewBox="0 0 9956 49779">
+    <!--by TreedBox.com.br-->
+    <defs>
+        <style type="text/css">
+            <![CDATA[
+    .fil0 {fill:none}
+    .fil3 {fill:#000}
+    .fil2 {fill:#0098DA}
+    .fil1 {fill:#fff}
+   ]]>
+        </style>
+    </defs>
+    <g id="geo">
+        <rect class="fil0" width="9956" height="49779"/>
+        <polygon class="fil1"
+                 points="2897,6211 3917,7231 3931,4487 6433,6989 7161,6260 4659,3758 7404,3744 6384,2725 2915,2742 "/>
+        <polygon class="fil2"
+                 points="2897,26123 3917,27143 3931,24398 6433,26900 7161,26172 4659,23670 7404,23656 6384,22636 2915,22653 "/>
+        <polygon class="fil3"
+                 points="2897,46034 3917,47054 3931,44310 6433,46812 7161,46083 4659,43581 7404,43567 6384,42548 2915,42565 "/>
+    </g>
+</svg>
