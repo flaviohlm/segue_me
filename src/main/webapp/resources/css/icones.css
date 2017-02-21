@@ -2,7 +2,7 @@
 .fechar,
 .cancelar,
 .excluir {
-    background-image: url("#{resource['images/excluir.svg']}") !important;
+    background-image: url("#{resource['images/lixeira.svg']}") !important;
 }
 
 .vinculo {
@@ -387,4 +387,8 @@
 }
 .pena {
     background-image: url("#{resource['images/pena.svg']}") !important;
+}
+
+.dupla {
+    background-image: url("#{resource['images/dupla.svg']}") !important;
 }

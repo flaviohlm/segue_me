@@ -51,8 +51,8 @@
                             <h:outputText value="#{model.circulo.apostolo}" />                                  
                         </p:column>
 
-                        <p:column headerText="Visualizar" width="100">
-                            <p:commandButton oncomplete="PF('dialog_visualizar').show()" class="iconebt visualizar" value="" title="Visualizar dados do curso." update=":form_1" process="@this" >                                    
+                        <p:column headerText="" width="50">
+                            <p:commandButton oncomplete="PF('dialog_visualizar').show()" value="Visulizar" title="Visualizar dados do curso." update=":form_1" process="@this" styleClass="visualizar">                                    
                                 <p:ajax listener="#{encontroCirculoController.selecionarCirculo(model)}" update=":form_1:dialog_visualizar"/>
                             </p:commandButton>
                         </p:column>
@@ -100,7 +100,7 @@
                         </p:fieldset>                       
                     </p:scrollPanel>
                     
-                    <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{encontroCirculoController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogTrocar').hide()" />
+                    <p:commandButton update=":form_1" value="Salvar" actionListener="#{encontroCirculoController.selecionarIntegrante()}" oncomplete="PF('dialogTrocar').hide()" class="icone2 salvar" />
                     
                 </p:confirmDialog>
                 

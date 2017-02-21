@@ -36,7 +36,7 @@
                                 #{rowIndex+1}
                             </p:column>
                             
-                            <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.cor}" >
+                            <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{model.descricao}" /> 
@@ -47,9 +47,9 @@
                                 </p:cellEditor>
                             </p:column>                                                                                
 
-                            <p:column headerText="Excluir" width="80">
-                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
-                                    <f:setPropertyActionListener value="#{model}" target="#{paroquiaController.circulo}" />
+                            <p:column headerText="" width="50">
+                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" value="Excluir"  title="Excluir" update=":form_1"  styleClass="excluir">
+                                    <f:setPropertyActionListener value="#{model}" target="#{paroquiaController.paroquia}" />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>                    

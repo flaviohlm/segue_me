@@ -80,8 +80,8 @@
                                 </p:cellEditor>                                    
                             </p:column>
                             
-                            <p:column headerText="Excluir" width="80">
-                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
+                            <p:column headerText="" width="50">
+                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" value="Excluir"  title="Excluir" update=":form_1"  styleClass="excluir">
                                     <f:setPropertyActionListener value="#{model}" target="#{equipeController.equipe}" />
                                 </p:commandButton>
                             </p:column>

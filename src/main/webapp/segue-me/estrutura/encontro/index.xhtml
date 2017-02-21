@@ -50,25 +50,25 @@
                                 </h:outputText>                                 
                             </p:column> 
                             
-                            <p:column headerText="Opções" width="90" class="centralizar">                        
-                                <p:menuButton value="" >
-                                    <p:menuitem value="Editar" styleClass="icone2 editar"
+                            <p:column headerText="Opções" width="90" >                        
+                                <p:menuButton value="Opções">
+                                    <p:menuitem value="Editar" styleClass="editar"
                                                 action="#{encontroController.gotoEdit(model.id)}" 
                                                 title="Editar dados do encontro."/>
                                     
-                                    <p:menuitem value="Equipes" styleClass="icone2 grupo"
+                                    <p:menuitem value="Equipes" styleClass="grupo"
                                                 action="#{encontroController.gotoEquipes(model.id)}" 
                                                 title="Gerenciar os seguidores das equipes."/>
                                     
-                                    <p:menuitem value="Círculos" styleClass="icone2 pontos"
+                                    <p:menuitem value="Círculos" styleClass="pontos"
                                                 action="#{encontroController.gotoCirculos(model.id)}" 
                                                 title="Gerenciar os seguidores/seguimistas dos círculos."/>
                                     
-                                    <p:menuitem value="Palestras" styleClass="icone2 dupla"
+                                    <p:menuitem value="Palestras" styleClass="dupla"
                                                 action="#{encontroController.gotoPalestras(model.id)}" 
                                                 title="Gerenciar as palestras/palestrantes do encontro."/>
                                     
-                                    <p:menuitem value="Excluir" styleClass="icone2 excluir"
+                                    <p:menuitem value="Excluir" styleClass="excluir" 
                                                 oncomplete="PF('confirmarExcluir').show()" 
                                                 update=":form_1" title="Excluir curso.">
                                             <f:setPropertyActionListener value="#{model}" target="#{encontroController.encontro}" />

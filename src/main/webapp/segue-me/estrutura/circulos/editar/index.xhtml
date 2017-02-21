@@ -81,7 +81,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column selectionMode="multiple" style="width:60px;text-align:center"/>
+                        <p:column selectionMode="multiple" style="width:50px;text-align:center"/>
                         <p:column headerText="Nome do Seguimista" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
                             <h:outputText value="#{model.participante.nome}" />                                    
                         </p:column>
@@ -95,7 +95,7 @@
                         </p:column>
                     </p:dataTable>
 
-                    <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroCirculoController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogPessoas').hide()" />
+                    <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroCirculoController.selecionarIntegrante()}" class="icone2 salvar" oncomplete="PF('dialogPessoas').hide()" />
                 </p:confirmDialog>
                 
             </h:form>

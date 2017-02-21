@@ -46,28 +46,28 @@
                             <h:outputText value="#{model.seguidor.participante.nome}" />                                  
                         </p:column>
 
-                        <p:column headerText="Crachá" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >
+                        <p:column headerText="Crachá" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" width="180">
                             <h:outputText value="#{model.seguidor.participante.apelido}" />                                  
                         </p:column>
 
-                        <p:column headerText="Telefone" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >
+                        <p:column headerText="Telefone" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" width="140">
                             <h:outputText value="#{model.seguidor.participante.telefoneCelular}" />                                  
                         </p:column>
 
-                        <p:column headerText="Tipo" >
+                        <p:column headerText="Tipo" width="90">
                             <p:selectBooleanButton value="#{model.coordenador}" onLabel="Coordenador(a)" offLabel="Seguidor(a)" >
                                 <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
-                            </p:selectBooleanButton>
+                            </p:selectBooleanButton>                           
                         </p:column>
                         
-                        <p:column headerText="Convite Aceito" >                            
+                        <p:column headerText="Convite Aceito" width="90">                            
                             <p:selectBooleanButton value="#{model.conviteAceito}" onLabel="Sim" offLabel="Não" >
                                 <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
                             </p:selectBooleanButton>
                         </p:column>
                         
                         <p:column headerText="Opções" width="90" class="centralizar">                        
-                            <p:menuButton value="" >                                
+                            <p:menuButton value="Opções" >                                
                                 <p:menuitem value="Trocar de Equipe" styleClass="icone2 atualizar" oncomplete="PF('dialogTrocar').show()" update=":form_1" title="Trocar o Seguidor de Equipe." rendered="#{model.coordenador == false}">
                                     <f:setPropertyActionListener value="#{model}" target="#{encontroEquipeController.encontroEquipeIntegrante}"  />
                                 </p:menuitem>
@@ -95,7 +95,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
+                        <p:column selectionMode="multiple" style="width:50px;text-align:center"/>
                         <p:column headerText="Nome do Seguidor" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
                             <h:outputText value="#{model.participante.nome}" />                                    
                         </p:column>
@@ -109,41 +109,47 @@
                         </p:column>
                     </p:dataTable>
 
-                    <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.selecionarIntegrante()}" class="icone2" oncomplete="PF('dialogPessoas').hide()" />
+                    <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.selecionarIntegrante()}" class="icone2 salvar" oncomplete="PF('dialogPessoas').hide()" />
                 </p:confirmDialog>
                 
                 <p:confirmDialog id="trocar_equipe" message="Trocar Seguidor de Equipe" header="Trocar Equipe" width="800" widgetVar="dialogTrocar" >
                     
-                    <p:panelGrid layout="grid" columns="2" >
+                    <p:panelGrid layout="grid" columns="1" >
                     
-                        <p:outputLabel value="Nome*:" />
+                        <p:outputLabel value="Nome*:" >
                         <h:outputText value="#{encontroEquipeController.encontroEquipeIntegrante.seguidor.participante.nome}" /> 
+                        </p:outputLabel>
                         
-                        <p:outputLabel value="Equipes*:" />
+                        <p:outputLabel value="Equipe*:" >
                         <p:selectOneMenu  value="#{encontroEquipeController.encontroEquipeIntegrante.encontroEquipe}" converter="#{encontroEquipeConverter}" filter="true" filterMatchMode="contains" effect="fade" >
                             <f:selectItem itemLabel="- - -" itemValue="" />
                             <f:selectItems value="#{encontroEquipeController.encontroEquipe.encontro.encontroEquipeList}" itemLabel="#{encontroEquipe.equipe.descricao}" itemValue="#{encontroEquipe}" var="encontroEquipe" />
                         </p:selectOneMenu>
+                        </p:outputLabel>
 
-                        <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2" oncomplete="PF('dialogTrocar').hide()" />
+                        <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2 trocar" oncomplete="PF('dialogTrocar').hide()" />
                     </p:panelGrid>
                 </p:confirmDialog>
                 
                 <p:confirmDialog id="relatorio" message="Relatório individual do seguidor" header="Relatório Individual" width="800" widgetVar="dialogRelatorio" >
                     
-                    <p:panelGrid layout="grid" columns="2" >
+                    <p:panelGrid layout="grid" columns="1" >
                     
-                        <p:outputLabel value="Nome:" />
+                        <p:outputLabel value="Nome:" >
                         <h:outputText value="#{encontroEquipeController.encontroEquipeIntegrante.seguidor.participante.nome}" /> 
+                        </p:outputLabel>
                         
-                        <p:outputLabel value="Aptidão para Coordenação:" />
+                        <p:outputLabel value="Aptidão para Coordenação:" >
                         <p:selectBooleanButton value="#{encontroEquipeController.encontroEquipeIntegrante.aptidaoCoordenacao}" onLabel="Sim" offLabel="Não" />
+                        </p:outputLabel>
                         
-                        <p:outputLabel value="Desistiu do encontro:" />
+                        <p:outputLabel value="Desistiu do encontro:" >
                         <p:selectBooleanButton value="#{encontroEquipeController.encontroEquipeIntegrante.desistiu}" onLabel="Sim" offLabel="Não" />
+                        </p:outputLabel>
                         
-                        <p:outputLabel value="Observações:" />
+                        <p:outputLabel value="Observações:" >
                         <h:inputTextarea rows="4" value="#{encontroEquipeController.encontroEquipeIntegrante.observacoes}" />
+                        </p:outputLabel>
 
                         <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2" oncomplete="PF('dialogRelatorio').hide()" />
                     </p:panelGrid>

@@ -59,11 +59,12 @@
                                 </p:cellEditor>                                    
                             </p:column>                            
                             
-                            <p:column headerText="Excluir" width="70">
-                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" image="" class="iconebt excluir" value=""  title="Excluir" update=":form_1" >
+                            <p:column headerText="" width="50">
+                                <p:commandButton oncomplete="PF('confirmarExcluir').show()" value="Excluir"  title="Excluir" styleClass="excluir" update=":form_1">
                                     <f:setPropertyActionListener value="#{model}" target="#{circuloController.circulo}" />
                                 </p:commandButton>
                             </p:column>
+                            
                         </p:dataTable>                    
                 </p:panel>
                 <p:confirmDialog message="Tem certeza que deseja excluir este Registro? Essa operação não poderá ser desfeita. Confirma?" header="Excluir Registro" width="430" widgetVar="confirmarExcluir" >
