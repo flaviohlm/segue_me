@@ -150,20 +150,30 @@ public class SeguidorController implements Serializable {
     
     public void copiar(){
         //LEMBRAR DE COMENTAR O CASCADE EM SEGUIDOR PRA NAO DUPLICAR OS PARTICIPANTES
-        List<Participante> lista = participanteService.findAllParticipantes();
-        if(!lista.isEmpty() && lista.get(0).getId() == 1){
-            lista.remove(0);
+        List<Participante> lista = participanteService.findAllParticipantes2();
+        
+        Seguidor s;
+        List<Seguidor> listaS = new ArrayList<>();
+        for(Participante p : lista){
+            System.out.println(p.getNome());
         }
+
+        listaSeguidores = null;
+    }
+    
+    public void copiar2(){
+        //LEMBRAR DE COMENTAR O CASCADE EM SEGUIDOR PRA NAO DUPLICAR OS PARTICIPANTES
+        List<Participante> lista = participanteService.findAllParticipantes2();
+        
         Seguidor s;
         List<Seguidor> listaS = new ArrayList<>();
         for(Participante p : lista){
             s = new Seguidor();
-            s.setTio(false);
+            s.setTio(true);
             s.setParticipante(p);
-            //listaS.add(s);
             //seguidorService.saveSeguidor(s);
         }
-//        seguidorService.saveSeguidor(listaS);
+
         listaSeguidores = null;
     }
     

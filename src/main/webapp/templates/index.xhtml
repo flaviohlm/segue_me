@@ -10,26 +10,31 @@
         <ui:debug hotkey="x" />
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="description" content="Sistema de Acompanhamento Processual, Secad-TO, Governo do Tocantins"/>
-        <meta name="keywords" content="Acompanhamento, Processos, Processual, Secad, Administração, Tocantins, Governo do Tocantins"/>
+        <meta name="description" content="Secad em Dados, Secad-TO, Governo do Tocantins"/>
+        <meta name="keywords" content="Sistema, Dados, Gráficos, Tabelas, Secad, Administração, Tocantins, Governo do Tocantins"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0"/>
         <title>
-            <ui:insert name="tituloPagina"></ui:insert> - <ui:insert name="sistema">Segue-me</ui:insert>
+            <ui:insert name="tituloPagina"></ui:insert> - <ui:insert name="sistema">Siga Unicet</ui:insert>
         </title>
-        <link rel="icon" href="#{resource['images/sap1.svg']}"/>
-        <link rel="icon" href="#{resource['images/sap-300.png']}"/>
+        <link rel="icon" href="#{resource['images/unicet1.svg']}"/>
         <link rel="author" href="http://www.secad.to.gov.br/prog" title="Secad"/>
         <link rel="pingback" href="http://www.secad.to.gov.br/prog"/>
-        <link rel="search" href="http://www.secad.to.gov.br/prog/?s="/>        
+        <link rel="search" href="http://www.secad.to.gov.br/prog/?s="/>
+        <ui:insert name="googleChart">
+<!--            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type='text/javascript' src='https://www.google.com/jsapi'></script>-->
+        </ui:insert>
         <ui:insert name="script"></ui:insert>
         <f:facet name="last">
-            <h:outputStylesheet name="style.css" library="css"/>
-            <h:outputStylesheet name="icones.css" library="css"/>
-            <h:outputStylesheet name="ani.css" library="css"/>
-            <h:outputStylesheet name="sap.css" library="css"/>                      
+            <h:outputStylesheet name="unicet.min.css" library="css" />
+            <h:outputStylesheet name="style.min.css" library="css" />
+            <h:outputStylesheet name="bloco.min.css" library="css" />
         </f:facet>
+        <ui:insert name="analytics" >
+            <ui:include src="analytics.xhtml"/>
+        </ui:insert>
     </h:head>
-    <h:body class="sap-pagina">
+    <h:body class="unicet-pagina">
             <ui:insert name="cabecalho" >
                 <ui:include src="cabecalho.xhtml"/>
             </ui:insert>
@@ -45,6 +50,9 @@
             <ui:insert name="conteudo">
                 <ui:include src="conteudo.xhtml"/>
             </ui:insert>
+<!--            <ui:insert name="recursos">
+                <ui:include src="recursos.xhtml"/>
+            </ui:insert>-->
         </main>
             <ui:insert name="rodape">
                 <ui:include src="rodape.xhtml"/>

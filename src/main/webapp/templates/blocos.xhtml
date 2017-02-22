@@ -4,23 +4,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" >
 <ui:composition>
     <div class="acesso">
-        <p:scrollPanel mode="native">
-            <p:dataList emptyMessage="" var="menuM"
-                        value="#{menuBean.menuModulo(loginBean.menusAcesso, 1, 1)}">
-                <p:fieldset legend="#{menuM.descricao}" toggleable="true" styleClass="menu-secao">
-                    <p:dataList var="menuSu"
-                                value="#{menuBean.menuModulo(loginBean.menusAcesso, 2, menuM.id)}">
-                        <a href="#{facesContext.externalContext.requestContextPath}#{menuSu.url}" title="#{menuSu.observacoes}"
-                           class="#{menuSu.icone}">
-                            #{menuSu.descricao}
-                        </a>
-                    </p:dataList>
-                </p:fieldset>
+        <div class="caixa menu-lateral">
+            <a class="logo-grande unicet1" href="#{facesContext.externalContext.requestContextPath}" title="Voltar à Capa"/>
+            <p:separator/>
+            <p:dataList var="menuM"  value="#{menuBean.menuModulo(loginBean.menusAcesso, 1, 1)}"  >
+                <div class="secao">
+                    <p:accordionPanel id="secao-menu" activeIndex="0" cache="true" class="#{menuM.icone}">
+                        <p:tab class="secao-titulo" title="#{menuM.descricao}">
+                            <p:dataList var="menuSe" class="secao-conteudo"  value="#{menuBean.menuModulo(loginBean.menusAcesso, 2, menuM.id)}">
+                                <a href="#{facesContext.externalContext.requestContextPath}#{menuSe.url}" title="#{menuSe.observacoes}">
+                                    <div class="box">
+                                        <div class="icone #{menuSe.icone}"></div>
+                                        <div class="descricao">
+                                            <h2>#{menuSe.descricao}</h2>
+                                        </div>
+                                    </div>
+                                </a>
+                            </p:dataList>
+                        </p:tab>
+                    </p:accordionPanel>
+                </div>
             </p:dataList>
-        </p:scrollPanel>
+        </div>
     </div>
 </ui:composition>
 </html>

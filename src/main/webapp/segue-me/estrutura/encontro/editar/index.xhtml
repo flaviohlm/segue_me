@@ -45,29 +45,27 @@
                     </p:panelGrid>
                     
                     <p:panelGrid layout="grid" columns="1" >
-                        <p:outputLabel value="Paróquia(s) do Encontro:" >
+                        <p:outputLabel value="Paróquia(s) do Encontro:" />
                             <p:selectManyCheckbox id="paroquias" value="#{encontroController.encontro.paroquiaList}" layout="responsive" columns="3" converter="#{paroquiaConverter}" >
                                 <f:selectItems value="#{encontroController.listaParoquia}" var="paroquia" itemLabel="#{paroquia.descricao}" itemValue="#{paroquia}" />
                             </p:selectManyCheckbox>                        
-                        </p:outputLabel> 
+                        
                        
-                       <p:outputLabel value="Equipes do Encontro:" >
+                       <p:outputLabel value="Equipes do Encontro:" />
                             <p:selectManyCheckbox id="equipes" value="#{encontroController.encontro.equipeList}" layout="responsive" columns="3" converter="#{equipeConverter}" >
                                 <f:selectItems value="#{encontroController.listaEquipe}" var="equipe" itemLabel="#{equipe.descricao}" itemValue="#{equipe}" />
                             </p:selectManyCheckbox> 
-                       </p:outputLabel>
                        
-                       <p:outputLabel value="Círculos do Encontro:" >
+                       
+                       <p:outputLabel value="Círculos do Encontro:" />
                             <p:selectManyCheckbox id="circulos" value="#{encontroController.encontro.circuloList}" layout="responsive" columns="3" converter="#{circuloConverter}" >
                                 <f:selectItems value="#{encontroController.listaCirculo}" var="circulo" itemLabel="#{circulo.cor}" itemValue="#{circulo}" />
                             </p:selectManyCheckbox> 
-                       </p:outputLabel>
                        
-                       <p:outputLabel value="Palestras do Encontro:" >
+                       <p:outputLabel value="Palestras do Encontro:" />
                         <p:selectManyCheckbox id="palestras" value="#{encontroController.encontro.palestraList}" layout="responsive" columns="3" converter="#{palestraConverter}" >
                             <f:selectItems value="#{encontroController.listaPalestra}" var="palestra" itemLabel="#{palestra.descricao}" itemValue="#{palestra}" />
                         </p:selectManyCheckbox> 
-                       </p:outputLabel>
                        
                     </p:panelGrid>                      
                     <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{encontroController.salvar()}" update=":frmCadApontamento"/>

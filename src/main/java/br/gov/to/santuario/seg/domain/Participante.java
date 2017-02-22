@@ -3,6 +3,7 @@ package br.gov.to.santuario.seg.domain;
 import br.gov.to.santuario.ejc.domain.DiretorEspiritual;
 import br.gov.to.santuario.ejc.domain.Habilidade;
 import br.gov.to.santuario.ejc.domain.Palestrante;
+import br.gov.to.santuario.ejc.domain.Paroquia;
 import br.gov.to.santuario.ejc.domain.ParticipanteHabilidade;
 import br.gov.to.santuario.ejc.domain.Seguidor;
 import br.gov.to.santuario.ejc.domain.Seguimista;
@@ -25,6 +26,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -127,6 +129,10 @@ public class Participante implements Serializable, UserDetails {
     
     @Column(name = "ativo")
     private boolean ativo = true;
+    
+    @JoinColumn(name = "paroquia_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Paroquia paroquia;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<PerfilUsuario> perfilParticipanteList;
@@ -484,5 +490,12 @@ public class Participante implements Serializable, UserDetails {
     public void setScoreParticipacao(Double scoreParticipacao) {
         this.scoreParticipacao = scoreParticipacao;
     }
-    
+
+    public Paroquia getParoquia() {
+        return paroquia;
+    }
+
+    public void setParoquia(Paroquia paroquia) {
+        this.paroquia = paroquia;
+    }    
 }

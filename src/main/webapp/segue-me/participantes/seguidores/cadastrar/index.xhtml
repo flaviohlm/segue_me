@@ -23,8 +23,14 @@
                         <p:outputLabel value="Tipo*:" >
                             <p:selectBooleanButton value="#{seguidorController.seguidor.tio}" onLabel="Tio(a)" offLabel="Seguidor(a)"  />
                         </p:outputLabel>
-                   </p:panelGrid>
-                    <p:panelGrid layout="grid" columns="2" >
+                       
+                        <p:outputLabel value="Paróquia:" >
+                            <p:selectOneMenu value="#{seguidorController.seguidor.participante.paroquia}" converter="#{paroquiaConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
+                                <f:selectItem itemLabel="- - -" itemValue="" />
+                                <f:selectItems value="#{paroquiaController.listaParoquias}" itemLabel="#{paroquia.descricao}" itemValue="#{paroquia}" var="paroquia" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                       
                         <p:outputLabel value="Nome*:">
                             <p:inputText size="25" value="#{seguidorController.seguidor.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
                         </p:outputLabel>
@@ -71,11 +77,10 @@
                         </p:outputLabel>
                     </p:panelGrid>
                     <p:panelGrid layout="grid" columns="1" >
-                        <p:outputLabel value="Habilidades:" >
-                            <p:selectManyCheckbox id="habilidades" value="#{seguidorController.seguidor.participante.habilidadeList}" layout="responsive" columns="3" converter="#{habilidadeConverter}" >
-                                <f:selectItems value="#{seguidorController.listaHabilidades}" var="habilidade" itemLabel="#{habilidade.descricao}" itemValue="#{habilidade}" />
-                            </p:selectManyCheckbox> 
-                        </p:outputLabel>
+                        <p:outputLabel value="Habilidades:" />
+                        <p:selectManyCheckbox id="habilidades" value="#{seguidorController.seguidor.participante.habilidadeList}" layout="responsive" columns="3" converter="#{habilidadeConverter}" >
+                            <f:selectItems value="#{seguidorController.listaHabilidades}" var="habilidade" itemLabel="#{habilidade.descricao}" itemValue="#{habilidade}" />
+                        </p:selectManyCheckbox> 
                     </p:panelGrid>                      
                     <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{seguidorController.salvar()}" update=":frmCadApontamento"/>
                 </p:panel>

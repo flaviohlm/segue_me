@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="133"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
@@ -94,30 +94,23 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 				<reportElement x="0" y="131" width="100" height="1" uuid="6443888b-8479-4811-9751-f4f05587b064"/>
 			</break>
 			<rectangle>
-				<reportElement x="0" y="20" width="245" height="20" backcolor="#99CCFF" uuid="6a1408f2-7496-4286-ba5e-f36e82e86fad"/>
+				<reportElement x="0" y="20" width="202" height="20" backcolor="#99CCFF" uuid="6a1408f2-7496-4286-ba5e-f36e82e86fad"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="245" y="20" width="112" height="20" backcolor="#99CCFF" uuid="2342e109-561a-4337-b5e4-63f5fa015b53"/>
+				<reportElement x="202" y="20" width="94" height="20" backcolor="#99CCFF" uuid="2342e109-561a-4337-b5e4-63f5fa015b53"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="357" y="20" width="198" height="20" backcolor="#99CCFF" uuid="aa519cdf-fa0e-4b06-a231-96a0b46e2ec0"/>
+				<reportElement x="296" y="20" width="198" height="20" backcolor="#99CCFF" uuid="aa519cdf-fa0e-4b06-a231-96a0b46e2ec0"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="357" y="20" width="198" height="20" uuid="2e4dc629-0d3b-4c6a-b4aa-5d6ccdeb1cf6"/>
+				<reportElement x="296" y="20" width="198" height="20" uuid="2e4dc629-0d3b-4c6a-b4aa-5d6ccdeb1cf6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Endereço]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="245" y="20" width="112" height="20" uuid="2bb11342-81ee-4cb9-810d-73b2ca987962"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Telefone(s)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="20" width="245" height="20" uuid="6c51ae79-b297-45e7-8580-23af235bb267"/>
+				<reportElement x="0" y="20" width="202" height="20" uuid="6c51ae79-b297-45e7-8580-23af235bb267"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -131,6 +124,23 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "equipes_integrantes_todos_coordenadores.jasper"]]></subreportExpression>
 			</subreport>
+			<staticText>
+				<reportElement x="202" y="20" width="94" height="20" uuid="1f0089f9-0c58-4276-b6f4-6515f10b739a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone(s)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="494" y="20" width="61" height="20" backcolor="#99CCFF" uuid="1fa74ddb-6722-41fa-86ce-e40de070c0c2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="494" y="20" width="61" height="20" uuid="813d95c7-9a46-4485-8e20-bb8543382bc5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Convite]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

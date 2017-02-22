@@ -60,7 +60,7 @@
                             </p:selectBooleanButton>                           
                         </p:column>
                         
-                        <p:column headerText="Convite Aceito" width="90">                            
+                        <p:column headerText="Convite Aceito" width="90">                                  
                             <p:selectBooleanButton value="#{model.conviteAceito}" onLabel="Sim" offLabel="Não" >
                                 <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
                             </p:selectBooleanButton>
@@ -127,7 +127,7 @@
                         </p:selectOneMenu>
                         </p:outputLabel>
 
-                        <p:commandButton update="form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2 trocar" oncomplete="PF('dialogTrocar').hide()" />
+                        <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2 trocar" oncomplete="PF('dialogTrocar').hide()" />
                     </p:panelGrid>
                 </p:confirmDialog>
                 

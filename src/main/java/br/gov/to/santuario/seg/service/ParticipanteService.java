@@ -139,5 +139,29 @@ public class ParticipanteService implements UserDetailsService {
     public UserDetails loadUserByUsername(String str) throws UsernameNotFoundException {
         return findByCpf(str);
     }
+    
+    
+    public List<Participante> findAllParticipantes2() {
+        try{
+            return repository.findAll(where(specificationAll2()));
+        }catch(Exception e){
+            System.out.println(e);            
+        }
+        return null;
+    }
+    
+    public Specification<Participante> specificationAll2() {
+        return new Specification<Participante>() {
+            @Override
+            public Predicate toPredicate(Root<Participante> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                
+                Predicate p1 = cb.greaterThan(root.<Integer>get("id"), 540);
+                
+                return cb.and(p1);
+            }
+        };
+    }
 
 }
