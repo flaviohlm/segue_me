@@ -43,6 +43,9 @@ public class Paroquia implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     
+    @Column(name = "imagem")
+    private byte[] imagem;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paroquia")
     private List<EncontroParoquia> encontroParoquiaList;
 
@@ -81,6 +84,14 @@ public class Paroquia implements Serializable {
 
     public void setEncontroParoquiaList(List<EncontroParoquia> encontroParoquiaList) {
         this.encontroParoquiaList = encontroParoquiaList;
+    }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 
     @Override

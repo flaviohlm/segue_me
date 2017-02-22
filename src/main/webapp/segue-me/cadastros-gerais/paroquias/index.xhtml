@@ -18,12 +18,43 @@
                 <p:panel header="Paróquias">
                 <p:messages id="messages" autoUpdate="true" closable="true"  />
                      <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{paroquiaController.novo()}" class="icone2 adicionar"/>
-                    <p:separator/>
-                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                    
+                     <p:separator/>
+                     
+                     <p:panelGrid layout="grid" columns="1" >                        
+                       
+                        <p:outputLabel value="Descrição*:">
+                            <p:inputText size="25" value="#{paroquiaController.paroquia.descricao}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Logo/Imagem da(o) Padroeira(o):">                         
+                            <p:fileUpload fileUploadListener="#{paroquiaController.handleFileUpload}" mode="advanced" dragDropSupport="false" multiple="true"
+                                      update="messages" sizeLimit="1000000000000000" fileLimit="10" allowTypes="/(\.|\/)(jpg?e|png)$/"
+                                      cancelLabel="Cancelar" uploadLabel="Importar" label="Escolher Arquivo" 
+                                      invalidFileMessage="Somente PDF ou DOC/DOCX são permitidos."
+                                      invalidSizeMessage="Limite do tamanho do arquivo é de 99 mb."
+                                      auto ="true"/>
+                        </p:outputLabel>
+                         
+                        
+                       <p:commandButton value="" title="Baixar Imagem" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" class="iconebt download">
+                           <p:fileDownload value="#{paroquiaController.download(anexo)}"/>
+                       </p:commandButton>
+                        
+                        <p:commandButton value="Salvar" ajax="false"  class="icone2 salvar" action="#{paroquiaController.salvar()}" update=":form_1"/>
+                        
+                    </p:panelGrid>
+                     
+                     
+                     
+                     
+                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                      value="#{paroquiaController.listaParoquias}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
-                                     editable="true" editMode="cell" >
+                                     selection="#{paroquiaController.paroquiaSelecionada}" rowKey="#{model.id}" selectionMode="single" >
                             
-                            <p:ajax event="cellEdit" listener="#{paroquiaController.onCellEdit}" update=":form_1:messages" />
+                            <!--p:ajax event="cellEdit" listener="#{paroquiaController.onCellEdit}" update=":form_1:messages" /-->
+                            
+                            <p:ajax event="rowSelect" listener="#{paroquiaController.selecionar}" update=":form_1"/>
                             
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -45,7 +76,7 @@
                                         <p:inputText value="#{model.descricao}" />
                                     </f:facet> 
                                 </p:cellEditor>
-                            </p:column>                                                                                
+                            </p:column>                             
 
                             <p:column headerText="" width="50">
                                 <p:commandButton oncomplete="PF('confirmarExcluir').show()" value="Excluir"  title="Excluir" update=":form_1"  styleClass="excluir">
@@ -58,9 +89,26 @@
                     <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{paroquiaController.deletar()}" ajax="true" update=":form_1" />
                     <p:commandButton value="Cancelar" class="icone2 excluir" onclick="PF('confirmarExcluir').hide(); return false;" type="button" ajax="false" />
                 </p:confirmDialog>
+                
+                
+                <p:confirmDialog message="" header="Anexar Logo/Imagem da(o) Padroeira(o)" width="430" widgetVar="anexarImagem" >
+                    
+                </p:confirmDialog>
+                
 
             </h:form>
 
         </ui:define>
     </ui:composition>
+    
+<script type="text/javascript">
+    function start() {
+        PF('statusDialog').show();
+    }
+
+    function stop() {
+        PF('statusDialog').hide();
+    }
+</script>
+    
 </html>
