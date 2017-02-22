@@ -53,7 +53,7 @@ public class Seguidor implements Serializable {
     private List<EncontroEquipeIntegrante> encontroEquipeIntegrantesList;
         
     @JoinColumn(name = "participante_id", referencedColumnName = "id")
-    @ManyToOne//(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private Participante participante;
 
     public Seguidor() {

@@ -35,11 +35,11 @@
                             <p:inputText size="25" value="#{seguidorController.seguidor.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
                         </p:outputLabel>
                         
-                        <p:outputLabel value="Sexo*:" >
-                            <p:selectOneRadio id="console" value="#{seguidorController.seguidor.participante.sexo}">
-                                <f:selectItem itemLabel="Feminino" itemValue="F" />
-                                <f:selectItem itemLabel="Masculino" itemValue="M" />
-                            </p:selectOneRadio>
+                        <p:outputLabel value="Sexo*:" for="console" >
+                        <p:selectOneRadio id="console" value="#{seguidorController.seguidor.participante.sexo}">
+                            <f:selectItem itemLabel="Feminino" itemValue="F" />
+                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        </p:selectOneRadio>
                         </p:outputLabel>
                         
                         <p:outputLabel value="Crachá:">
