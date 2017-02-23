@@ -10,6 +10,7 @@ import br.gov.to.santuario.seg.service.AuthenticationService;
 import br.gov.to.santuario.seg.service.MenuService;
 import br.gov.to.santuario.seg.service.PerfilUsuarioService;
 import br.gov.to.santuario.seg.service.ParticipanteService;
+import br.gov.to.santuario.seg.util.UsuarioUtil;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -280,6 +281,9 @@ public class LoginBean implements Serializable{
     }
 
     public Participante getUsuarioTrocaSenha() {
+        if(UsuarioUtil.getUsuario() != null){
+            usuarioTrocaSenha=UsuarioUtil.getUsuario();
+        }
         return usuarioTrocaSenha;
     }
 

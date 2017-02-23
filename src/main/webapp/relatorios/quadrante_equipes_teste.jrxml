@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="R_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT encontro_equipe.id AS encontro_equipe_id,
+     encontro.descricao AS encontro_descricao,
+     encontro.data_realizacao_inicio AS encontro_data_realizacao_inicio,
+     encontro.data_realizacao_fim AS encontro_data_realizacao_fim,
+     equipe.descricao AS equipe_descricao,
+     equipe.ordem_apresentacao AS ordem_apresentacao,
+     paroquia.descricao AS paroquia
+FROM segueme.encontro_equipe encontro_equipe
+INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
+INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_id
+INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
+INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
+
+WHERE encontro.id = $P{R_ID}
+ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
+	</queryString>
+	<field name="encontro_equipe_id" class="java.lang.Integer"/>
+	<field name="encontro_descricao" class="java.lang.String"/>
+	<field name="encontro_data_realizacao_inicio" class="java.sql.Date"/>
+	<field name="encontro_data_realizacao_fim" class="java.sql.Date"/>
+	<field name="equipe_descricao" class="java.lang.String"/>
+	<field name="ordem_apresentacao" class="java.lang.Integer"/>
+	<field name="paroquia" class="java.lang.String"/>
+	<title>
+		<band height="58">
+			<staticText>
+				<reportElement x="218" y="0" width="356" height="50" uuid="f8dd6ec4-2fc4-44a8-a582-329d26921d43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipes de Trabalho]]></text>
+			</staticText>
+			<image>
+				<reportElement x="160" y="0" width="58" height="50" uuid="297671c0-8ec0-43ea-9e37-a158a9971024"/>
+				<imageExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\resources\\images\\logo-bom-pastor.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="101" splitType="Stretch">
+			<rectangle>
+				<reportElement x="215" y="20" width="109" height="20" backcolor="#99CCFF" uuid="415b4915-cae5-4866-9452-8be4718621d8"/>
+			</rectangle>
+			<subreport>
+				<reportElement x="1" y="40" width="801" height="44" uuid="d94607ad-134a-4742-9b9a-3c87a3d478ef"/>
+				<subreportParameter name="ENCONTRO_EQUIPE_ID">
+					<subreportParameterExpression><![CDATA[$F{encontro_equipe_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "quadrante_equipes_coordenadores_teste.jasper"]]></subreportExpression>
+			</subreport>
+			<rectangle>
+				<reportElement x="502" y="20" width="207" height="20" backcolor="#99CCFF" uuid="8d55c838-d1da-498e-90e1-9db1df911715"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="0" width="802" height="20" forecolor="#000000" backcolor="#FFCCCC" uuid="4beb5f60-8a74-4a67-b85f-c611439e3c83"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="709" y="20" width="94" height="20" backcolor="#99CCFF" uuid="bb5c5a10-a630-469b-893f-bcf2b73ea692"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="801" height="20" uuid="6149ab28-1f60-4b2d-a654-7056bd3bde1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipe_descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="215" y="20" width="109" height="20" uuid="6de631a5-0e9e-4dd7-aad1-9f1d976adf59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="324" y="20" width="178" height="20" backcolor="#99CCFF" uuid="af3a27a3-0971-4af8-960a-66215bc7a932"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="20" width="214" height="20" backcolor="#99CCFF" uuid="11159493-a43e-4eef-9423-d78e18db6bf8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="502" y="20" width="207" height="20" uuid="1bdcfaa0-ed20-4945-b25f-8c577440bcee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="709" y="20" width="93" height="20" uuid="38dede1c-0e43-44e9-82df-f55f7033fc85"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="20" width="214" height="20" uuid="976fcd91-0042-41e7-8daa-a7050b2485f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="20" width="178" height="20" uuid="1c38454a-3580-4200-b2d3-73686258af64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24">
+			<textField>
+				<reportElement x="0" y="1" width="419" height="20" uuid="1af15e48-7cb2-4a48-bcde-38186191ab8b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_descricao}+" | "+$F{paroquia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="801" height="1" uuid="276c1b09-00d8-4c4b-b6c2-576a72fad4f4"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

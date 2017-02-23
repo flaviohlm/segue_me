@@ -10,9 +10,8 @@
         <h:form id="usuario_form">
             <p:panel class="perfil">
                 
-                <h:link id="cmdEditar" title="Editar" outcome="/configuracoes/redefinirSenhaUsuario/index.xhtml" includeViewParams="true" class="avatar">
-                    <f:param name="idElemento" value="#{loginBean.usuarioLogado.id}" />
-                </h:link>
+                <h:link id="cmdEditar" title="Editar" outcome="/configuracoes/redefinirSenhaUsuario/index.xhtml" includeViewParams="true" class="avatar"/>
+                    
                 
                 <ul>                    
                     <li class="usuario"><h:outputText value="Nome: "/><h:outputText value="#{loginBean.usuarioLogado.nome}" /></li>

@@ -316,7 +316,7 @@
     background-image: url("#{resource['images/sap.svg']}") !important;
 }
 .sap1 {
-    background-image: url("#{resource['images/sap1.svg']}") !important;
+    background-image: url("#{resource['images/logo-bom-pastor.svg']}") !important;
 }
 .sef {
     background-image: url("#{resource['images/sef.svg']}") !important;

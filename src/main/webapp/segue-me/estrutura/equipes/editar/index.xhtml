@@ -54,16 +54,19 @@
                             <h:outputText value="#{model.seguidor.participante.telefoneCelular}" />                                  
                         </p:column>
 
-                        <p:column headerText="Tipo" width="90">
-                            <p:selectBooleanButton value="#{model.coordenador}" onLabel="Coordenador(a)" offLabel="Seguidor(a)" >
+                        <p:column headerText="Coordenador" width="100">
+                            <p:selectBooleanCheckbox value="#{model.coordenador}" >
                                 <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
-                            </p:selectBooleanButton>                           
+                            </p:selectBooleanCheckbox>
+                            <!--p:selectBooleanButton value="#{model.coordenador}" onLabel="Coordenador(a)" offLabel="Seguidor(a)" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.selecionarCoordenador(model)}" update=":form_1"/>
+                            </p:selectBooleanButton-->
                         </p:column>
                         
                         <p:column headerText="Convite Aceito" width="90">                                  
-                            <p:selectBooleanButton value="#{model.conviteAceito}" onLabel="Sim" offLabel="Não" >
+                            <p:selectBooleanCheckbox value="#{model.conviteAceito}" >
                                 <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
-                            </p:selectBooleanButton>
+                            </p:selectBooleanCheckbox>
                         </p:column>
                         
                         <p:column headerText="Opções" width="90" class="centralizar">                        

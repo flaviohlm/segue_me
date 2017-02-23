@@ -1,0 +1,99 @@
+/* 
+    Created on : 23/02/2017, 17:01:36
+    Author     : flavio.madureira
+*/
+
+/*unicet*/
+/*.sap-pagina .ui-widget-content{
+    width: 50%;
+}*/
+
+.caixa{
+    display: block;
+}
+/*conteúdo interno*/
+.caixa .ui-widget-content{
+    background: transparent;
+    border: 0;
+}
+
+.sap-pagina .caixa .box{
+    background-color: #fff !important;
+    color: #313131;
+}
+.sap-pagina .caixa .box:hover{
+    background-color: #ffcc29 !important;
+    color: #000 !important;
+}
+.sap-pagina .caixa.menu-lateral .box{
+    background-color: #fff;
+    color: #313131;
+}
+.sap-pagina .caixa.menu-lateral .box h2{
+    border-bottom: 0;
+    line-height: 5px;
+}
+.sap-pagina .caixa.menu-lateral .box:hover h2{
+    color: #000;
+}
+.sap-pagina .caixa.menu-lateral .ui-datalist-item{
+    padding: 0;
+}
+.sap-pagina .caixa.menu-lateral .ui-datalist-item{
+    background-color: transparent;
+}
+.sap-pagina .caixa.quadro-curso .ui-datalist-item{
+    background-color: #fff;
+}
+
+.sap-pagina .cursos-lista .destaque{
+    width: 100%;
+    max-width: 300px;
+}
+.sap-pagina .cursos-lista{
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+.sap-pagina .cursos-lista article{
+    background-color: #fff;
+    padding: 20px 20px 50px;
+    /*width: 100%;*/
+}
+.sap-pagina .cursos-lista h1{
+    font-size: 1.3em !important;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    color: #2f4d8b;
+    border-bottom: 2px solid #2f4d8b;
+    width: 100%;
+    height: 62px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+.sap-pagina .cursos-lista h1.cursos-capa{
+    margin-bottom: 10px;
+}
+.sap-pagina .cursos-lista h2{
+    text-align: center;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    color: #2f4d8b;
+    border-bottom: 2px solid #2f4d8b;
+    width: 100%;
+    margin-top: 10px;
+}
+.sap-pagina .cursos-lista p{
+    padding: 20px;
+}
+.sap-pagina .cursos-lista .ementa{
+    height: 230px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.sap-pagina .caixa.quadro-curso .ui-datalist-item{    
+    background-color: #fff;
+}
+

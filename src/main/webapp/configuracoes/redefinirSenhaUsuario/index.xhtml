@@ -22,23 +22,27 @@
 
                         <p:fieldset id="fdsetDadosPessoais" legend="Dados do Usuário" >                                              
                             <p:panelGrid layout="grid" columns="2" >
-                                <p:outputLabel value="Nome: " />
+                                <p:outputLabel value="Nome: " >
                                 <p:inputText id="nome" size = "70" maxlength="70" value="#{loginBean.usuarioTrocaSenha.nome}" readonly="true" />
+                                </p:outputLabel>
                             </p:panelGrid>
                             <p:panelGrid layout="grid" columns="2" >
-                                <p:outputLabel value="CPF: " />
+                                <p:outputLabel value="CPF: " >
                                 <p:inputMask id="cpf" mask="999.999.999-99" size = "15"  required="true" value="#{loginBean.usuarioTrocaSenha.cpf}" readonly="true" />                             
+                                </p:outputLabel>
                             </p:panelGrid>                           
                         </p:fieldset>
                         
                         <p:fieldset id="fdsetDadosSenha" legend="Modifique sua senha" > 
-                            <p:panelGrid layout="grid" columns="4" >
-                                <p:outputLabel value="Senha: " />
+                            <p:panelGrid layout="grid" columns="2" >
+                                <p:outputLabel value="Senha: " >
                                 <p:password id="senha"  size = "20" maxlength="12" value="#{loginBean.password}" match="confirmaSenha" validatorMessage="As senhas não conferem."
                                             feedback="true" promptLabel="Digite uma senha." weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" inline="true" />                                    
-
-                                <p:outputLabel value="Confirma Senha:" />
+                                </p:outputLabel>
+                                
+                                <p:outputLabel value="Confirma Senha:" >
                                 <p:password id="confirmaSenha"  size = "20" maxlength="12" value="#{loginBean.confirmaPassword}" />
+                                </p:outputLabel>
                             </p:panelGrid>
 
                         </p:fieldset>

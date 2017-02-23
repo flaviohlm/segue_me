@@ -26,6 +26,8 @@
 
                     <p:commandButton value="Equipe e Integrantes" title="Imprimir todas as equipes e seus integrantes" action="#{encontroController.imprimir(encontroController.id, 'equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     
+                    <p:commandButton value="Quadrante das Equipes" title="Imprimir a lista de equipes com seus integrantes para o quadrante" action="#{encontroController.imprimir(encontroController.id, 'quadrante_equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroController.listaIntegrantes}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
                                  editable="true" editMode="cell" >
@@ -50,21 +52,21 @@
                             </p:cellEditor>
                         </p:column>                        
 
-                        <p:column headerText="Crachá" width="160" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >                             
+                        <p:column headerText="Crachá" width="150" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" >                             
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{model.seguidor.participante.apelido}" /></f:facet>
                                 <f:facet name="input"><p:inputText value="#{model.seguidor.participante.apelido}" style="width:96%" /></f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Celular" width="160" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >                            
+                        <p:column headerText="Celular" width="130" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" >                            
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{model.seguidor.participante.telefoneCelular}" /></f:facet>
                                 <f:facet name="input"><p:inputMask mask="(99) 99999-9999" value="#{model.seguidor.participante.telefoneCelular}" style="width:96%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
                         
-                        <p:column headerText="Res./Outro" width="160" sortBy="#{model.seguidor.participante.telefoneResidencial}" filterBy="#{model.seguidor.participante.telefoneResidencial}" >                            
+                        <p:column headerText="Res./Outro" width="120" sortBy="#{model.seguidor.participante.telefoneResidencial}" filterBy="#{model.seguidor.participante.telefoneResidencial}" >                            
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{model.seguidor.participante.telefoneResidencial}" /></f:facet>
                                 <f:facet name="input"><p:inputMask mask="(99) 9999-9999?9" value="#{model.seguidor.participante.telefoneResidencial}" style="width:96%"/></f:facet>
@@ -78,12 +80,12 @@
                             </p:cellEditor>
                         </p:column>
                         
-                        <p:column headerText="Equipe" width="160" sortBy="#{model.encontroEquipe.equipe.descricao}" filterBy="#{model.encontroEquipe.equipe.descricao}" >                            
+                        <p:column headerText="Equipe" width="140" sortBy="#{model.encontroEquipe.equipe.descricao}" filterBy="#{model.encontroEquipe.equipe.descricao}" >                            
                             <h:link value="#{model.encontroEquipe.equipe.descricao}" outcome="/segue-me/estrutura/equipes/editar/index.xhtlm?id=#{model.encontroEquipe.id}" />                            
                         </p:column>
                         
-                        <p:column headerText="Convite" >                            
-                            <p:selectBooleanButton value="#{model.conviteAceito}" onLabel="Aceito" offLabel="Recusado" disabled="true" />
+                        <p:column headerText="Convite" width="80" >   
+                            <p:selectBooleanCheckbox value="#{model.conviteAceito}" disabled="true" />
                         </p:column>
                         
                     </p:dataTable>                     
