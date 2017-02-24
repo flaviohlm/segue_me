@@ -24,7 +24,10 @@
                 <p:messages id="messages"  autoUpdate="true" closable="true" />
                 
                 <p:panel id="panel_1">
-                    <p:panelGrid layout="grid" columns="1" >
+                    
+                    <p:commandButton oncomplete="PF('confirmarFinalizar').show()" image="" class="botao iconebt" title="Finalizar Encontro" value="Finalizar Encontro"  />
+                    
+                    <p:panelGrid layout="grid" columns="1" >                        
                          <p:outputLabel value="Descrição*:" >
                              <p:inputText id="descricao" size="25" value="#{encontroController.encontro.descricao}" required="true" requiredMessage="Campo 'Descrição' obrigatório."/>
                          </p:outputLabel>
@@ -68,8 +71,18 @@
                         </p:selectManyCheckbox> 
                        
                     </p:panelGrid>                      
-                    <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{encontroController.salvar()}" update=":frmCadApontamento"/>
+                    <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{encontroController.salvar()}" update=":form_1"/>
                 </p:panel>
+                
+                <p:confirmDialog message="Após a finalização do encontro, ele ficará disponível apenas para consultas. Confirma?" header="Finalizar Encontro" width="430" widgetVar="confirmarFinalizar" >
+                    <p:commandButton value="Confirmar" oncomplete="PF('confirmarFinalizar').hide()" actionListener="#{encontroController.finalizarEncontro()}" ajax="true" update=":form_1" />
+                    <p:commandButton value="Cancelar" onclick="PF('confirmarFinalizar').hide()" type="button" ajax="false" />
+                </p:confirmDialog>
+                
+                <p:confirmDialog message="Após a finalização do encontro, ele ficará disponível apenas para consultas. Confirma?" header="Finalizar Encontro" width="430" widgetVar="confirmarReativar" >
+                    <p:commandButton value="Confirmar" oncomplete="PF('confirmarReativar').hide()" actionListener="#{encontroController.finalizarEncontro()}" ajax="true" update=":form_1" />
+                    <p:commandButton value="Cancelar" onclick="PF('confirmarReativar').hide()" type="button" ajax="false" />
+                </p:confirmDialog>
                 
             </h:form>
 

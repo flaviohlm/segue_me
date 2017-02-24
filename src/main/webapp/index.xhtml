@@ -21,7 +21,7 @@
                     <h:graphicImage class="destaque" library="images" name="padrao.png" />
                 </h:link>
                 
-                <h1 class="cursos-capa">#{model.descricao} <br />#{model.paroquias}</h1>
+                <h1 class="cursos-capa">#{model.descricao}<br />#{model.paroquias}</h1>
                 
                 <h:link title="Editar informações do encontro" outcome="/segue-me/estrutura/encontro/editar/index.xhtlm?id=#{model.id}" value="" class="botao iconebt editar" />
                 
@@ -30,6 +30,8 @@
                 <h:link title="Círculos" outcome="/segue-me/estrutura/circulos/index.xhtlm?id=#{model.id}" value="" class="botao iconebt pontos" />
 
                 <h:link title="Palestras" outcome="/segue-me/estrutura/palestras/index.xhtlm?id=#{model.id}" value="" class="botao iconebt dupla" />
+                
+                <h:link title="Integrantes das Equipes do Encontro" outcome="/segue-me/estrutura/equipes/integrantes/index.xhtlm?id=#{model.id}" value="" class="botao iconebt estrela" />
                 
             </article>
         </p:dataList>

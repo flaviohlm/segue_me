@@ -230,6 +230,7 @@ a.botao,
     text-decoration: none;
     font-weight: bold;
     width: auto;
+    margin: 2px;
     padding: 6px 10px 6px 28px !important;
     border-radius: 3px;
     background-position: left top !important;

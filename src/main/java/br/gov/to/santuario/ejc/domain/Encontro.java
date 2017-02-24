@@ -2,7 +2,6 @@ package br.gov.to.santuario.ejc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,21 +24,21 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author flavio.madureira
  */
 @Entity
-@Table(name = "encontro", schema = "segueme")
+@Table(name = "encontro")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Encontro.findAll", query = "SELECT e FROM Encontro e"),
     @NamedQuery(name = "Encontro.findById", query = "SELECT e FROM Encontro e WHERE e.id = :id"),
     @NamedQuery(name = "Encontro.findByDescricao", query = "SELECT e FROM Encontro e WHERE e.descricao = :descricao"),
     @NamedQuery(name = "Encontro.findByDataRealizacaoInicio", query = "SELECT e FROM Encontro e WHERE e.dataRealizacaoInicio = :dataRealizacaoInicio"),
-    @NamedQuery(name = "Encontro.findByDataRealizacaoFim", query = "SELECT e FROM Encontro e WHERE e.dataRealizacaoFim = :dataRealizacaoFim")})
+    @NamedQuery(name = "Encontro.findByDataRealizacaoFim", query = "SELECT e FROM Encontro e WHERE e.dataRealizacaoFim = :dataRealizacaoFim"),
+    @NamedQuery(name = "Encontro.findByFinalizado", query = "SELECT e FROM Encontro e WHERE e.finalizado = :finalizado")})
 public class Encontro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,6 +57,12 @@ public class Encontro implements Serializable {
     @Column(name = "data_realizacao_fim")
     @Temporal(TemporalType.DATE)
     private Date dataRealizacaoFim;
+   
+    @Column(name = "imagem_padroeira")
+    private byte[] imagemPadroeira;
+    @Column(name = "finalizado")
+    private Boolean finalizado = true;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")    
     private List<EncontroCirculo> encontroCirculoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")
@@ -142,7 +146,22 @@ public class Encontro implements Serializable {
         this.dataRealizacaoFim = dataRealizacaoFim;
     }
 
-    @XmlTransient
+    public byte[] getImagemPadroeira() {
+        return imagemPadroeira;
+    }
+
+    public void setImagemPadroeira(byte[] imagemPadroeira) {
+        this.imagemPadroeira = imagemPadroeira;
+    }
+
+    public Boolean getFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
+    }
+
     public List<EncontroCirculo> getEncontroCirculoList() {
         return encontroCirculoList;
     }
@@ -151,7 +170,6 @@ public class Encontro implements Serializable {
         this.encontroCirculoList = encontroCirculoList;
     }
 
-    @XmlTransient
     public List<EncontroParoquia> getEncontroParoquiaList() {
         return encontroParoquiaList;
     }
@@ -160,7 +178,6 @@ public class Encontro implements Serializable {
         this.encontroParoquiaList = encontroParoquiaList;
     }
 
-    @XmlTransient
     public List<EncontroPalestra> getEncontroPalestraList() {
         return encontroPalestraList;
     }
@@ -169,7 +186,6 @@ public class Encontro implements Serializable {
         this.encontroPalestraList = encontroPalestraList;
     }
 
-    @XmlTransient
     public List<EncontroEquipe> getEncontroEquipeList() {
         return encontroEquipeList;
     }
@@ -218,7 +234,7 @@ public class Encontro implements Serializable {
         this.palestraList = palestraList;
     }
 
-    public String getParoquias() {        
+    public String getParoquias() {
         if(!paroquiaList.isEmpty()){
             paroquias = paroquiaList.get(0).getDescricao();
             int a = paroquiaList.size();

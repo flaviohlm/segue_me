@@ -25,6 +25,7 @@
     <class>br.gov.to.santuario.ejc.domain.Palestra</class>
     <class>br.gov.to.santuario.ejc.domain.EncontroEquipe</class>
     <class>br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante</class>
+    <class>br.gov.to.santuario.ejc.domain.EncontroPalestraPalestrante</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <!-- Configuração Eclipselink -->
     <properties>

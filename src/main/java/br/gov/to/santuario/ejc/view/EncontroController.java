@@ -171,6 +171,21 @@ public class EncontroController implements Serializable {
         } 
     }
     
+    public void finalizarEncontro(){
+        try{
+            encontro.setFinalizado(!encontro.getFinalizado());
+            encontroService.saveEncontro(encontro);
+            if(encontro.getFinalizado()){
+                messages.info("Encontro finalizado com sucesso!");
+            }else{
+                messages.info("Encontro reativado com sucesso!");
+            }
+        }catch(Exception e){
+            messages.error("Não foi possível salvar os dados.");
+            e.printStackTrace();
+        }
+    }
+    
     //GETTERS AND SETTERS
     public EncontroService getEncontroService() {
         return encontroService;

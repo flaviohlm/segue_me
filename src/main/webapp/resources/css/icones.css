@@ -416,3 +416,7 @@
 .habilidades {
     background-image: url("#{resource['images/habilidades.svg']}") !important;
 }
+
+.estrela {
+    background-image: url("#{resource['images/estrela.svg']}") !important;
+}
