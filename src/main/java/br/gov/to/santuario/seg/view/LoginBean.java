@@ -69,7 +69,7 @@ public class LoginBean implements Serializable{
             
             if (listaPerfilUsuario.get(0).getParticipante().getRedefinirSenha()) {
                 usuarioTrocaSenha = listaPerfilUsuario.get(0).getParticipante();
-                return "/configuracoes/redefinirSenhaUsuario/index.xhtml?faces-redirect=true";
+                return "/configuracoes/redefinir-senha-usuario/index.xhtml?faces-redirect=true";
             }
 
             if(listaPerfilUsuario.size() > 1){
@@ -142,7 +142,7 @@ public class LoginBean implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A senhas não conferem!",""));
             } else if(password.length() < 6){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha muito curta. Digite uma senha maior que 6 caracteres.",""));
-                return "/configuracoes/redefinirSenhaUsuario/index";
+                return "/configuracoes/redefinir-senha-usuario/index";
             } else{
                 usuarioTrocaSenha.setPassword(password);
                 usuarioTrocaSenha.setRedefinirSenha(false);

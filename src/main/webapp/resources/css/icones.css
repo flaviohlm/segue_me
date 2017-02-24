@@ -392,3 +392,27 @@
 .dupla {
     background-image: url("#{resource['images/dupla.svg']}") !important;
 }
+
+.perfil {
+    background-image: url("#{resource['images/perfil.svg']}") !important;
+}
+
+.equipes {
+    background-image: url("#{resource['images/equipes.svg']}") !important;
+}
+
+.circulos {
+    background-image: url("#{resource['images/circulos.svg']}") !important;
+}
+
+.encontro {
+    background-image: url("#{resource['images/encontro.svg']}") !important;
+}
+
+.igreja {
+    background-image: url("#{resource['images/igreja.svg']}") !important;
+}
+
+.habilidades {
+    background-image: url("#{resource['images/habilidades.svg']}") !important;
+}

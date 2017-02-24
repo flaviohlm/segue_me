@@ -10,11 +10,11 @@
         <h:form id="usuario_form">
             <p:panel class="perfil">
                 
-                <h:link id="cmdEditar" title="Editar" outcome="/configuracoes/redefinirSenhaUsuario/index.xhtml" includeViewParams="true" class="avatar"/>
+                <h:link id="cmdEditar" title="Editar" outcome="/configuracoes/redefinir-senha-usuario/index.xhtml" includeViewParams="true" class="avatar"/>
                     
                 
                 <ul>                    
-                    <li class="usuario"><h:outputText value="Nome: "/><h:outputText value="#{loginBean.usuarioLogado.nome}" /></li>
+                    <li class="usuario"><h:outputText value="Nome: "/><h:outputText value="#{loginBean.usuarioLogado.apelido}" /></li>
                     <li class="cpf">
                         <h:outputText value="CPF: "/>
                         <h:outputText value="#{loginBean.usuarioLogado.cpf}" >

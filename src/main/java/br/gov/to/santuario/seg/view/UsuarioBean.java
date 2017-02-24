@@ -7,6 +7,7 @@ import br.gov.to.santuario.seg.service.PerfilService;
 import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.service.PerfilUsuarioService;
 import br.gov.to.santuario.seg.util.UsuarioUtil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -39,10 +42,10 @@ public class UsuarioBean implements Serializable {
     
     private Integer idElemento;    
     private Participante usuario = new Participante();
-    private List<Participante> listaParticipantes = new ArrayList<>();    
-    private List<Perfil> listaPerfis = new ArrayList<>();
+    private List<Participante> listaParticipantes;
+    private List<Perfil> listaPerfis;
     private List<Perfil> listaPerfisSelecionados = new ArrayList<>();      
-    //private Participante usuarioLogado = new Participante();
+    private Participante participanteSelecionado;
     private String password;
     private String confirmaPassword;
     
@@ -53,7 +56,7 @@ public class UsuarioBean implements Serializable {
     public String salvar() throws NoSuchAlgorithmException{ 
         
         //Nao é permitido que um usuario de nivel abaixo, cadastre outro usuario de nivel acima.
-//        Participante usuarioLogado = participanteService.findOneParticipante(ParticipanteUtil.getId());
+//        Participante usuarioLogado = participanteService.findOneParticipante(UsuarioUtil.getId());
 //        Integer nivelParticipanteLogado = usuarioLogado.getUltimoLoginPerfil().getNivel();
 //        for(Perfil p : listaPerfisSelecionados){               
 //            if(nivelParticipanteLogado > p.getNivel()){
@@ -90,7 +93,7 @@ public class UsuarioBean implements Serializable {
     
     //Buscar Componente pelo CPF
     public void buscarParticipante(){        
-        String cpf = getParticipante().getCpf().replaceAll("[^0-9]", "");                 
+        String cpf = getUsuario().getCpf().replaceAll("[^0-9]", "");                 
         Participante componenteAux = participanteService.findByCpf(cpf);                
 
         if (componenteAux != null) {
@@ -116,15 +119,10 @@ public class UsuarioBean implements Serializable {
     }
     
     //IR PARA CADASTRO
-    public String gotoParticipanteEdit() {
+    public String gotoParticipanteCadastrar() {
         usuario = new Participante();
-        return "/configuracoes/usuario/edit?faces-redirect=true";
-    }
-    
-    //IR PARA EDICAO DE DADOS
-    public String gotoEditarMeusDados(){
-        return "/configuracoes/meusdados/index?faces-redirect=true";
-    }
+        return "/configuracoes/usuario/cadastrar/index.xhtml?faces-redirect=true";
+    }    
     
     //RESETAR A SENHA DO USUARIO
     public void resetaPassword() throws NoSuchAlgorithmException{        
@@ -159,7 +157,7 @@ public class UsuarioBean implements Serializable {
         } catch (Exception e) {
             messages.error("Não foi possível salvar as alterações.");            
         }
-        return "/configuracoes/meusdados/index?faces-redirect=true";
+        return "/configuracoes/meus-dados/index?faces-redirect=true";
     }
     
     public void loadInstrutor(String cpf){                
@@ -178,13 +176,39 @@ public class UsuarioBean implements Serializable {
        return aux;
     }
     
+    public void selecionarParticipante(SelectEvent event) throws IOException {                
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/configuracoes/usuario/editar/index.xhtml?id=" + participanteSelecionado.getId());
+    }
+    
     //GETTERS AND SETTERS
+    public List<Participante> getListaParticipantes() {
+        if(listaParticipantes==null){
+            listaParticipantes = participanteService.findAllParticipantesUsuarios();
+        }
+        return listaParticipantes;
+    }
+
+    public void setListaParticipantes(List<Participante> listaParticipantes) {
+        this.listaParticipantes = listaParticipantes;
+    }
+
+    public List<Perfil> getListaPerfis() {
+        if(listaPerfis == null){
+            listaPerfis = perfilService.findAllPerfil();
+        }
+        return listaPerfis;
+    }
+
+    public void setListaPerfis(List<Perfil> listaPerfis) {
+        this.listaPerfis = listaPerfis;
+    }
+
     public PerfilUsuarioService getPerfilUsuarioService() {
         return perfilUsuarioService;
     }
 
-    public void setPerfilUsuarioService(PerfilUsuarioService perfilParticipanteService) {
-        this.perfilUsuarioService = perfilParticipanteService;
+    public void setPerfilUsuarioService(PerfilUsuarioService perfilUsuarioService) {
+        this.perfilUsuarioService = perfilUsuarioService;
     }
 
     public ParticipanteService getParticipanteService() {
@@ -219,28 +243,12 @@ public class UsuarioBean implements Serializable {
         this.idElemento = idElemento;
     }
 
-    public Participante getParticipante() {
+    public Participante getUsuario() {
         return usuario;
     }
 
-    public void setParticipante(Participante usuario) {
+    public void setUsuario(Participante usuario) {
         this.usuario = usuario;
-    }
-
-    public List<Participante> getListaParticipantes() {
-        return listaParticipantes = participanteService.findAllParticipantes();
-    }
-
-    public void setListaParticipantes(List<Participante> listaParticipantes) {
-        this.listaParticipantes = listaParticipantes;
-    }
-
-    public List<Perfil> getListaPerfis() {
-        return listaPerfis = perfilService.findAllPerfil();
-    }
-
-    public void setListaPerfis(List<Perfil> listaPerfis) {
-        this.listaPerfis = listaPerfis;
     }
 
     public List<Perfil> getListaPerfisSelecionados() {
@@ -249,6 +257,14 @@ public class UsuarioBean implements Serializable {
 
     public void setListaPerfisSelecionados(List<Perfil> listaPerfisSelecionados) {
         this.listaPerfisSelecionados = listaPerfisSelecionados;
+    }
+
+    public Participante getParticipanteSelecionado() {
+        return participanteSelecionado;
+    }
+
+    public void setParticipanteSelecionado(Participante participanteSelecionado) {
+        this.participanteSelecionado = participanteSelecionado;
     }
 
     public String getPassword() {
@@ -265,6 +281,6 @@ public class UsuarioBean implements Serializable {
 
     public void setConfirmaPassword(String confirmaPassword) {
         this.confirmaPassword = confirmaPassword;
-    }    
+    }
 
 }

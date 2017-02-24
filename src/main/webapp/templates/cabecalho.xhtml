@@ -2,21 +2,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition>
     <header>
         <a class="logo sap1" href="#{facesContext.externalContext.requestContextPath}" title="Voltar à Capa"/>
         <a href="#{facesContext.externalContext.requestContextPath}"
            title="Segue-me - Sistema de Gerenciamento de Encontros">
-            <h1><ui:insert name="tituloPagina">Segue-me</ui:insert> -
+            <h1><ui:insert name="tituloPagina"></ui:insert> &#8226; Segue-me -
                 <small title="Versão da Aplicação">1.0</small>
             </h1>
         </a>
         <a href="#{facesContext.externalContext.requestContextPath}">
             <h2>
                 <ui:insert name="descricaoSistema">
-                    Sistema de Gerenciamento de Encontros
+                    Sistema de Gerenciamento de Encontros do Segue-me
                 </ui:insert>
             </h2>
         </a>

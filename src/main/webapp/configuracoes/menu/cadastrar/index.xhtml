@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Cadastro de Menu (Página do Sistema)
+        </ui:define>
+        
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="frmCadApontamento">                
+                <p:panel id="pnlForm">
+                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                    
+
+                    <p:fieldset legend="Dados da Página" id="fsComponente" >
+                            <p:panelGrid layout="grid" columns="2" >
+                                <p:outputLabel value="Descrição:" >
+                                <p:inputText id="descricao" size="25" value="#{menuBean.menu.descricao}" required="true" requiredMessage="Campo 'Descrição' obrigatório."/>
+                                </p:outputLabel>
+                                <p:outputLabel value="Nível:" >
+                                <p:spinner id="nivel" min="0" max="3" size="5" value="#{menuBean.menu.nivel}">   
+                                    <p:ajax listener="#{menuBean.getListaMenus()}" update="menuPai" process="@this" />
+                                </p:spinner>
+								</p:outputLabel>
+                               
+                                <p:outputLabel value="Menu Pai:" >                                                        
+                                <p:selectOneMenu id="menuPai" value="#{menuBean.menu.pai}" converter="#{menuConverter}" >
+                                     <f:selectItem itemLabel="Selecione" itemValue="" />
+                                     <f:selectItems value="#{menuBean.listaMenus}" var="menu" itemLabel="#{menu.descricao}" itemValue="#{menu}"  />
+                                </p:selectOneMenu>
+								</p:outputLabel>
+                            
+                                <p:outputLabel value="Ordem:" >
+                                <p:spinner id="ordem" min="0" max="50" size="5" value="#{menuBean.menu.ordem}" />   
+                                </p:outputLabel>
+								
+                                <p:outputLabel value="URL:" >
+                                <p:inputText id="url" size="30" value="#{menuBean.menu.url}" />
+                                </p:outputLabel>
+								
+                                <p:outputLabel value="Ícone:" >
+                                <p:inputText id="icone" size="5" value="#{menuBean.menu.icone}" />
+								</p:outputLabel>
+								
+								<p:outputLabel value="Desativar:" >
+                                <p:selectBooleanCheckbox id="fl_excluido" value="#{menuBean.menu.excluido}"/>
+                                </p:outputLabel>
+                            </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Perfis que terão acesso" >
+                        <p:dataTable id="dataTablePerfis" paginator="true" paginatorAlwaysVisible="false"
+                                     widgetVar="modelPerfil"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     var="model" value="#{menuBean.listaPerfil}" selection="#{menuBean.listaPerfilSelecionados}" rowKey="#{model.id}">
+
+                            <p:column selectionMode="multiple" width="50"/>
+
+                            <p:column sortBy="nome"  headerText="Nome" >
+                                <h:outputText value="#{model.nome}" />   
+                            </p:column>
+
+                        </p:dataTable>                    
+                    </p:fieldset>
+                    <br />
+                    <p:commandButton id="btnNovo" value="Novo" ajax="false"  action="/usuario/menu/menuEdit.xhtml?faces-redirect=true" immediate="true" class="icone2 adicionar"/>
+                    <p:commandButton id="btnSalvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{menuBean.salvar()}" update=":frmCadApontamento"/>
+                </p:panel>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

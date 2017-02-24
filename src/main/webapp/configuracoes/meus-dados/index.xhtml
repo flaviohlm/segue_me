@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Editar Meus Dados
+        </ui:define>        
+        <ui:define name="meta">
+            <f:metadata>                
+                <f:viewAction action="#{usuarioBean.loadModelUsuarioLogado}" />
+            </f:metadata>            
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo" >
+            <h:form id="frmCadUsuario">
+                <p:growl id="messages_grow" autoUpdate="true" />
+                <p:panel id="pnlCadUsuario" header="Usuário">
+                    
+                    <p:fieldset id="usuario" legend="Dados Pessoais">                        
+                        <p:panelGrid layout="grid" columns="2" >
+                            <p:outputLabel value="CPF:" />
+                            <p:inputMask id="cpf" mask="999.999.999-99" size="20" value="#{usuarioBean.usuario.cpf}" readonly="true" />                            
+                        
+                            <p:outputLabel value="Nome:" />
+                            <p:inputText id="nome" size="70" value="#{usuarioBean.usuario.nome}" readonly="true" />                            
+                            
+                            <p:outputLabel value="e-mail:" />
+                            <p:inputText id="email" size="50" value="#{usuarioBean.usuario.email}" />              
+                        
+                            <p:outputLabel value="Senha: " />
+                            <p:password id="senha"  size = "20" maxlength="12" value="#{usuarioBean.password}" match="confirmaSenha" validatorMessage="As senhas não conferem."
+                                        feedback="true" promptLabel="Digite uma senha." weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" inline="true" />                                    
+
+                            <p:outputLabel value="Confirma Senha:" />
+                            <p:password id="confirmaSenha"  size = "20" maxlength="12" value="#{usuarioBean.confirmaPassword}" />
+                        </p:panelGrid>
+                        
+                    </p:fieldset>                    
+                    <p:commandButton id="btnSalvar" update=":frmCadUsuario:messages_grow" value="Salvar"  action="#{usuarioBean.update()}" class="icone2 salvar"/>
+                </p:panel>
+                
+                <p:panel id="pnlCadPefil" header="Perfis de Acesso do Usuário">                    
+                    <p:dataTable id="dataTablePerfis" paginator="true" paginatorAlwaysVisible="false" reflow="true" widgetVar="modelPerfil" emptyMessage="Nenhum registro encontrado." var="model" value="#{usuarioBean.listaPerfisSelecionados}" >
+                        <p:column sortBy="nome"  headerText="Perfil" >
+                            <h:outputText value="#{model.nome}" />   
+                        </p:column>
+                    </p:dataTable>                                                          
+                </p:panel>
+            </h:form> 
+        </ui:define>
+    </ui:composition>
+</html>

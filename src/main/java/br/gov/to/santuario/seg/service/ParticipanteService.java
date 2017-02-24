@@ -67,6 +67,15 @@ public class ParticipanteService implements UserDetailsService {
         return null;
     }
     
+    public List<Participante> findAllParticipantesUsuarios() {
+        try{
+            return repository.findAll(where(specificationAllUsuario()));
+        }catch(Exception e){
+            System.out.println(e);            
+        }
+        return null;
+    }
+    
     public Participante findByNomeNascimento(Participante participante){
         List<Participante>lista = repository.findAll(where(specificationNomeNascimento(participante.getNome(), participante.getDataNascimento())));
         if(lista.isEmpty()){
@@ -86,6 +95,20 @@ public class ParticipanteService implements UserDetailsService {
                 
                 query.orderBy(cb.asc(root.<Integer>get("id")));                
                 return query.getRestriction();
+            }
+        };
+    }
+    
+    public Specification<Participante> specificationAllUsuario() {
+        return new Specification<Participante>() {
+            @Override
+            public Predicate toPredicate(Root<Participante> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.<String>get("nome")));                
+                
+                Predicate p1 = cb.isNotNull(root.<String>get("cpf"));
+                
+                return cb.and(p1);
             }
         };
     }

@@ -18,10 +18,16 @@
         
         <intercept-url pattern="/configuracoes/*" access="isAuthenticated()" />
         <intercept-url pattern="/configuracoes/menu/*" access="isAuthenticated()" />
+        <intercept-url pattern="/configuracoes/menu/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/configuracoes/menu/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/configuracoes/perfil/*" access="isAuthenticated()" />        
-        <intercept-url pattern="/configuracoes/redefinirSenhaUsuario/*" access="permitAll" /> 
+        <intercept-url pattern="/configuracoes/perfil/cadastrar/*" access="isAuthenticated()" />        
+        <intercept-url pattern="/configuracoes/perfil/editar/*" access="isAuthenticated()" />        
+        <intercept-url pattern="/configuracoes/redefinir-senha-usuario/*" access="permitAll" /> 
         <intercept-url pattern="/configuracoes/usuario/*" access="isAuthenticated()" />
-        <intercept-url pattern="/configuracoes/meusdados/*" access="isAuthenticated()" />        
+        <intercept-url pattern="/configuracoes/usuario/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/configuracoes/usuario/editar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/configuracoes/meus-dados/*" access="isAuthenticated()" />        
         
         <intercept-url pattern="/segue-me/cadastros-gerais/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/circulos/*" access="isAuthenticated()" />
