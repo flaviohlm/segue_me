@@ -19,7 +19,8 @@
                 <p:panel header="Gerenciar Acesso dos Usuários" > 
                     <p:messages id="messages"  autoUpdate="true" closable="true" />
                     <p:commandButton value="Incluir" action="#{usuarioBean.gotoParticipanteCadastrar}" ajax="false"  class="icone2 adicionar"/>
-                    <p:separator/>                
+                    <p:separator/> 
+                    
                     <p:dataTable id="dataTableUsuario" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30"  widgetVar="modelUsuario" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{usuarioBean.listaParticipantes}" currentPageReportTemplate="{currentPage} de {totalPages}"
                                  selectionMode="single" selection="#{usuarioBean.participanteSelecionado}" rowKey="#{model.id}"> 
@@ -50,18 +51,18 @@
                         </p:column>
 
                         <p:column headerText="Resetar Senha" width="130">
-                            <p:commandButton id="resetar_senha" value="Resetar" oncomplete="PF('confirmarResetar').show()" styleClass="ui-priority-primary" update=":frmUsuarioView:messages"  >
-                                <f:setPropertyActionListener target="#{usuarioBean.participante}" value="#{model}"/>
+                            <p:commandButton id="resetar_senha" value="Resetar" title="Resetar" oncomplete="PF('confirmarResetar').show()" class="icone2 atualizar" update=":frmUsuarioView:messages"  >
+                                <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{model}"/>
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="Desativar Usuário" width="170">
-                            <p:commandButton id="desativar" value="Desativar" oncomplete="PF('confirmarDesativar').show()" styleClass="ui-priority-primary" update=":frmUsuarioView:messages"  rendered="#{model.ativo == true}">
-                                <f:setPropertyActionListener target="#{usuarioBean.participante}" value="#{model}"/>
+                        <p:column headerText="" width="50">
+                            <p:commandButton id="desativar" value="Desativar" title="Desativar Usuário"  oncomplete="PF('confirmarDesativar').show()" class="icone2 visto" update=":frmUsuarioView:messages"  rendered="#{model.ativo == true}">
+                                <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{model}"/>
                             </p:commandButton>
 
-                            <p:commandButton id="ativar" value="Ativar" oncomplete="PF('confirmarAtivar').show()" styleClass="ui-priority-primary" update=":frmUsuarioView:messages"  rendered="#{model.ativo == false}">
-                                <f:setPropertyActionListener target="#{usuarioBean.participante}" value="#{model}"/>
+                            <p:commandButton id="ativar" value="Ativar" title="Ativar Usuário" oncomplete="PF('confirmarAtivar').show()" class="icone2 atencao" update=":frmUsuarioView:messages"  rendered="#{model.ativo == false}">
+                                <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{model}"/>
                             </p:commandButton>
                         </p:column>
 

@@ -1,5 +1,7 @@
 package br.gov.to.santuario.seg.view;
 
+import br.gov.to.santuario.ejc.domain.Seguidor;
+import br.gov.to.santuario.ejc.service.SeguidorService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import br.gov.to.santuario.seg.domain.Perfil;
 import br.gov.to.santuario.seg.domain.Participante;
@@ -37,12 +39,16 @@ public class UsuarioBean implements Serializable {
     @ManagedProperty(value = "#{perfilService}")
     private PerfilService perfilService;
     
+    @ManagedProperty(value = "#{seguidorService}")
+    private SeguidorService seguidorService;
+    
     
     private FacesMessages messages = new FacesMessages();
     
     private Integer idElemento;    
     private Participante usuario = new Participante();
     private List<Participante> listaParticipantes;
+    private List<Seguidor> listaSeguidores;
     private List<Perfil> listaPerfis;
     private List<Perfil> listaPerfisSelecionados = new ArrayList<>();      
     private Participante participanteSelecionado;
@@ -160,16 +166,6 @@ public class UsuarioBean implements Serializable {
         return "/configuracoes/meus-dados/index?faces-redirect=true";
     }
     
-    public void loadInstrutor(String cpf){                
-       
-        /*Instrutor aux = instrutorService.findOneInstrutor(ajustaCPF(cpf));
-        
-        if(aux != null){                     
-            usuario.setNome(aux.getPessoa().getNome());
-            usuario.setOrgao(aux.getOrgao());
-            usuario.setEmail(aux.getPessoa().getEmail());
-        }    */
-    }
     
     public String ajustaCPF(String cpf){
        String aux = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6,9)+"-"+cpf.substring(9);
@@ -177,7 +173,8 @@ public class UsuarioBean implements Serializable {
     }
     
     public void selecionarParticipante(SelectEvent event) throws IOException {                
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/configuracoes/usuario/editar/index.xhtml?id=" + participanteSelecionado.getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segue-me-1.0/configuracoes/usuario/editar/index.xhtml?id=" + participanteSelecionado.getId());
+        //return "/configuracoes/usuario/editar/index.xhtml?id="+participanteSelecionado.getId()+"&faces-redirect=true";
     }
     
     //GETTERS AND SETTERS
@@ -282,5 +279,25 @@ public class UsuarioBean implements Serializable {
     public void setConfirmaPassword(String confirmaPassword) {
         this.confirmaPassword = confirmaPassword;
     }
+
+    public SeguidorService getSeguidorService() {
+        return seguidorService;
+    }
+
+    public void setSeguidorService(SeguidorService seguidorService) {
+        this.seguidorService = seguidorService;
+    }
+
+    public List<Seguidor> getListaSeguidores() {
+        if(listaSeguidores == null){
+            listaSeguidores = seguidorService.findAllSeguidor();
+        }
+        return listaSeguidores;
+    }
+
+    public void setListaSeguidores(List<Seguidor> listaSeguidores) {
+        this.listaSeguidores = listaSeguidores;
+    }
+
 
 }

@@ -108,7 +108,9 @@ public class ParticipanteService implements UserDetailsService {
                 
                 Predicate p1 = cb.isNotNull(root.<String>get("cpf"));
                 
-                return cb.and(p1);
+                Predicate p2 = cb.notEqual(root.<String>get("cpf"), "");
+                
+                return cb.and(p1, p2);
             }
         };
     }

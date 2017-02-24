@@ -34,6 +34,7 @@
                     <webAppConfig>
                         <contextPath>/${project.build.finalName}</contextPath>
                         <descriptor>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</descriptor>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
                         <!--http://jira.codehaus.org/browse/JETTY-1503 slow down on 8 version-->
                         <!--WebInfIncludeJarPattern>.*/.*jsp-api-[^/]\.jar$|./.*jsp-[^/]\.jar$|./.*taglibs[^/]*\.jar$</WebInfIncludeJarPattern--> 
                     </webAppConfig>

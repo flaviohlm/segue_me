@@ -25,23 +25,26 @@
                 <p:messages id="messages"  autoUpdate="true" closable="true" />
 
                     <p:fieldset id="usuario" legend="Dados Pessoais">                        
-                        <p:panelGrid layout="grid" columns="2" >
-                            <p:outputLabel value="CPF:" />
-                            <p:inputMask id="cpf" mask="999.999.999-99" value="#{usuarioBean.usuario.cpf}" required="true" requiredMessage="Campo 'CPF' é obrigatório." >
-                                <p:ajax event="blur" listener="#{usuarioBean.loadInstrutor(usuarioBean.usuario.cpf)}" update="usuario" />
-                            </p:inputMask>
+                        <p:panelGrid layout="grid" columns="1" >
+                            <p:outputLabel value="Seguidor*: " >
+                                <p:selectOneMenu value="#{usuarioBean.usuario}" converter="#{participanteConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
+                                    <f:selectItem itemLabel="- - -" itemValue="" />
+                                    <f:selectItems value="#{usuarioBean.listaSeguidores}" itemLabel="#{seguidor.participante.nome}" itemValue="#{seguidor.participante}" var="seguidor" />
+                                    <p:ajax update="usuario" process="@this" />
+                                </p:selectOneMenu>
+                            </p:outputLabel>
                             
-                            <p:outputLabel value="Nome:" />
-                            <p:inputText id="nome" size="68" value="#{usuarioBean.usuario.nome}" />                            
+                            <p:outputLabel value="CPF:" >
+                            <p:inputMask id="cpf" mask="999.999.999-99" value="#{usuarioBean.usuario.cpf}" required="true" requiredMessage="Campo 'CPF' é obrigatório." />
+                            </p:outputLabel>
                             
-                            <p:outputLabel value="Orgão*:" />
-                            <p:selectOneMenu id="orgao" value="#{usuarioBean.usuario.orgao}" converter="#{orgaoConverter}" filter="true" filterMatchMode="contains" effect="fade" required="true" requiredMessage="Campo 'Orgão' é obrigatório.">
-                                <f:selectItem itemLabel="Selecione" itemValue="" />
-                                <f:selectItems value="#{usuarioBean.listaOrgaos}" itemLabel="#{orgao.sigla}" itemValue="#{orgao}" var="orgao" />
-                            </p:selectOneMenu>
+                            <p:outputLabel value="Nome:" >
+                            <p:inputText id="nome" size="68" value="#{usuarioBean.usuario.nome}" readonly="true" />                            
+                            </p:outputLabel>
                             
-                            <p:outputLabel value="e-mail*:" />
-                            <p:inputText id="email" value="#{usuarioBean.usuario.email}" requiredMessage="Campo 'e-mail' obrigatório."/>
+                            <p:outputLabel value="e-mail*:" >
+                            <p:inputText id="email" value="#{usuarioBean.usuario.email}" readonly="true"/>
+                            </p:outputLabel>
                         </p:panelGrid>
                         
                     </p:fieldset>
@@ -50,7 +53,7 @@
                     <p:fieldset legend="Perfis" >
                         <p:dataTable id="dataTablePerfis" paginator="true" paginatorAlwaysVisible="false" reflow="true" widgetVar="modelPerfil" emptyMessage="Nenhum registro encontrado." var="model" value="#{usuarioBean.listaPerfis}" selection="#{usuarioBean.listaPerfisSelecionados}" rowKey="#{model.id}" >
 
-                            <p:column selectionMode="multiple" width="30" />
+                            <p:column selectionMode="multiple" width="50" />
 
                             <p:column sortBy="nome"  headerText="Nome" >
                                 <h:outputText value="#{model.nome}" />   

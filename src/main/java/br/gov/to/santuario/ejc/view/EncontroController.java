@@ -186,6 +186,7 @@ public class EncontroController implements Serializable {
         }
     }
     
+    
     //GETTERS AND SETTERS
     public EncontroService getEncontroService() {
         return encontroService;

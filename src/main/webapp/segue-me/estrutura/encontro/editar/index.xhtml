@@ -25,7 +25,8 @@
                 
                 <p:panel id="panel_1">
                     
-                    <p:commandButton oncomplete="PF('confirmarFinalizar').show()" image="" class="botao iconebt" title="Finalizar Encontro" value="Finalizar Encontro"  />
+                    <p:commandButton oncomplete="PF('confirmarFinalizar').show()" image="" class="botao iconebt" title="Finalizar Encontro" value="Finalizar Encontro" rendered="#{encontroController.encontro.finalizado == false}"  />
+                    <p:commandButton oncomplete="PF('confirmarReativar').show()" image="" class="botao iconebt" title="Reativar Encontro" value="Reativar Encontro"  rendered="#{encontroController.encontro.finalizado == true}" />
                     
                     <p:panelGrid layout="grid" columns="1" >                        
                          <p:outputLabel value="Descrição*:" >

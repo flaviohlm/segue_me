@@ -8,12 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
@@ -27,7 +25,7 @@ import org.primefaces.model.UploadedFile;
  * @author flavio.madureira
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ParoquiaController implements Serializable {
     @ManagedProperty(value = "#{paroquiaService}")
     private ParoquiaService paroquiaService;
@@ -115,8 +113,7 @@ public class ParoquiaController implements Serializable {
     
     public void selecionar(SelectEvent event) {       
         this.paroquia = (Paroquia) event.getObject();  
-        System.out.println("SELECIONANDO: "+paroquia.getDescricao());
-        System.out.println("SELECIONANDO OUTRA: "+paroquiaSelecionada.getDescricao());
+                
         if(paroquia.getImagem() != null){
             InputStream is = new ByteArrayInputStream(paroquia.getImagem());
             graphicImage = new DefaultStreamedContent(is);

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/index.xhtml">
+    <!--Substituir o Título padrão da Página-->
+    <ui:define name="tituloPagina">
+        Gerenciar Paróquias
+    </ui:define>
+    <!--Conteúdo da página-->
+    <ui:define name="conteudo">
+        
+        <h:form id="frm">
+            <p:messages autoUpdate="true" closable="true"/>
+            
+            <p:panel id="pne_fase">
+                <p:fieldset legend="Dados da Paróquia">
+                    <p:panelGrid id="panelGridFase" columns="1" layout="grid">
+                        <p:outputLabel value="Descrição:" for="descricao">
+                            <p:inputText id="descricao" value="#{paroquiaController.paroquia.descricao}"/>
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Logo/Imagem da(o) Padroeira(o):">                         
+                            <p:fileUpload fileUploadListener="#{paroquiaController.handleFileUpload}" mode="advanced" dragDropSupport="false" multiple="true"
+                                      update="" sizeLimit="1000000000000000" fileLimit="10" allowTypes="/(\.|\/)(jpg?e|png)$/"
+                                      cancelLabel="Cancelar" uploadLabel="Importar" label="Escolher Arquivo" 
+                                      invalidFileMessage="Somente JPG/Jpeg ou PNG são permitidos."
+                                      invalidSizeMessage="Limite do tamanho do arquivo é de 99 mb."
+                                      auto ="true"/>
+                        </p:outputLabel>
+                        
+                        <h:graphicImage class="destaque" library="images" name="logo-bom-pastor.png" rendered="#{paroquiaController.graphicImage == null}" />
+                        
+                        <p:graphicImage value="#{paroquiaController.graphicImage}" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="Salvar" class="salvar " icon="" action="#{paroquiaController.salvar()}" update=":frm"/>
+                </p:fieldset>  
+            </p:panel> 
+            
+            
+            <p:panel>
+                <p:dataTable id="tableFase" paginator="true" paginatorAlwaysVisible="false" emptyMessage="Nenhum registro encontrado." rows="30" selectionMode="single" var="model" reflow="true"
+                             value="#{paroquiaController.listaParoquias}" selection="#{paroquiaController.paroquia}" rowKey="#{model.id}">
+                    
+                    <p:ajax event="rowSelect" listener="#{paroquiaController.selecionar}" update=":frm:pne_fase"/>
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:inputText id="globalFilter" onkeyup="PF('faseTable').filter()" placeholder="Filtrar"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="Descrição" filterMatchMode="contains">
+                        #{model.descricao}
+                    </p:column>
+
+                    <p:column width="100" headerText="Excluir" filterMatchMode="contains" styleClass="centralizar">
+                        <p:commandButton value="Excluir" oncomplete="PF('confirmarExcluir').show();"  process="@this"  styleClass="excluir">
+                            <f:setPropertyActionListener target="#{paroquiaController.paroquia}" value="#{model}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+            <p:confirmDialog message="Tem certeza que deseja excluir este Registro? Essa operação não poderá ser desfeita. Confirma?" header="Excluir Registro" width="430" widgetVar="confirmarExcluir" >
+                <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{paroquiaController.deletar()}" ajax="true" update=":frm" />
+                <p:commandButton value="Cancelar" class="icone2 excluir" onclick="PF('confirmarExcluir').hide(); return false;" type="button" ajax="false" />
+            </p:confirmDialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+    
+</html>
