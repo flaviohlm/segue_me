@@ -130,7 +130,7 @@ public class MenuBean implements Serializable {
     //REDIRECIONAR PARA EDIT
     public String gotoMenuEdit(){
         menu = new Menu();
-        return "/configuracoes/menu/edit?faces-redirect=true";
+        return "/configuracoes/menu/cadastrar/index?faces-redirect=true";
     }
     
     

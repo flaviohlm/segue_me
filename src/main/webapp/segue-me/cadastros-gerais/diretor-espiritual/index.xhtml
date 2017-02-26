@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Gerenciar Diretor Espiritual
+        </ui:define> 
+        
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Diretor Espiritual">
+                <p:messages id="messages" autoUpdate="true" closable="true"  />                
+                <p:commandButton update="data_table" value="Novo" image="" action="#{diretorEspiritualController.gotoEdit()}" class="icone2 adicionar"/>
+                
+                    <p:separator/>
+                        <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                     value="#{diretorEspiritualController.listaDiretorEspirituals}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"
+                                     selectionMode="single" selection="#{diretorEspiritualController.diretorEspiritualSelecionado}" rowKey="#{model.id}">
+                            
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Filtrar: " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                                </p:outputPanel>
+                            </f:facet>
+                            
+                            <p:ajax event="rowSelect" listener="#{diretorEspiritualController.selecionarDiretorEspiritual}" />
+                            
+                            <p:column headerText="#" width="40">
+                                #{rowIndex+1}
+                            </p:column>
+                            
+                            <p:column headerText="Nome" sortBy="#{model.participante.nome}" filterBy="#{model.participante.nome}" >
+                                <h:outputText value="#{model.participante.nome}" />                                  
+                            </p:column>
+                            
+                            <p:column headerText="Crachá" sortBy="#{model.participante.apelido}" filterBy="#{model.participante.apelido}" >
+                                <h:outputText value="#{model.participante.apelido}" />                                  
+                            </p:column>
+                            
+                            <p:column headerText="Telefone" sortBy="#{model.participante.telefoneCelular}" filterBy="#{model.participante.telefoneCelular}" >
+                                <h:outputText value="#{model.participante.telefoneCelular}" />                                  
+                            </p:column>
+                            
+                        </p:dataTable>                    
+                </p:panel>                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

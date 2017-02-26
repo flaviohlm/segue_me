@@ -37,12 +37,11 @@ public class DiretorEspiritual implements Serializable {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "participante_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Participante participante;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diretorEspiritual")
-    private List<Encontro> encontroList;
 
     public DiretorEspiritual() {
+        this.participante = new Participante();
     }
 
     public DiretorEspiritual(Integer id) {
@@ -63,15 +62,6 @@ public class DiretorEspiritual implements Serializable {
 
     public void setParticipante(Participante participante) {
         this.participante = participante;
-    }
-
-    @XmlTransient
-    public List<Encontro> getEncontroList() {
-        return encontroList;
-    }
-
-    public void setEncontroList(List<Encontro> encontroList) {
-        this.encontroList = encontroList;
     }
 
     @Override

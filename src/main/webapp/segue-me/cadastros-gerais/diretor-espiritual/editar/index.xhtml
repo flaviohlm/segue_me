@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Editar Diretor Espiritual
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{diretorEspiritualController.id}" />
+                <f:viewAction action="#{diretorEspiritualController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">       
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+                
+                <p:panel id="panel_1">
+                   
+                   <p:panelGrid layout="grid" columns="2" >
+                        <p:outputLabel value="Nome*:" >
+                            <p:autoComplete value="#{diretorEspiritualController.diretorEspiritual.participante.nome}" completeMethod="#{palestranteController.find}"  required="true" requiredMessage="Campo 'Nome' é obrigatório."
+                                            var="participante" itemLabel="#{participante}" itemValue="#{participante}"  forceSelection="false">
+
+                                <p:ajax event="itemSelect" listener="#{diretorEspiritualController.onItemSelect}" update="panel_1" />
+                                <p:column>
+                                    <h:outputText value="#{participante}" />
+                                </p:column>
+                            </p:autoComplete>
+                        </p:outputLabel>                       
+                       
+                        <p:outputLabel value="Crachá:" >
+                            <p:inputText  size="25" value="#{diretorEspiritualController.diretorEspiritual.participante.apelido}" />
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Data de Nascimento:">
+                            <p:calendar locale="pt" showButtonPanel="true" value="#{diretorEspiritualController.diretorEspiritual.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1" >
+                                <h:outputScript name="primefaces-locales.js" library="js" />
+                            </p:calendar>
+                        </p:outputLabel>
+                                                
+                        <p:outputLabel value="Endereço:" >
+                            <p:inputText  size="25" value="#{diretorEspiritualController.diretorEspiritual.participante.endereco}" />
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Bairro:" >
+                            <p:inputText  size="25" value="#{diretorEspiritualController.diretorEspiritual.participante.bairro}" />
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Telefone Celular:" >
+                            <p:inputMask mask="(99) 99999-9999" value="#{diretorEspiritualController.diretorEspiritual.participante.telefoneCelular}" />
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Telefone Residencial:" >
+                            <p:inputMask mask="(99) 9999-9999" value="#{diretorEspiritualController.diretorEspiritual.participante.telefoneResidencial}"/>
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="CPF:" >
+                            <p:inputMask mask="99999999999" value="#{diretorEspiritualController.diretorEspiritual.participante.cpf}"/> 
+                        </p:outputLabel>
+                       
+                   </p:panelGrid>
+                    
+                    <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{diretorEspiritualController.salvar()}" update=":frmCadApontamento"/>
+                </p:panel>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

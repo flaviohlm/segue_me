@@ -117,7 +117,7 @@ public class PerfilBean implements Serializable {
     //IR PARA CADASTRO
     public String gotoGrupoEdit() {
         perfil = new Perfil();
-        return "/configuracoes/perfil/edit?faces-redirect=true";
+        return "/configuracoes/perfil/cadastrar/index?faces-redirect=true";
     }
 
     //CARREGA MODEL

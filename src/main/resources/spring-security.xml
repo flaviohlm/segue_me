@@ -31,7 +31,11 @@
         
         <intercept-url pattern="/segue-me/cadastros-gerais/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/circulos/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/cadastros-gerais/equipes/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/cadastros-gerais/diretor-espiritual/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/cadastros-gerais/diretor-espiritual/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/cadastros-gerais/diretor-espiritual/editar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/cadastros-gerais/equipe-dirigente/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/cadastros-gerais/equipes/*" access="isAuthenticated()" />        
         <intercept-url pattern="/segue-me/cadastros-gerais/habilidades/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/palestras/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/paroquias/*" access="isAuthenticated()" />
