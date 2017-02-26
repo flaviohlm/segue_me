@@ -20,12 +20,12 @@
                 <p:panel id="panel_1">
                    <p:panelGrid layout="grid" columns="2" >
                         <p:outputLabel value="Nome*:" >                       
-                            <p:autoComplete value="#{palestranteController.palestrante.participante}" completeMethod="#{palestranteController.find}"
-                                            var="participante" itemLabel="#{participante.nome}" itemValue="#{participante}" converter="#{participanteConverter}" forceSelection="false">
+                            <p:autoComplete value="#{palestranteController.palestrante.participante.nome}" completeMethod="#{palestranteController.find}" 
+                                            var="participante" itemLabel="#{participante}" itemValue="#{participante}"  forceSelection="false">
 
                                 <p:ajax event="itemSelect" listener="#{palestranteController.onItemSelect}" update="panel_1" />
                                 <p:column>
-                                    <h:outputText value="#{participante.nome}" />
+                                    <h:outputText value="#{participante}" />
                                 </p:column>
                             </p:autoComplete>
                         </p:outputLabel>
@@ -41,8 +41,8 @@
                             <p:inputText  size="25" value="#{palestranteController.palestrante.participante.apelido}" />
                         </p:outputLabel>
                         
-                        <p:outputLabel value="Data de Nascimento*:">
-                            <p:calendar locale="pt" showButtonPanel="true" value="#{palestranteController.palestrante.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1" required="true" requiredMessage="Campo 'Data de Nascimento' é obrigatório." >
+                        <p:outputLabel value="Data de Nascimento:">
+                            <p:calendar locale="pt" showButtonPanel="true" value="#{palestranteController.palestrante.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1"  >
                                 <h:outputScript name="primefaces-locales.js" library="js" />
                             </p:calendar>
                         </p:outputLabel>

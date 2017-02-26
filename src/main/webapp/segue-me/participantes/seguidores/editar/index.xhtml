@@ -51,8 +51,8 @@
                             <p:inputText  size="25" value="#{seguidorController.seguidor.participante.apelido}" />
                         </p:outputLabel>
                         
-                        <p:outputLabel value="Data de Nascimento*:">
-                            <p:calendar locale="pt" showButtonPanel="true" value="#{seguidorController.seguidor.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1" required="true" requiredMessage="Campo 'Data de Nascimento' é obrigatório." >
+                        <p:outputLabel value="Data de Nascimento:">
+                            <p:calendar locale="pt" showButtonPanel="true" value="#{seguidorController.seguidor.participante.dataNascimento}" pattern="dd/MM/yyyy" mask="true" pages="1">
                                 <h:outputScript name="primefaces-locales.js" library="js" />
                             </p:calendar>
                         </p:outputLabel>
@@ -88,7 +88,7 @@
                             </p:selectManyCheckbox> 
                         
                     </p:panelGrid>                      
-                    <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{seguidorController.salvar()}" update=":frmCadApontamento"/>
+                    <p:commandButton id="btn_salvar" value="Salvar" ajax="false"  class="icone2 salvar" action="#{seguidorController.atualizar()}" update=":form_1"/>
                 </p:panel>
                 
             </h:form>

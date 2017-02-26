@@ -19,7 +19,7 @@
                 <p:panel header="Seguidores">
                     <p:messages id="messages" autoUpdate="true" closable="true"  />                
                     <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{seguidorController.gotoEdit()}" class="icone2 adicionar"/>
-                
+                    
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{seguidorController.listaSeguidores}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"
@@ -42,15 +42,15 @@
                             <h:outputText value="#{model.participante.nome}" />                                  
                         </p:column>
 
-                        <p:column headerText="Crachá" sortBy="#{model.participante.apelido}" filterBy="#{model.participante.apelido}" >
+                        <p:column headerText="Crachá" sortBy="#{model.participante.apelido}" filterBy="#{model.participante.apelido}" width="160" >
                             <h:outputText value="#{model.participante.apelido}" />                                  
                         </p:column>
 
-                        <p:column headerText="Telefone" sortBy="#{model.participante.telefoneCelular}" filterBy="#{model.participante.telefoneCelular}" >
+                        <p:column headerText="Celular" sortBy="#{model.participante.telefoneCelular}" filterBy="#{model.participante.telefoneCelular}" width="130" >
                             <h:outputText value="#{model.participante.telefoneCelular}" />                                  
                         </p:column>
 
-                        <p:column headerText="Tipo" >
+                        <p:column headerText="Tipo" width="130">
                             <h:outputText value="Tio" rendered="#{model.tio == true and model.participante.sexo == 'M'}" />
                             <h:outputText value="Tia" rendered="#{model.tio == true and model.participante.sexo == 'F'}" />
                             <h:outputText value="Seguidor" rendered="#{model.tio == false and model.participante.sexo == 'M'}" />

@@ -22,12 +22,14 @@ public class ParticipanteConverter implements Converter{
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {   
         if(!string.trim().equals("")){
             try{
+                System.out.println(string+"<<<<<<<<<<<<<<<<<<<<<");
                 return (Participante) participanteService.findOneParticipante(Integer.valueOf(string));
             }catch(NumberFormatException e){
                  throw new ConverterException("Participante não encontrado. Mensagem: " + e.getMessage());
             }
             
         }
+        System.out.println("return nulllllllllllllllllll");
         return null;
     }
 

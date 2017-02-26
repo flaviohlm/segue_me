@@ -25,7 +25,7 @@
                     <p:messages id="messages" autoUpdate="true" closable="true"  />                
 
                     <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Equipe"  />                
-                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroEquipeController.id, 'equipe')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroEquipeController.id, 'equipe','equipe')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>
 
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"

@@ -13,6 +13,7 @@ import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -139,20 +140,46 @@ public class PalestranteController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/participantes/palestrantes/editar/index.xhtml?id=" + palestranteSelecionado.getId());
     }
     
-    public List<Participante> find(String nome){
-        return participanteService.findByNome(nome);
+    public List<String> find(String nome){
+        nome = removeAcentos(nome);
+        nome = nome.replaceAll(" ", "%");
+        List<Participante> lista = participanteService.findByNome(nome);
+        List<String> lista2 = new ArrayList<>();
+        for(Participante obj : lista){
+            lista2.add(obj.getNome());
+        }
+        
+        return lista2;
     }
     
-    public void onItemSelect(SelectEvent event) {
-        Participante participante = (Participante) event.getObject(); 
+    public void onItemSelect(SelectEvent event) {        
+        String nome = (String) event.getObject(); 
+        
+        Participante participante = participanteService.findByNomeExato(nome);
         
         Palestrante p = palestranteService.findByParticipante(participante.getId());
         
         if(p == null){
+            participante.setNome(nome);
             palestrante.setParticipante(participante);
         }else{
             palestrante = p;
         }
+    }
+    
+    public String removeAcentos(String s) {
+        if (s == null) {
+            return "";
+        }
+        String semAcentos = s.toLowerCase();
+        semAcentos = semAcentos.replaceAll("[áàâãäa]", "_");
+        semAcentos = semAcentos.replaceAll("[éèêëe]", "_");
+        semAcentos = semAcentos.replaceAll("[íìîïi]", "_");
+        semAcentos = semAcentos.replaceAll("[óòôõöo]", "_");
+        semAcentos = semAcentos.replaceAll("[úùûüu]", "_");
+        semAcentos = semAcentos.replaceAll("çc", "_");
+        semAcentos = semAcentos.replaceAll("ñn", "_");
+        return semAcentos;
     }
     
     //ver depois

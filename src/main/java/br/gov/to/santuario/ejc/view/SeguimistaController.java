@@ -2,10 +2,13 @@ package br.gov.to.santuario.ejc.view;
 
 import br.gov.to.santuario.ejc.domain.Encontro;
 import br.gov.to.santuario.ejc.domain.Habilidade;
+import br.gov.to.santuario.ejc.domain.Seguidor;
 import br.gov.to.santuario.ejc.domain.Seguimista;
 import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.HabilidadeService;
 import br.gov.to.santuario.ejc.service.SeguimistaService;
+import br.gov.to.santuario.seg.domain.Participante;
+import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import java.io.IOException;
 import java.io.Serializable;
@@ -32,6 +35,9 @@ public class SeguimistaController implements Serializable {
     
     @ManagedProperty(value = "#{encontroService}")
     private EncontroService encontroService;
+    
+    @ManagedProperty(value = "#{participanteService}")
+    private ParticipanteService participanteService;
     
     private FacesMessages messages = new FacesMessages();
     
@@ -119,6 +125,21 @@ public class SeguimistaController implements Serializable {
     
     public void selecionarSeguimista(SelectEvent event) throws IOException {                
         FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/participantes/seguimistas/editar/index.xhtml?id=" + seguimistaSelecionado.getId());
+    }
+    
+    public void onItemSelect(SelectEvent event) {
+        String nome = (String) event.getObject(); 
+        
+        Participante participante = participanteService.findByNomeExato(nome);        
+        
+        Seguimista s = seguimistaService.findByParticipante(participante.getId());
+        
+        if(s == null){
+            participante.setNome(nome);
+            seguimista.setParticipante(participante);
+        }else{
+            seguimista = s;
+        }
     }
     
     //GETTERS AND SETTERS
@@ -209,6 +230,14 @@ public class SeguimistaController implements Serializable {
 
     public void setSeguimistaSelecionado(Seguimista seguimistaSelecionado) {
         this.seguimistaSelecionado = seguimistaSelecionado;
+    }
+
+    public ParticipanteService getParticipanteService() {
+        return participanteService;
+    }
+
+    public void setParticipanteService(ParticipanteService participanteService) {
+        this.participanteService = participanteService;
     }
     
 }

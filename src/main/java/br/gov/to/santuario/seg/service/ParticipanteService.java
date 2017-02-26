@@ -88,6 +88,16 @@ public class ParticipanteService implements UserDetailsService {
         return repository.findAll(where(specificationNome(nome)));
     }
     
+    public Participante findByNomeExato(String nome){
+        List<Participante> lista = repository.findAll(where(specificationNomeExato(nome)));
+        
+        if(lista.isEmpty()){
+            return new Participante();
+        }
+        
+        return lista.get(0);        
+    }
+    
     public Specification<Participante> specificationAll() {
         return new Specification<Participante>() {
             @Override
@@ -144,6 +154,19 @@ public class ParticipanteService implements UserDetailsService {
         };
     }
      
+    public Specification<Participante> specificationNomeExato(final String nome) {
+        return new Specification<Participante>() {
+            @Override
+            public Predicate toPredicate(Root<Participante> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.<Integer>get("id")));                
+                
+                Predicate p1 = cb.like(cb.lower(root.<String>get("nome")), nome.toLowerCase());
+                
+                return cb.and(p1);
+            }
+        };
+    }
     
     @Transactional(timeout = 10)
     public Participante findByCpf(String cpf){        

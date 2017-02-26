@@ -24,7 +24,7 @@
                 <p:panel header="Palestras">
                     <p:messages id="messages" autoUpdate="true" closable="true"  />
                 
-                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroController.id, 'palestras')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroController.id, 'palestra','palestras')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="imprimir"/>
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroController.encontro.encontroPalestraList}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\palestra\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="R_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT encontro_palestra.id AS encontro_palestra_id,
+       encontro_palestra.data_palestra AS encontro_palestra_data_palestra,
+       encontro_palestra.horario_palestra AS encontro_palestra_horario_palestra,
+       palestra.tema AS palestra_tema,
+       palestra.descricao AS palestra_descricao,
+       encontro.descricao AS encontro_descricao,
+       encontro.data_realizacao_inicio AS encontro_data_realizacao_inicio,
+       encontro.data_realizacao_fim AS encontro_data_realizacao_fim,
+       paroquia.descricao AS paroquia
+
+FROM segueme.encontro_palestra encontro_palestra
+INNER JOIN segueme.palestra palestra ON encontro_palestra.palestra_id = palestra.id
+INNER JOIN segueme.encontro encontro ON encontro.id = encontro_palestra.encontro_id
+INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
+INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
+WHERE encontro.id = $P{R_ID}
+ORDER BY encontro_palestra.data_palestra, encontro_palestra.horario_palestra, palestra.tema]]>
+	</queryString>
+	<field name="encontro_palestra_id" class="java.lang.Integer"/>
+	<field name="encontro_palestra_data_palestra" class="java.sql.Date"/>
+	<field name="encontro_palestra_horario_palestra" class="java.sql.Time"/>
+	<field name="palestra_tema" class="java.lang.String"/>
+	<field name="palestra_descricao" class="java.lang.String"/>
+	<field name="encontro_descricao" class="java.lang.String"/>
+	<field name="encontro_data_realizacao_inicio" class="java.sql.Date"/>
+	<field name="encontro_data_realizacao_fim" class="java.sql.Date"/>
+	<field name="paroquia" class="java.lang.String"/>
+	<title>
+		<band height="76" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="53" width="555" height="20" uuid="1c9f3bad-33b7-416c-9ae3-176408f1839b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_descricao}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="248" y="3" width="58" height="50" uuid="50cd718f-54a3-4db2-966d-b0a10e009a17"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="46" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="171" y="20" width="100" height="20" uuid="26f1ed6d-c4d6-4b16-b8a4-4d0a928bdb00"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_inicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="286" y="20" width="100" height="20" uuid="c48c524f-e624-4e89-ad91-dbd0c56ce6bb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_fim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="271" y="20" width="14" height="20" uuid="0809609d-e95a-48ba-91d1-817336f2e54d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[à]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="f9307728-143c-40ab-b58d-43962a648937"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="11" width="555" height="20" uuid="544876b9-7696-4466-a5fc-918cf2b4dcb8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PALESTRAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="135" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="51" height="20" uuid="17970362-6731-4280-a2ae-e84d38fa171d"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Palestra:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="33" height="20" uuid="20c5f336-3f4f-4b40-9aa4-856a4b6cebd8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="33" y="40" width="522" height="20" uuid="c2c3f6fe-6382-4d5c-b78c-10945b0a3195"/>
+				<textFieldExpression><![CDATA[$F{encontro_palestra_data_palestra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="51" height="20" uuid="4cc9c7bf-402d-488f-a5b3-88419d730de7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horário:]]></text>
+			</staticText>
+			<textField pattern="HH.mm" isBlankWhenNull="true">
+				<reportElement x="51" y="60" width="504" height="20" uuid="60feaff5-7f2a-4f43-860f-04691ded41d3"/>
+				<textFieldExpression><![CDATA[$F{encontro_palestra_horario_palestra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="20" width="504" height="19" uuid="2c2a52dc-7cdf-4fbb-af4b-1d390c175799"/>
+				<textFieldExpression><![CDATA[$F{palestra_descricao} + " ("+$F{palestra_tema}+")"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="80" width="555" height="43" isRemoveLineWhenBlank="true" uuid="219cc1d7-92e0-46bf-896f-5d0c4ce937c9"/>
+				<subreportParameter name="ENCONTRO_PALESTRA_ID">
+					<subreportParameterExpression><![CDATA[$F{encontro_palestra_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "palestrantes.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="0" width="141" height="20" uuid="03d0fd82-58f7-48f4-b752-37e2520cfb0f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25">
+			<textField>
+				<reportElement x="0" y="3" width="281" height="20" uuid="1ce2ea88-0c1e-4f35-837c-9f9be4542a23"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_descricao}+" | "+$F{paroquia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="295" y="3" width="260" height="20" uuid="5a5ed25e-f310-4beb-9467-d1d2c3172f14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Palestras]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="266" y="3" width="22" height="20" uuid="a50240ee-786d-4252-a0c0-ff0a7c27874e"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="2" width="554" height="1" uuid="a6c0e4bc-2526-4266-8287-84274f014e15"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

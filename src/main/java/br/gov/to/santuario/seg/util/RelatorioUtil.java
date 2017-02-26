@@ -38,6 +38,53 @@ public class RelatorioUtil {
         return parameters;
     }
     
+    public void imprimeRelatorio(String diretorio, ArrayList<Object> listaParametros, Connection con, String nomeRelatorio, String pasta) throws IOException, SQLException {
+
+        try {
+            listaParametros.add(SUBREPORT_DIR);
+            if(pasta == null){
+                listaParametros.add(getRealPath(DIR) + "/");
+            }else{
+                listaParametros.add(getRealPath(DIR) + "/" + pasta + "/");
+            }
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+
+            facesContext.responseComplete();
+
+            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(diretorio), parametros(listaParametros), con);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            JRPdfExporter exporter = new JRPdfExporter();
+
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+
+            exporter.exportReport();
+
+            byte[] bytes = baos.toByteArray();
+
+            if (bytes != null && bytes.length > 0) {
+                HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+                response.setContentType("application/pdf");
+                response.setHeader("Content-disposition", "inline; filename=\""+nomeRelatorio+".pdf\"");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes, 0, bytes.length);
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+    
     public void imprimeRelatorio(String diretorio, ArrayList<Object> listaParametros, Connection con, String nomeRelatorio) throws IOException, SQLException {
 
         try {

@@ -134,15 +134,14 @@ public class EncontroController implements Serializable {
         }
     }
     
-    public void imprimir(Integer id, String relatorioJasper) throws IOException, SQLException, JRException{
-        
+    public void imprimir(Integer id, String pasta, String relatorioJasper) throws IOException, SQLException, JRException{        
         try{
             RelatorioUtil relatorio = new RelatorioUtil();
             ArrayList<Object> parametro = new ArrayList<>();
             parametro.add("R_ID");
             parametro.add(id);
             
-            relatorio.imprimeRelatorio(relatorio.DIR + "/"+relatorioJasper+".jasper", parametro, dataSource.getConnection(), ""+relatorioJasper);  
+            relatorio.imprimeRelatorio(relatorio.DIR + "/"+ pasta + "/" +relatorioJasper+".jasper", parametro, dataSource.getConnection(), ""+relatorioJasper, pasta);  
   
         }catch(IOException | SQLException ex){
             messages.error("Não foi possível imprimir o documento!");

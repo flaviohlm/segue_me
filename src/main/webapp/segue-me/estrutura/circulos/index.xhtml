@@ -24,9 +24,10 @@
                 <p:panel header="Círculos">
                     <p:messages id="messages" autoUpdate="true" closable="true"  />
                 
-                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="@this"/>
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulo','circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="@this"/>
                     
-                    <p:commandButton value="Quadrante dos Círculos" title="Imprimir a lista de seguimistas para o quadrante" action="#{encontroController.imprimir(encontroController.id, 'quadrante_circulos')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    <p:commandButton value="Quadrante dos Círculos" title="Imprimir a lista de seguimistas para o quadrante" action="#{encontroController.imprimir(encontroCirculoController.id, 'quadrante','circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="@this"/>
+                    
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex"

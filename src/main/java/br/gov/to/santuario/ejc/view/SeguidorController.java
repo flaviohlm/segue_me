@@ -109,23 +109,24 @@ public class SeguidorController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/participantes/seguidores/editar/index.xhtml?id=" + seguidorSelecionado.getId());
     }
     
-    public List<Participante> find(String nome){
-        return participanteService.findByNome(nome);
-    }
-    
     public void onItemSelect(SelectEvent event) {
-        Participante participante = (Participante) event.getObject(); 
+        String nome = (String) event.getObject(); 
+        
+        Participante participante = participanteService.findByNomeExato(nome);        
         
         Seguidor s = seguidorService.findByParticipante(participante.getId());
         
         if(s == null){
+            participante.setNome(nome);
             seguidor.setParticipante(participante);
         }else{
             seguidor = s;
         }
     }
     
-    public void atualizarTelefone(){
+    
+    
+    public void verificarTelefone(){
         List<Participante> lista = participanteService.findAllParticipantes();
         
         for(Participante p : lista){
@@ -133,8 +134,8 @@ public class SeguidorController implements Serializable {
                 System.out.println("Antes: "+p.getTelefoneCelular());
                 p.setTelefoneCelular(p.getTelefoneCelular().replaceAll("[^0-9]", "").trim());
                 System.out.println("LENGHT: "+p.getTelefoneCelular().length());
-                 if(p.getTelefoneCelular().length() == 8){//81143586
-                    p.setTelefoneCelular("(63) 9"+p.getTelefoneCelular().substring(0, 4)+"-"+p.getTelefoneCelular().substring(4));
+                 if(p.getTelefoneCelular().length() == 9){//81143586
+                    p.setTelefoneCelular("(63) "+p.getTelefoneCelular().substring(0, 4)+"-"+p.getTelefoneCelular().substring(4));
                     System.out.println("Depois: "+p.getTelefoneCelular());                    
                 }
                 else{
@@ -145,6 +146,24 @@ public class SeguidorController implements Serializable {
         }
         
         //participanteService.saveParticipante(lista);
+        
+    }
+    
+    public void atualizarTelefone(){
+        List<Participante> lista = participanteService.findAllParticipantes();
+        
+        for(Participante p : lista){
+            if(p.getTelefoneCelular() != null){
+                
+                String telefoneTrim = p.getTelefoneCelular().replaceAll("[^0-9]", "").trim();
+                
+                if(telefoneTrim.length() == 9){//981143586
+                    p.setTelefoneCelular("(63) "+telefoneTrim.substring(0, 5)+"-"+telefoneTrim.substring(5));                                       
+                }
+            }
+        }
+        
+       // participanteService.saveParticipante(lista);
         
     }
     

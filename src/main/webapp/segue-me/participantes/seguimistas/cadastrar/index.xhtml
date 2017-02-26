@@ -28,7 +28,14 @@
                    </p:panelGrid>
                    <p:panelGrid layout="grid" columns="2" >
                         <p:outputLabel value="Nome*:" >
-                            <p:inputText  size="25" value="#{seguimistaController.seguimista.participante.nome}" required="true" requiredMessage="Campo 'Nome' é obrigatório."/>
+                            <p:autoComplete value="#{seguimistaController.seguimista.participante.nome}" completeMethod="#{palestranteController.find}"  required="true" requiredMessage="Campo 'Nome' é obrigatório."
+                                            var="participante" itemLabel="#{participante}" itemValue="#{participante}"  forceSelection="false">
+
+                                <p:ajax event="itemSelect" listener="#{seguimistaController.onItemSelect}" update="panel_1" />
+                                <p:column>
+                                    <h:outputText value="#{participante}" />
+                                </p:column>
+                            </p:autoComplete>
                         </p:outputLabel>
                        
                         <p:outputLabel value="Sexo:" >

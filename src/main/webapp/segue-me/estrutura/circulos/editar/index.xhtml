@@ -33,7 +33,7 @@
                     </p:panelGrid>
 
                     <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Circulo"  />                
-                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulo')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>                    
+                    <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulo','circulo')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>                    
 
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
