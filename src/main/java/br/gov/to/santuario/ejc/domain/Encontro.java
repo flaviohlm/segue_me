@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -66,8 +67,11 @@ public class Encontro implements Serializable {
     private List<EncontroCirculo> encontroCirculoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")
     private List<EncontroParoquia> encontroParoquiaList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")
+    @OrderBy(value="dataPalestra, horarioPalestra")
     private List<EncontroPalestra> encontroPalestraList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")        
     private List<EncontroEquipe> encontroEquipeList;
     

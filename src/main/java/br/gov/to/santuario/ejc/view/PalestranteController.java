@@ -182,6 +182,15 @@ public class PalestranteController implements Serializable {
         return semAcentos;
     }
     
+    public void removerPalestrante(Palestrante p){
+        for(Palestrante aux : encontroPalestraSelecionada.getPalestranteList()){
+            if(aux.getParticipante().getNome().equals(p.getParticipante().getNome())){
+                encontroPalestraSelecionada.getPalestranteList().remove(aux);
+                break;
+            }
+        }
+    }
+    
     //ver depois
     public void selecionarPalestra(){
         if(encontroPalestraSelecionada != null){

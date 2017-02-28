@@ -54,6 +54,20 @@
                 <p:confirmDialog id="dialog_palestrantes" widgetVar="dialog_palestrantes" message="Selecionar Palestrantes" width="630"
                                  header="Palestrantes da Palestra: #{palestranteController.encontroPalestraSelecionada.palestras.descricao}"  >
                     <p:scrollPanel class="rolagem" mode="native" >  
+                        <p:panelGrid layout="grid" columns="2">
+                            <p:outputLabel value="Data:">
+                                <p:calendar locale="pt" showButtonPanel="true" value="#{palestranteController.encontroPalestraSelecionada.dataPalestra}" pattern="dd/MM/yyyy" mask="true" pages="1" mindate="#{palestranteController.encontroPalestraSelecionada.encontro.dataRealizacaoInicio}" maxdate="#{palestranteController.encontroPalestraSelecionada.encontro.dataRealizacaoFim}" >
+                                    <h:outputScript name="primefaces-locales.js" library="js" />
+                                </p:calendar>
+                            </p:outputLabel>
+                            
+                            <p:outputLabel value="Hora:">
+                                <p:calendar locale="pt" showButtonPanel="true" value="#{palestranteController.encontroPalestraSelecionada.horarioPalestra}" pattern="HH:mm" mask="true" timeOnly="true" >
+                                    <h:outputScript name="primefaces-locales.js" library="js" />
+                                </p:calendar>
+                            </p:outputLabel>
+                            
+                        </p:panelGrid>
                         
                         <p:panelGrid layout="grid" columns="1">
                             <p:outputLabel value="Palestrantes: " >
@@ -76,6 +90,10 @@
 
                             <p:column headerText="Celular" sortBy="#{palestrante.participante.telefoneCelular}" filterBy="#{palestrante.participante.telefoneCelular}" >
                                 <h:outputText value="#{palestrante.participante.telefoneCelular}" />                                  
+                            </p:column>
+                            
+                            <p:column headerText="">
+                                <p:commandButton actionListener="#{palestranteController.removerPalestrante(palestrante)}" ajax="true"  value="Excluir"  title="Excluir" styleClass="excluir" update="data_table_palestrantes"/>
                             </p:column>
                             
                         </p:dataTable>
