@@ -10,21 +10,21 @@
     <ui:composition template="/templates/index.xhtml">
         <!--Substituir o Título padrão da Página-->
         <ui:define name="tituloPagina">
-            Gerenciar Cor de Cículos
+            Gerenciar Funções Conselho/Dirigentes
         </ui:define>        
         <!--Conteúdo da página-->
         <ui:define name="conteudo">
             <h:form id="form_1">  
-                <p:panel header="Cor de Cículos">
+                <p:panel header="Funções Conselho/Dirigentes">
                 <p:messages id="messages" autoUpdate="true" closable="true"  />
-                     <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{circuloController.novo()}" class="icone2 adicionar"/>
+                     <p:commandButton id="btn_novo" update="data_table" value="Novo" image="" action="#{funcaoController.novo()}" class="icone2 adicionar"/>
                     <p:separator/>
                         <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                     value="#{circuloController.listaCirculos}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                     value="#{funcaoController.listaFuncoes}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
                                      editable="true" editMode="cell">
                             
                             
-                            <p:ajax event="cellEdit" listener="#{circuloController.onCellEdit}" update=":form_1:messages" />
+                            <p:ajax event="cellEdit" listener="#{funcaoController.onCellEdit}" update=":form_1:messages" />
                             
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -37,40 +37,45 @@
                                 #{rowIndex+1}
                             </p:column>
                             
-                            <p:column headerText="Cor" sortBy="#{model.cor}" filterBy="#{model.cor}" >
+                            <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <h:outputText value="#{model.cor}" /> 
+                                        <h:outputText value="#{model.descricao}" /> 
                                     </f:facet>
                                     <f:facet name="input">    
-                                        <p:inputText value="#{model.cor}" />
+                                        <p:inputText value="#{model.descricao}" />
                                     </f:facet> 
                                 </p:cellEditor>                                    
                             </p:column>
                             
-                            <p:column headerText="Apóstolo" sortBy="#{model.apostolo}" filterBy="#{model.apostolo}" >
+                            <p:column headerText="Tabela" sortBy="#{model.tabela}" filterBy="#{model.tabela}" >
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <h:outputText value="#{model.apostolo}" /> 
+                                        <h:outputText value="#{model.tabela}" /> 
                                     </f:facet>
-                                    <f:facet name="input">    
-                                        <p:inputText value="#{model.apostolo}" />
+                                    <f:facet name="input">                                            
+                                        <p:selectOneMenu id="orgao" value="#{model.tabela}" effect="fade">
+                                            <f:selectItem itemLabel="- - -" itemValue="" />
+                                            <f:selectItem itemLabel="Conselho Arquidiocesano" itemValue="Conselho Arquidiocesano" />
+                                            <f:selectItem itemLabel="Equipe Dirigente" itemValue="Equipe Dirigente" />
+                                        </p:selectOneMenu>
                                     </f:facet> 
                                 </p:cellEditor>                                    
                             </p:column>                            
                             
                             <p:column headerText="" width="50">
                                 <p:commandButton oncomplete="PF('confirmarExcluir').show()" value="Excluir"  title="Excluir" styleClass="excluir" update=":form_1">
-                                    <f:setPropertyActionListener value="#{model}" target="#{circuloController.circulo}" />
+                                    <f:setPropertyActionListener value="#{model}" target="#{funcaoController.funcao}" />
                                 </p:commandButton>
                             </p:column>
                             
                         </p:dataTable>                    
                 </p:panel>
                 <p:confirmDialog message="Tem certeza que deseja excluir este Registro? Essa operação não poderá ser desfeita. Confirma?" header="Excluir Registro" width="430" widgetVar="confirmarExcluir" >
-                    <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{circuloController.deletar()}" ajax="true" update=":form_1" />
+                    <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{funcaoController.deletar()}" ajax="true" update=":form_1" />
                     <p:commandButton value="Cancelar" class="icone2 excluir" onclick="PF('confirmarExcluir').hide(); return false;" type="button" ajax="false" />
                 </p:confirmDialog>
+
             </h:form>
 
         </ui:define>

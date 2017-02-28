@@ -45,5 +45,21 @@ public interface ISeguidorRepository extends JpaRepository<Seguidor, Serializabl
                     "ORDER BY nome", nativeQuery = true)    
     ArrayList<Seguidor> findSeguidoresPadrinhosDisponiveis(Integer idEncontro, String sexo, Boolean tio);
     
+    @Query(value =  "SELECT s.id, s.participante_id, p.nome, " +
+                    " CASE WHEN s.tio = true then 'tio' ELSE 'jovem' END AS tipo, f.descricao AS funcao, '1' AS ordem" +
+                    " FROM segueme.seguidor s, segueme.participante p, segueme.equipe_dirigente_integrante eei" +
+                    " LEFT JOIN segueme.funcao f ON f.id = eei.funcao_id" +
+                    " WHERE eei.equipe_dirigente_id = ?1" +
+                    " AND eei.seguidor_id = s.id " +
+                    " AND p.id = s.participante_id " + 
+                    " UNION" +
+                    " SELECT s.id, s.participante_id, p.nome, " +
+                    " CASE WHEN s.tio = true then 'tio' ELSE 'jovem' END AS tipo, '' AS funcao, '2' AS ordem" +
+                    " FROM segueme.seguidor s, segueme.participante p" +
+                    " WHERE p.id = s.participante_id " +
+                    " AND s.id NOT IN (SELECT eei.seguidor_id FROM segueme.equipe_dirigente_integrante eei WHERE eei.equipe_dirigente_id = ?1)" +
+                    " ORDER BY ordem, funcao, tipo desc, nome", nativeQuery = true)    
+    ArrayList<Seguidor> findSeguidoresEquipeDirigente(Integer id);
+    
     
 }

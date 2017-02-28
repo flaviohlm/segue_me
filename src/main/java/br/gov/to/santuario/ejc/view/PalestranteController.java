@@ -114,7 +114,7 @@ public class PalestranteController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/participantes/palestrantes/cadastrar/index.xhtlm?faces-redirect=true";
+        return "/segue-me/participantes/palestrantes/cadastrar/index.xhtml?faces-redirect=true";
     }    
 
     public void adicionarPalestrante(){

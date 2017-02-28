@@ -71,9 +71,10 @@ public class Encontro implements Serializable {
     private List<EncontroPalestra> encontroPalestraList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro")        
     private List<EncontroEquipe> encontroEquipeList;
-    /*@JoinColumn(name = "diretor_espiritual_id", referencedColumnName = "id")
+    
+    @JoinColumn(name = "equipe_dirigente_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private DiretorEspiritual diretorEspiritual;*/
+    private EquipeDirigente equipeDirigente;
 
     @ManyToMany
     @JoinTable(schema = "segueme", name = "encontro_paroquia", joinColumns = {
@@ -243,6 +244,14 @@ public class Encontro implements Serializable {
 
     public void setParoquias(String paroquias) {
         this.paroquias = paroquias;
+    }
+
+    public EquipeDirigente getEquipeDirigente() {
+        return equipeDirigente;
+    }
+
+    public void setEquipeDirigente(EquipeDirigente equipeDirigente) {
+        this.equipeDirigente = equipeDirigente;
     }
 
     @Override

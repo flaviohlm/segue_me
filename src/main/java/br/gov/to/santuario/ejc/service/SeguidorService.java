@@ -55,6 +55,11 @@ public class SeguidorService {
        return repository.findSeguidoresPadrinhosDisponiveis(encontroCirculo.getEncontro().getId(), sexo, tio);
     }
     
+    public List<Seguidor> findSeguidoresEquipeDirigente(Integer id){   
+        System.out.println("---------------------------------------------------------------------------");
+       return repository.findSeguidoresEquipeDirigente(id);
+    }
+    
     public Seguidor findByParticipante(Integer id){
         List<Seguidor>lista = repository.findAll(where(specificationidParticipante(id)));
         if(lista.isEmpty()){

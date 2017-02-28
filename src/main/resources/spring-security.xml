@@ -34,22 +34,26 @@
         <intercept-url pattern="/segue-me/cadastros-gerais/diretor-espiritual/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/diretor-espiritual/cadastrar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/diretor-espiritual/editar/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/cadastros-gerais/equipe-dirigente/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/equipes/*" access="isAuthenticated()" />        
+        <intercept-url pattern="/segue-me/cadastros-gerais/funcoes/*" access="isAuthenticated()" /> 
         <intercept-url pattern="/segue-me/cadastros-gerais/habilidades/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/palestras/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/cadastros-gerais/paroquias/*" access="isAuthenticated()" />
         
         <intercept-url pattern="/segue-me/estrutura/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/estrutura/circulos/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/estrutura/circulos/editar/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/estrutura/equipes/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/circulos/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/circulos/editar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/equipes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipes/editar/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/estrutura/equipes/integrantes/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/equipes/integrantes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/cadastrar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/editar/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/estrutura/palestras/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/palestras/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/conselho/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/equipe-dirigente/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/equipe-dirigente/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/equipe-dirigente/editar/*" access="isAuthenticated()" />
         
         <intercept-url pattern="/segue-me/participantes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/palestrantes/*" access="isAuthenticated()" />

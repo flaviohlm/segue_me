@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="196"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\dirigente\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="R_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     paroquia.descricao AS paroquia,
+     f.descricao AS funcao,
+     equipe_dirigente.id AS equipe_dirigente_id,
+     f.id AS funcao_id,
+     participante.nome AS diretor_espiritual_nome,
+     participante.endereco AS diretor_espiritual_endereco,
+     participante.telefone_celular AS diretor_espiritual_telefone_celular,
+     participante.email AS diretor_espiritual_email,
+     equipe_dirigente.data_inicio AS data_inicio,
+     equipe_dirigente.data_fim AS data_fim
+
+FROM segueme.equipe_dirigente equipe_dirigente
+INNER JOIN segueme.equipe_dirigente_integrante equipe_dirigente_integrante ON equipe_dirigente.id = equipe_dirigente_integrante.equipe_dirigente_id
+INNER JOIN segueme.funcao f ON f.id = equipe_dirigente_integrante.funcao_id
+INNER JOIN segueme.paroquia paroquia ON paroquia.id = equipe_dirigente.paroquia_id
+INNER JOIN segueme.diretor_espiritual diretor_espiritual ON diretor_espiritual.id = equipe_dirigente.diretor_espiritual_id
+INNER JOIN segueme.participante participante ON participante.id = diretor_espiritual.participante_id
+WHERE equipe_dirigente.id = $P{R_ID}
+GROUP BY paroquia.descricao, f.descricao, equipe_dirigente.id, f.id, diretor_espiritual_nome, diretor_espiritual_endereco, diretor_espiritual_telefone_celular, diretor_espiritual_email
+ORDER BY funcao]]>
+	</queryString>
+	<field name="paroquia" class="java.lang.String"/>
+	<field name="funcao" class="java.lang.String"/>
+	<field name="equipe_dirigente_id" class="java.lang.Integer"/>
+	<field name="funcao_id" class="java.lang.Integer"/>
+	<field name="diretor_espiritual_nome" class="java.lang.String"/>
+	<field name="diretor_espiritual_endereco" class="java.lang.String"/>
+	<field name="diretor_espiritual_telefone_celular" class="java.lang.String"/>
+	<field name="diretor_espiritual_email" class="java.lang.String"/>
+	<field name="data_inicio" class="java.sql.Date"/>
+	<field name="data_fim" class="java.sql.Date"/>
+	<title>
+		<band height="110">
+			<rectangle>
+				<reportElement x="0" y="56" width="801" height="15" forecolor="#000000" backcolor="#FFCCCC" uuid="34eff783-5ed2-4b23-9d43-1920106dac3c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="538" y="71" width="263" height="15" backcolor="#99CCFF" uuid="b38b4e62-b1cf-484e-9ba0-1d18a56a6393"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="214" y="71" width="110" height="15" backcolor="#99CCFF" uuid="0a3f4a82-ef66-4183-991d-7766b9d06200"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="71" width="214" height="15" backcolor="#99CCFF" uuid="55ef769d-9537-405f-baa7-6e8c60f48bda"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="324" y="71" width="214" height="15" backcolor="#99CCFF" uuid="3e998883-0649-440b-8752-cb0f90f7e9c6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="324" y="71" width="215" height="15" uuid="a3b1d494-a492-414a-934d-58ea08ca4926"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="71" width="107" height="15" uuid="fc1cae49-8196-499c-8f0b-085c31468836"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="539" y="71" width="262" height="15" uuid="0b13bffb-8864-437d-8959-1b7c6bbc4a0b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="86" width="214" height="15" backcolor="#FFFFFF" uuid="0fe586cb-de5b-485c-b73a-111ba8597198"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="71" width="213" height="15" uuid="4aa2be7e-6e5e-4346-87fe-9b037c33d96c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="214" y="86" width="110" height="15" backcolor="#FFFFFF" uuid="c5a60cc4-e9e1-4d39-b2c7-7de52a953cd9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="324" y="86" width="215" height="15" backcolor="#FFFFFF" uuid="7f0d7e00-b4c8-481a-b838-93a1bd3a9bfb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="538" y="86" width="263" height="15" backcolor="#FFFFFF" uuid="8386fd95-c76d-4611-8ec5-d521473ad089"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="56" width="801" height="15" uuid="ee9721e4-1a26-42c8-88ef-090a5df38e3f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRETOR ESPIRITUAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="86" width="213" height="15" uuid="d89af930-ab60-4978-80b0-17ce34186900"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diretor_espiritual_nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="214" y="86" width="110" height="15" uuid="f0573b55-da83-468e-a662-c0fd8d29a004"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{diretor_espiritual_telefone_celular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="86" width="214" height="15" uuid="e695f17e-9ab8-430a-8b24-7259468763fa"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diretor_espiritual_email}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="539" y="86" width="262" height="15" uuid="fb179c79-c7b6-4d8f-b7d3-e1784fd2ac65"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diretor_espiritual_endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="34" width="356" height="19" uuid="ea2007fd-85f2-4881-9f6a-67153a53878e"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EQUIPE DIRIGENTE]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="385" y="0" width="37" height="34" uuid="709d4f3f-31b1-483e-9064-41665ec36f96"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="15" forecolor="#000000" backcolor="#FFCCCC" uuid="4beb5f60-8a74-4a67-b85f-c611439e3c83"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="214" y="15" width="109" height="15" backcolor="#99CCFF" uuid="415b4915-cae5-4866-9452-8be4718621d8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="538" y="15" width="264" height="15" backcolor="#99CCFF" uuid="8d55c838-d1da-498e-90e1-9db1df911715"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="214" y="15" width="109" height="15" uuid="6de631a5-0e9e-4dd7-aad1-9f1d976adf59"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="323" y="15" width="215" height="15" backcolor="#99CCFF" uuid="af3a27a3-0971-4af8-960a-66215bc7a932"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="15" width="214" height="15" backcolor="#99CCFF" uuid="11159493-a43e-4eef-9423-d78e18db6bf8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="538" y="15" width="264" height="15" uuid="1bdcfaa0-ed20-4945-b25f-8c577440bcee"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="15" width="216" height="15" uuid="976fcd91-0042-41e7-8daa-a7050b2485f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="15" width="215" height="15" uuid="1c38454a-3580-4200-b2d3-73686258af64"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="30" width="802" height="43" uuid="6c6d566f-3003-4cb8-88b9-1c8511a14697"/>
+				<subreportParameter name="FUNCAO_ID">
+					<subreportParameterExpression><![CDATA[$F{funcao_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EQUIPE_DIRIGENTE_ID">
+					<subreportParameterExpression><![CDATA[$F{equipe_dirigente_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "equipes_dirigente_integrantes.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="0" width="803" height="15" uuid="76da9e16-079a-4ded-a369-b225410d6537"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="387" y="1" width="22" height="20" uuid="1a8a07e5-5510-4606-82f8-330bd69df818"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="573" y="2" width="227" height="20" uuid="429bc9d4-256f-4b31-b152-42ce2b827b0f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Equipe Dirigente]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="1" width="801" height="1" uuid="992735b2-c8d2-42cc-93ca-4aaf2a0e125c"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="2" width="384" height="20" uuid="7ba6925b-6a1e-4bf6-bbae-bb07a28580a8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

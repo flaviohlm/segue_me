@@ -112,7 +112,7 @@ public class DiretorEspiritualController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/cadastros-gerais/diretor-espiritual/cadastrar/index.xhtlm?faces-redirect=true";
+        return "/segue-me/cadastros-gerais/diretor-espiritual/cadastrar/index.xhtml?faces-redirect=true";
     }    
 
     public void selecionarDiretorEspiritual(SelectEvent event) throws IOException {                

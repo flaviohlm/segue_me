@@ -6,17 +6,20 @@ import br.gov.to.santuario.ejc.domain.EncontroCirculo;
 import br.gov.to.santuario.ejc.domain.EncontroEquipe;
 import br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante;
 import br.gov.to.santuario.ejc.domain.Equipe;
+import br.gov.to.santuario.ejc.domain.EquipeDirigente;
 import br.gov.to.santuario.ejc.domain.Palestra;
 import br.gov.to.santuario.ejc.domain.Paroquia;
 import br.gov.to.santuario.ejc.service.CirculoService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeIntegranteService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EncontroService;
+import br.gov.to.santuario.ejc.service.EquipeDirigenteService;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.PalestraService;
 import br.gov.to.santuario.ejc.service.ParoquiaService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import br.gov.to.santuario.seg.util.RelatorioUtil;
+import br.gov.to.santuario.seg.util.UsuarioUtil;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -60,6 +63,9 @@ public class EncontroController implements Serializable {
     @ManagedProperty(value = "#{encontroEquipeIntegranteService}")
     private EncontroEquipeIntegranteService encontroEquipeIntegranteService;
     
+    @ManagedProperty(value = "#{equipeDirigenteService}")
+    private EquipeDirigenteService equipeDirigenteService;
+    
     @ManagedProperty(value = "#{dataSource}")
     private DataSource dataSource;
     
@@ -77,6 +83,7 @@ public class EncontroController implements Serializable {
     private EncontroEquipe encontroEquipeSelecionado;
     private EncontroCirculo encontroCirculoSelecionado;
     private List<EncontroEquipeIntegrante> listaIntegrantes;
+    private List<EquipeDirigente> listaEquipeDirigente;
     
     public String salvar(){
         try{            
@@ -86,7 +93,7 @@ public class EncontroController implements Serializable {
             messages.error("Não foi possível salvar o encontro.");
             e.printStackTrace();
         }
-        return "/segue-me/estrutura/encontro/index.xhtlm?faces-redirect=true";
+        return "/segue-me/estrutura/encontro/index.xhtml?faces-redirect=true";
     }
     
     public void deletar(){
@@ -100,27 +107,27 @@ public class EncontroController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/estrutura/encontro/cadastrar/index.xhtlm?faces-redirect=true";
+        return "/segue-me/estrutura/encontro/cadastrar/index.xhtml?faces-redirect=true";
     }
     
     public String gotoEdit(Integer ide){
-        return "/segue-me/estrutura/encontro/editar/index.xhtlm?id="+ide+"&faces-redirect=true";
+        return "/segue-me/estrutura/encontro/editar/index.xhtml?id="+ide+"&faces-redirect=true";
     }
     
     public String gotoEquipes(Integer ide){
-        return "/segue-me/estrutura/equipes/index.xhtlm?id="+ide+"&faces-redirect=true";
+        return "/segue-me/estrutura/encontro/equipes/index.xhtml?id="+ide+"&faces-redirect=true";
     }
     
     public String gotoCirculos(Integer ide){
-        return "/segue-me/estrutura/circulos/index.xhtlm?id="+ide+"&faces-redirect=true";
+        return "/segue-me/estrutura/encontro/circulos/index.xhtml?id="+ide+"&faces-redirect=true";
     }
     
     public String gotoPalestras(Integer ide){
-        return "/segue-me/estrutura/palestras/index.xhtlm?id="+ide+"&faces-redirect=true";
+        return "/segue-me/estrutura/encontro/palestras/index.xhtml?id="+ide+"&faces-redirect=true";
     }
     
     public String gotoIntegrantes(Integer ide){
-        return "/segue-me/estrutura/equipes/integrantes/index.xhtlm?id="+ide+"&faces-redirect=true";
+        return "/segue-me/estrutura/encontro/equipes/integrantes/index.xhtml?id="+ide+"&faces-redirect=true";
     }
     
     public void loadModel(){
@@ -150,11 +157,11 @@ public class EncontroController implements Serializable {
     }
     
     public void selecionarEquipe(SelectEvent event) throws IOException {                
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/equipes/editar/index.xhtml?id=" + encontroEquipeSelecionado.getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/encontro/equipes/editar/index.xhtml?id=" + encontroEquipeSelecionado.getId());
     }
     
     public void selecionarCirculo(SelectEvent event) throws IOException {                
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/circulos/editar/index.xhtml?id=" + encontroCirculoSelecionado.getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/segueme/segue-me/estrutura/encontro/circulos/editar/index.xhtml?id=" + encontroCirculoSelecionado.getId());
     }
     
     public void onCellEdit(CellEditEvent event) {
@@ -363,6 +370,25 @@ public class EncontroController implements Serializable {
 
     public void setListaIntegrantes(List<EncontroEquipeIntegrante> listaIntegrantes) {
         this.listaIntegrantes = listaIntegrantes;
+    }
+
+    public EquipeDirigenteService getEquipeDirigenteService() {
+        return equipeDirigenteService;
+    }
+
+    public void setEquipeDirigenteService(EquipeDirigenteService equipeDirigenteService) {
+        this.equipeDirigenteService = equipeDirigenteService;
+    }
+
+    public List<EquipeDirigente> getListaEquipeDirigente() {
+        if(listaEquipeDirigente == null){            
+            listaEquipeDirigente = equipeDirigenteService.findAllEquipeDirigenteAtiva(UsuarioUtil.getUsuario().getParoquia().getId());
+        }
+        return listaEquipeDirigente;
+    }
+
+    public void setListaEquipeDirigente(List<EquipeDirigente> listaEquipeDirigente) {
+        this.listaEquipeDirigente = listaEquipeDirigente;
     }
 
 }

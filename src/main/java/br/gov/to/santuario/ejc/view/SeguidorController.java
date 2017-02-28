@@ -102,7 +102,7 @@ public class SeguidorController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/participantes/seguidores/cadastrar/index.xhtlm?faces-redirect=true";
+        return "/segue-me/participantes/seguidores/cadastrar/index.xhtml?faces-redirect=true";
     }    
 
     public void selecionarSeguidor(SelectEvent event) throws IOException {                

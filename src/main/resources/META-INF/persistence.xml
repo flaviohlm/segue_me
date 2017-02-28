@@ -11,6 +11,9 @@
     <class>br.gov.to.santuario.ejc.domain.EncontroPalestra</class>
     <class>br.gov.to.santuario.ejc.domain.EncontroParoquia</class>
     <class>br.gov.to.santuario.ejc.domain.Equipe</class>
+    <class>br.gov.to.santuario.ejc.domain.EquipeDirigente</class>
+    <class>br.gov.to.santuario.ejc.domain.EquipeDirigenteIntegrante</class>
+    <class>br.gov.to.santuario.ejc.domain.Funcao</class>
     <class>br.gov.to.santuario.ejc.domain.Habilidade</class>
     <class>br.gov.to.santuario.ejc.domain.Palestrante</class>
     <class>br.gov.to.santuario.ejc.domain.Paroquia</class>
@@ -26,6 +29,9 @@
     <class>br.gov.to.santuario.ejc.domain.EncontroEquipe</class>
     <class>br.gov.to.santuario.ejc.domain.EncontroEquipeIntegrante</class>
     <class>br.gov.to.santuario.ejc.domain.EncontroPalestraPalestrante</class>
+    <class>br.gov.to.santuario.ejc.domain.Funcao</class>
+    <class>br.gov.to.santuario.ejc.domain.EquipeDirigenteIntegrante</class>
+    <class>br.gov.to.santuario.ejc.domain.EquipeDirigente</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <!-- Configuração Eclipselink -->
     <properties>

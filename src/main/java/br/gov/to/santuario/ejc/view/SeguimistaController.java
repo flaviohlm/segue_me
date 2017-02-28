@@ -120,7 +120,7 @@ public class SeguimistaController implements Serializable {
     }
     
     public String gotoEdit(){
-        return "/segue-me/participantes/seguimistas/cadastrar/index.xhtlm?faces-redirect=true";
+        return "/segue-me/participantes/seguimistas/cadastrar/index.xhtml?faces-redirect=true";
     }
     
     public void selecionarSeguimista(SelectEvent event) throws IOException {                

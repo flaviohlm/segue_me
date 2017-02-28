@@ -287,6 +287,10 @@
     background-image: url("#{resource['images/entrar.svg']}") !important;
 }
 
+.novo {
+    background-image: url("#{resource['images/novo.svg']}") !important;
+}
+
 .sair {
     background-image: url("#{resource['images/sair.svg']}") !important;
 }
@@ -313,7 +317,7 @@
 
 /*logos de sistemas*/
 .sap {
-    background-image: url("#{resource['images/sap.svg']}") !important;
+    background-image: url("#{resource['images/logo-bom-pastor.svg']}") !important;
 }
 .sap1 {
     background-image: url("#{resource['images/logo-bom-pastor.svg']}") !important;
