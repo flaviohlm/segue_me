@@ -21,8 +21,7 @@
 FROM segueme.encontro_circulo encontro_circulo
 INNER JOIN segueme.circulo circulo ON encontro_circulo.circulo_id = circulo.id
 INNER JOIN segueme.encontro encontro ON encontro.id = encontro_circulo.encontro_id
-INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
-INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
+INNER JOIN segueme.paroquia paroquia ON encontro.paroquia_id = paroquia.id
 
 WHERE encontro.id = $P{R_ID}
 AND (SELECT count(id) FROM segueme.encontro_circulo_seguimista ecs WHERE ecs.encontro_circulo_id =  encontro_circulo.id) > 0

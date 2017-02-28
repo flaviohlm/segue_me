@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes_integrantes" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="97a86976-de63-40c8-8075-ae253e39f851">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="547"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ENCONTRO_PALESTRA_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT participante.nome AS participante_nome,
+     participante.apelido AS participante_apelido,
+     participante.email AS participante_email,
+     participante.sexo AS participante_sexo,
+     participante.data_nascimento AS participante_data_nascimento,
+     participante.endereco AS participante_endereco,
+     participante.bairro AS participante_bairro,
+     participante.telefone_residencial AS participante_telefone_residencial,
+     participante.telefone_celular AS participante_telefone_celular,
+     palestra.descricao AS palestra_descricao
+FROM segueme.encontro_palestra_palestrante encontro_palestra_palestrante
+INNER JOIN segueme.palestrante palestrante ON palestrante.id = encontro_palestra_palestrante.palestrante_id
+INNER JOIN segueme.participante participante ON palestrante.participante_id = participante.id
+INNER JOIN segueme.encontro_palestra encontro_palestra ON encontro_palestra.id = encontro_palestra_palestrante.encontro_palestra_id
+INNER JOIN segueme.palestra palestra ON encontro_palestra.palestra_id = palestra.id
+
+WHERE encontro_palestra_palestrante.encontro_palestra_id = $P{ENCONTRO_PALESTRA_ID}
+ORDER BY participante_nome]]>
+	</queryString>
+	<field name="participante_nome" class="java.lang.String"/>
+	<field name="participante_apelido" class="java.lang.String"/>
+	<field name="participante_email" class="java.lang.String"/>
+	<field name="participante_sexo" class="java.lang.String"/>
+	<field name="participante_data_nascimento" class="java.sql.Date"/>
+	<field name="participante_endereco" class="java.lang.String"/>
+	<field name="participante_bairro" class="java.lang.String"/>
+	<field name="participante_telefone_residencial" class="java.lang.String"/>
+	<field name="participante_telefone_celular" class="java.lang.String"/>
+	<field name="palestra_descricao" class="java.lang.String"/>
+	<columnHeader>
+		<band height="30">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="15" forecolor="#000000" backcolor="#FFCCCC" uuid="36eccbf4-b0d8-4db2-b6de-1f1e2fa8e134"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="566" y="15" width="236" height="15" backcolor="#99CCFF" uuid="1ef9148e-cb07-4a0a-9402-9e2521b1d154"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="349" y="15" width="217" height="15" backcolor="#99CCFF" uuid="7529e862-db51-4c98-bc95-8e904f39223b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="214" y="15" width="135" height="15" backcolor="#99CCFF" uuid="41cb6364-9af4-4f31-8893-f1756bb94ba2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="15" width="214" height="15" backcolor="#99CCFF" uuid="3eeb41c0-b2ba-4e03-b6a2-a415a8a188b4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="15" width="214" height="15" uuid="eede3a9f-81c9-49a7-a81d-d4e305b35e7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="566" y="15" width="234" height="15" uuid="8042e03b-1a6f-4d5f-ba2f-5645baa305e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="15" width="135" height="15" uuid="4ee000af-6e98-4abc-886b-1161ee981fb2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="800" height="15" uuid="187fc903-e457-4d52-ab97-c5a4659f1a96"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{palestra_descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="15" width="217" height="15" uuid="7bba8821-74e2-4622-b2b8-6037b2e4a022"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="214" height="15" uuid="ee0e586d-087a-4e06-aec0-af8cfdda9a36"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="214" y="0" width="135" height="15" uuid="1e827673-3c4d-454a-b45f-f4a8b3e3f2d2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="349" y="0" width="217" height="15" uuid="43a92133-00dd-4e66-8d1f-e0d1ebfbfa85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="566" y="0" width="236" height="15" uuid="1d4b2667-0a86-4e74-bd1b-8c149ff04f81"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="214" y="0" width="135" height="15" uuid="e4402365-9a37-4ee8-b2f0-8ecc6a4e0254"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_telefone_residencial} == null? $F{participante_telefone_celular} : ($F{participante_telefone_residencial} == "" ? $F{participante_telefone_celular} : $F{participante_telefone_residencial}+" / "+$F{participante_telefone_celular} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="214" height="15" uuid="90aa414c-f638-46f5-835b-57faa3edda04"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="217" height="15" uuid="e9c79314-27b5-4907-9639-e38151c30366"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="566" y="0" width="236" height="15" uuid="ad213348-4a92-41d2-8466-a0c56b67b1db"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_endereco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

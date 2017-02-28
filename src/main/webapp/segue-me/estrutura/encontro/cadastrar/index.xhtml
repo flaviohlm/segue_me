@@ -37,10 +37,17 @@
                             </p:calendar>
                         </p:outputLabel>
                         
+                        <p:outputLabel value="Conselho Arquidiocesano*:" >
+                            <p:selectOneMenu value="#{encontroController.encontro.conselho}" converter="#{conselhoConverter}"  effect="fade"  required="true" requiredMessage="Campo 'Equipe Dirigente' é obrigatório.">
+                                <f:selectItem itemLabel="- - -" itemValue="" />
+                                <f:selectItems value="#{encontroController.listaConselho}" itemLabel="#{conselho.descricao}" itemValue="#{conselho}" var="conselho" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                        
                         <p:outputLabel value="Equipe Dirigente*:" >
                             <p:selectOneMenu value="#{encontroController.encontro.equipeDirigente}" converter="#{equipeDirigenteConverter}"  effect="fade"  required="true" requiredMessage="Campo 'Equipe Dirigente' é obrigatório.">
                                 <f:selectItem itemLabel="- - -" itemValue="" />
-                                <f:selectItems value="#{encontroController.listaEquipeDirigente}" itemLabel="#{ed.dataInicio}" itemValue="#{ed}" var="ed" />
+                                <f:selectItems value="#{encontroController.listaEquipeDirigente}" itemLabel="#{ed.descricao}" itemValue="#{ed}" var="ed" />
                             </p:selectOneMenu>
                         </p:outputLabel>
                         
@@ -48,9 +55,9 @@
                     
                     <p:panelGrid layout="grid" columns="1" >
                         <p:outputLabel value="Paróquia(s) do Encontro:" />
-                        <p:selectManyCheckbox id="paroquias" value="#{encontroController.encontro.paroquiaList}" layout="responsive" columns="3" converter="#{paroquiaConverter}" >
+                        <p:selectOneRadio id="paroquias" value="#{encontroController.encontro.paroquia}" layout="responsive" columns="3" converter="#{paroquiaConverter}" >
                             <f:selectItems value="#{encontroController.listaParoquia}" var="paroquia" itemLabel="#{paroquia.descricao}" itemValue="#{paroquia}" />
-                        </p:selectManyCheckbox>                        
+                        </p:selectOneRadio>                        
                         
                        
                         <p:outputLabel value="Equipes do Encontro:" />

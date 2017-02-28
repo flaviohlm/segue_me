@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -76,11 +75,13 @@ public class Encontro implements Serializable {
     @ManyToOne(optional = false)
     private EquipeDirigente equipeDirigente;
 
-    @ManyToMany
-    @JoinTable(schema = "segueme", name = "encontro_paroquia", joinColumns = {
-            @JoinColumn(name = "encontro_id", referencedColumnName = "ID")}, inverseJoinColumns = {
-            @JoinColumn(name = "paroquia_id", referencedColumnName = "ID")})
-    private List<Paroquia> paroquiaList;
+    @JoinColumn(name = "conselho_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Conselho conselho;
+    
+    @JoinColumn(name = "paroquia_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Paroquia paroquia;
     
     @ManyToMany
     @JoinTable(schema = "segueme", name = "encontro_equipe", joinColumns = {
@@ -100,8 +101,6 @@ public class Encontro implements Serializable {
             @JoinColumn(name = "palestra_id", referencedColumnName = "ID")})
     private List<Palestra> palestraList;
     
-    @Transient
-    private String paroquias;
     
     public Encontro() {
     }
@@ -195,14 +194,6 @@ public class Encontro implements Serializable {
         this.encontroEquipeList = encontroEquipeList;
     }
 
-    public List<Paroquia> getParoquiaList() {
-        return paroquiaList;
-    }
-
-    public void setParoquiaList(List<Paroquia> paroquiaList) {
-        this.paroquiaList = paroquiaList;
-    }
-
     public List<Equipe> getEquipeList() {
         return equipeList;
     }
@@ -227,31 +218,28 @@ public class Encontro implements Serializable {
         this.palestraList = palestraList;
     }
 
-    public String getParoquias() {
-        if(!paroquiaList.isEmpty()){
-            paroquias = paroquiaList.get(0).getDescricao();
-            int a = paroquiaList.size();
-            for(int i=1; i < a; i++){
-                if(i == (a-1)){
-                    paroquias = paroquias + " e "+ paroquiaList.get(i).getDescricao();
-                }else{
-                    paroquias = paroquias + ", "+ paroquiaList.get(i).getDescricao();
-                }
-            }
-        }
-        return paroquias;
-    }
-
-    public void setParoquias(String paroquias) {
-        this.paroquias = paroquias;
-    }
-
     public EquipeDirigente getEquipeDirigente() {
         return equipeDirigente;
     }
 
     public void setEquipeDirigente(EquipeDirigente equipeDirigente) {
         this.equipeDirigente = equipeDirigente;
+    }
+
+    public Conselho getConselho() {
+        return conselho;
+    }
+
+    public void setConselho(Conselho conselho) {
+        this.conselho = conselho;
+    }
+
+    public Paroquia getParoquia() {
+        return paroquia;
+    }
+
+    public void setParoquia(Paroquia paroquia) {
+        this.paroquia = paroquia;
     }
 
     @Override

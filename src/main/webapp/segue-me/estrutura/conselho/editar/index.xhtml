@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Editar Conselho Arquidiocesano
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{conselhoController.id}" />
+                <f:viewAction action="#{conselhoController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel >
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />                
+
+                    <p:commandButton value="Imprimir" title="Imprimir Equipe" action="#{encontroController.imprimir(conselhoController.id, 'conselho', 'conselho_arquidiocesano')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    
+                    <p:panelGrid layout="grid" columns="2" >
+                        
+                        <p:outputLabel value="Descrição:">
+                           <p:inputText  value="#{conselhoController.conselho.descricao}" />
+                        </p:outputLabel>
+                        
+                        <p:outputLabel value="Diretor Espiritual*:" >
+                            <p:selectOneMenu value="#{conselhoController.conselho.diretorEspiritual}" converter="#{diretorEspiritualConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
+                                <f:selectItem itemLabel="- - -" itemValue="" />
+                                <f:selectItems value="#{diretorEspiritualController.listaDiretorEspirituals}" itemLabel="#{diretorEspiritual.participante.nome}" itemValue="#{diretorEspiritual}" var="diretorEspiritual" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                   
+                        <p:outputLabel value="Data de Início*:">
+                           <p:calendar locale="pt" showButtonPanel="true" value="#{conselhoController.conselho.dataInicio}" pattern="dd/MM/yyyy" mask="true" pages="1" required="true" requiredMessage="Campo 'Data de Início' é obrigatório." >
+                                <h:outputScript name="primefaces-locales.js" library="js" />
+                            </p:calendar>
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Data Fim:">
+                           <p:calendar locale="pt" showButtonPanel="true" value="#{conselhoController.conselho.dataFim}" pattern="dd/MM/yyyy" mask="true" pages="1" >
+                                <h:outputScript name="primefaces-locales.js" library="js" />
+                            </p:calendar>
+                        </p:outputLabel>
+                        
+                   </p:panelGrid>
+                    
+                    <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Equipe"  process="@this" />
+                    
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{conselhoController.conselho.conselhoIntegranteList}" currentPageReportTemplate="{currentPage} de {totalPages}" 
+                                 rowIndexVar="rowIndex" editable="true" editMode="cell" >
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="cellEdit" listener="#{conselhoController.onCellEdit}" update=":form_1:messages" />
+                        
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
+                        <p:column headerText="Nome" sortBy="#{model.seguidor.participante.nome}" filterBy="#{model.seguidor.participante.nome}" >
+                            <h:outputText value="#{model.seguidor.participante.nome}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Crachá" sortBy="#{model.seguidor.participante.apelido}" filterBy="#{model.seguidor.participante.apelido}" width="180">
+                            <h:outputText value="#{model.seguidor.participante.apelido}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Telefone" sortBy="#{model.seguidor.participante.telefoneCelular}" filterBy="#{model.seguidor.participante.telefoneCelular}" width="140">
+                            <h:outputText value="#{model.seguidor.participante.telefoneCelular}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Função" sortBy="#{model.funcao.descricao}" filterBy="#{model.funcao.descricao}" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{model.funcao.descricao}" /> 
+                                </f:facet>
+                                <f:facet name="input">                                            
+                                    <p:selectOneMenu id="orgao" value="#{model.funcao}" converter="#{funcaoConverter}" effect="fade">
+                                        <f:selectItem itemLabel="- - -" itemValue="" />
+                                        <f:selectItems value="#{conselhoController.listaFuncoes}" itemLabel="#{funcao.descricao}" itemValue="#{funcao}" var="funcao" />
+                                    </p:selectOneMenu>
+                                </f:facet> 
+                            </p:cellEditor>                                    
+                        </p:column> 
+                        
+                    </p:dataTable>   
+                    
+                    <p:commandButton value="Salvar" ajax="false"  class="icone2 salvar" action="#{conselhoController.atualizar()}" update=":form_1"/>
+                    
+                </p:panel>   
+                
+                <p:confirmDialog id="dialog_pessoas" message="Selecione clicando no checkbox" header="Seguidores" width="800" widgetVar="dialogPessoas" >
+                    
+                    <p:dataTable id="data_table_seguidores" widgetVar="model_x" emptyMessage="Nenhum registro encontrado." var="seguidor" rowSelectMode="checkbox"
+                                 value="#{conselhoController.listaSeguidores}" selection="#{conselhoController.conselho.seguidorList}" rowKey="#{seguidor.id}" 
+                                 paginator="true" paginatorAlwaysVisible="false" rows="10" reflow="true" currentPageReportTemplate="{currentPage} de {totalPages}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>                                
+                                <p:inputText id="globalFilter" onkeyup="PF('model_x').filter()" placeholder="Filtrar"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column selectionMode="multiple" style="width:50px;text-align:center"/>
+                        <p:column headerText="Nome do Seguidor" sortBy="#{seguidor.participante.nome}" filterBy="#{seguidor.participante.nome}" >
+                            <h:outputText value="#{seguidor.participante.nome}" />                                    
+                        </p:column>
+                        
+                        <p:column headerText="Crachá" sortBy="#{seguidor.participante.apelido}" filterBy="#{seguidor.participante.apelido}" >
+                            <h:outputText value="#{seguidor.participante.apelido}" />                                    
+                        </p:column>
+                        
+                        <p:column headerText="Habilidades" sortBy="#{seguidor.participante.habilidades}" filterBy="#{seguidor.participante.habilidades}" >
+                            <h:outputText value="#{seguidor.participante.habilidades}" />                                    
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{conselhoController.selecionarIntegrante()}" class="icone2 salvar" oncomplete="PF('dialogPessoas').hide()" />
+                </p:confirmDialog>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+    
+</html>

@@ -32,6 +32,8 @@
     <class>br.gov.to.santuario.ejc.domain.Funcao</class>
     <class>br.gov.to.santuario.ejc.domain.EquipeDirigenteIntegrante</class>
     <class>br.gov.to.santuario.ejc.domain.EquipeDirigente</class>
+    <class>br.gov.to.santuario.ejc.domain.ConselhoIntegrante</class>
+    <class>br.gov.to.santuario.ejc.domain.Conselho</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <!-- Configuração Eclipselink -->
     <properties>

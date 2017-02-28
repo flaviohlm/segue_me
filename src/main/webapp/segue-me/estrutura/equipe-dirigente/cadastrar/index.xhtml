@@ -20,6 +20,10 @@
                 <p:panel id="panel_1">
                    <p:panelGrid layout="grid" columns="2" >
                        
+                       <p:outputLabel value="Descrição:">
+                           <p:inputText  value="#{equipeDirigenteController.equipeDirigente.descricao}" />
+                        </p:outputLabel>
+                       
                        <p:outputLabel value="Paróquia*:" >
                            <p:selectOneMenu value="#{equipeDirigenteController.equipeDirigente.paroquia}" converter="#{paroquiaConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
                                 <f:selectItem itemLabel="- - -" itemValue="" />

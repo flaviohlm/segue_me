@@ -51,6 +51,8 @@
         <intercept-url pattern="/segue-me/estrutura/encontro/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/palestras/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/conselho/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/conselho/cadastrar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/conselho/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipe-dirigente/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipe-dirigente/cadastrar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/equipe-dirigente/editar/*" access="isAuthenticated()" />
@@ -65,7 +67,6 @@
         <intercept-url pattern="/segue-me/participantes/seguimistas/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/seguimistas/cadastrar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/seguimistas/editar/*" access="isAuthenticated()" />
-        
         
         <security:access-denied-handler error-page="/login/semPermissao.xhtml" />
         

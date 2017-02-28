@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Cadastrar Conselho Arquidiocesano
+        </ui:define>            
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">       
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+                
+                <p:panel id="panel_1">
+                   <p:panelGrid layout="grid" columns="2" >
+                       
+                       <p:outputLabel value="Descrição:">
+                           <p:inputText  value="#{conselhoController.conselho.descricao}" />
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Diretor Espiritual*:" >
+                            <p:selectOneMenu value="#{conselhoController.conselho.diretorEspiritual}" converter="#{diretorEspiritualConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
+                                <f:selectItem itemLabel="- - -" itemValue="" />
+                                <f:selectItems value="#{diretorEspiritualController.listaDiretorEspirituals}" itemLabel="#{diretorEspiritual.participante.nome}" itemValue="#{diretorEspiritual}" var="diretorEspiritual" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                   
+                        <p:outputLabel value="Data de Início*:">
+                           <p:calendar locale="pt" showButtonPanel="true" value="#{conselhoController.conselho.dataInicio}" pattern="dd/MM/yyyy" mask="true" pages="1" required="true" requiredMessage="Campo 'Data de Início' é obrigatório." >
+                                <h:outputScript name="primefaces-locales.js" library="js" />
+                            </p:calendar>
+                        </p:outputLabel>
+                       
+                        <p:outputLabel value="Data Fim:">
+                           <p:calendar locale="pt" showButtonPanel="true" value="#{conselhoController.conselho.dataFim}" pattern="dd/MM/yyyy" mask="true" pages="1" >
+                                <h:outputScript name="primefaces-locales.js" library="js" />
+                            </p:calendar>
+                        </p:outputLabel>
+                                            
+                        <p:commandButton value="Integrantes" ajax="false"  class="iconebt adicionar" action="#{conselhoController.salvar()}" update=":form_1"/>
+                   </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

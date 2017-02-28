@@ -38,6 +38,10 @@
                             #{rowIndex+1}
                         </p:column>
 
+                        <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
+                            <h:outputText value="#{model.descricao}" />                                  
+                        </p:column>
+                        
                         <p:column headerText="Paróquia" sortBy="#{model.paroquia.descricao}" filterBy="#{model.paroquia.descricao}" >
                             <h:outputText value="#{model.paroquia.descricao}" />                                  
                         </p:column>

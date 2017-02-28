@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Gerenciar Conselho Arquidiocesano
+        </ui:define> 
+        
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Equipe Dirigente">
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />                
+                    <p:commandButton update="data_table" value="Novo" image="" action="#{conselhoController.gotoEdit()}" class="icone2 adicionar"/>
+                    
+                    <p:separator/>
+                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{conselhoController.listaConselho}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"
+                                 selectionMode="single" selection="#{conselhoController.conselhoSelecionada}" rowKey="#{model.id}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Filtrar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" listener="#{conselhoController.selecionarConselho}" />
+
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
+                        <p:column headerText="Descrição" sortBy="#{model.descricao}" filterBy="#{model.descricao}" >
+                            <h:outputText value="#{model.descricao}" />                                  
+                        </p:column>
+                        
+                        <p:column headerText="Diretor Espiritual" sortBy="#{model.diretorEspiritual.participante.nome}" filterBy="#{model.diretorEspiritual.participante.nome}" >
+                            <h:outputText value="#{model.diretorEspiritual.participante.nome}" />                                  
+                        </p:column>
+                        
+                        
+                        <p:column headerText="Data de Início" sortBy="#{model.dataInicio}" filterBy="#{model.dataInicio}" >
+                                <h:outputText value="#{model.dataInicio}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>                                 
+                            </p:column> 
+                        
+                        <p:column headerText="Data Fim" sortBy="#{model.dataFim}" filterBy="#{model.dataFim}" >
+                            <h:outputText value="#{model.dataFim}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>                                 
+                        </p:column>
+  
+                        <p:column headerText="" width="50">
+                            <p:commandButton action="#{encontroController.imprimir(model.id, 'conselho', 'conselho_arquidiocesano')}" ajax="false" onclick="this.form.target='_blank'"  value="Imprimir" title="Imprimir" styleClass="imprimir" />                                
+                        </p:column>
+                        
+                        <p:column headerText="" width="50">
+                            <p:commandButton oncomplete="PF('confirmarDuplicar').show()" value="Duplicar"  title="Duplicar dados dessa equipe dirigente" styleClass="pagina" update=":form_1">
+                                <f:setPropertyActionListener value="#{model}" target="#{conselhoController.conselho}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        <p:column headerText="" width="50">
+                            <p:commandButton oncomplete="PF('confirmarExcluir').show()" value="Excluir"  title="Excluir" styleClass="excluir" update=":form_1">
+                                <f:setPropertyActionListener value="#{model}" target="#{conselhoController.conselho}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>                    
+                </p:panel>         
+                <p:confirmDialog message="Tem certeza que deseja excluir este Registro? Essa operação não poderá ser desfeita. Confirma?" header="Excluir Registro" width="430" widgetVar="confirmarExcluir" >
+                    <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarExcluir').hide()" actionListener="#{conselhoController.deletar()}" ajax="true" update=":form_1" />
+                    <p:commandButton value="Cancelar" class="icone2 excluir" onclick="PF('confirmarExcluir').hide(); return false;" type="button" ajax="false" />
+                </p:confirmDialog>
+                
+                <p:confirmDialog message="Tem certeza que deseja duplicar esta equipe dirigente?" header="Duplicar Equipe Dirigente" width="430" widgetVar="confirmarDuplicar" >
+                    <p:commandButton value="Confirmar" class="icone2 visto" oncomplete="PF('confirmarDuplicar').hide()" actionListener="#{conselhoController.duplicarConselho()}" ajax="true" update=":form_1" />
+                    <p:commandButton value="Cancelar" class="icone2 excluir" onclick="PF('confirmarExconfirmarDuplicarcluir').hide(); return false;" type="button" ajax="false" />
+                </p:confirmDialog>
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

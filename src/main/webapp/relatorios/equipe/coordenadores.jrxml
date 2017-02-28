@@ -19,8 +19,7 @@
 FROM segueme.encontro_equipe encontro_equipe
 INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
 INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_id
-INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
-INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
+INNER JOIN segueme.paroquia paroquia ON encontro.paroquia_id = paroquia.id
 
 WHERE encontro.id = $P{R_ID}
 ORDER BY equipe.ordem_quadrante, equipe.descricao]]>

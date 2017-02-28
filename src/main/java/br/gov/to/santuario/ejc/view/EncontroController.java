@@ -1,6 +1,7 @@
 package br.gov.to.santuario.ejc.view;
 
 import br.gov.to.santuario.ejc.domain.Circulo;
+import br.gov.to.santuario.ejc.domain.Conselho;
 import br.gov.to.santuario.ejc.domain.Encontro;
 import br.gov.to.santuario.ejc.domain.EncontroCirculo;
 import br.gov.to.santuario.ejc.domain.EncontroEquipe;
@@ -10,6 +11,7 @@ import br.gov.to.santuario.ejc.domain.EquipeDirigente;
 import br.gov.to.santuario.ejc.domain.Palestra;
 import br.gov.to.santuario.ejc.domain.Paroquia;
 import br.gov.to.santuario.ejc.service.CirculoService;
+import br.gov.to.santuario.ejc.service.ConselhoService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeIntegranteService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EncontroService;
@@ -66,6 +68,9 @@ public class EncontroController implements Serializable {
     @ManagedProperty(value = "#{equipeDirigenteService}")
     private EquipeDirigenteService equipeDirigenteService;
     
+    @ManagedProperty(value = "#{conselhoService}")
+    private ConselhoService conselhoService;
+    
     @ManagedProperty(value = "#{dataSource}")
     private DataSource dataSource;
     
@@ -84,6 +89,7 @@ public class EncontroController implements Serializable {
     private EncontroCirculo encontroCirculoSelecionado;
     private List<EncontroEquipeIntegrante> listaIntegrantes;
     private List<EquipeDirigente> listaEquipeDirigente;
+    private List<Conselho> listaConselho;
     
     public String salvar(){
         try{            
@@ -389,6 +395,25 @@ public class EncontroController implements Serializable {
 
     public void setListaEquipeDirigente(List<EquipeDirigente> listaEquipeDirigente) {
         this.listaEquipeDirigente = listaEquipeDirigente;
+    }
+
+    public ConselhoService getConselhoService() {
+        return conselhoService;
+    }
+
+    public void setConselhoService(ConselhoService conselhoService) {
+        this.conselhoService = conselhoService;
+    }
+
+    public List<Conselho> getListaConselho() {
+        if(listaConselho == null){            
+            listaConselho = conselhoService.findAllConselhoAtiva();
+        }
+        return listaConselho;
+    }
+
+    public void setListaConselho(List<Conselho> listaConselho) {
+        this.listaConselho = listaConselho;
     }
 
 }

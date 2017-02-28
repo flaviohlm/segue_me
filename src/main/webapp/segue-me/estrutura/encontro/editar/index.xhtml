@@ -27,6 +27,8 @@
                     
                     <p:commandButton value="Equipe Dirigente" title="Imprimir Equipe dirigente do encontro" action="#{encontroController.imprimir(encontroController.id, 'quadrante', 'equipe_dirigente')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     
+                    <p:commandButton value="Conselho Arquidiocesano" title="Imprimir Conselho Arquidiocesano do encontro" action="#{encontroController.imprimir(encontroController.id, 'quadrante', 'conselho_arquidiocesano')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    
                     <p:commandButton oncomplete="PF('confirmarFinalizar').show()" image="" class="botao iconebt" title="Finalizar Encontro" value="Finalizar Encontro" rendered="#{encontroController.encontro.finalizado == false}"  />
                     <p:commandButton oncomplete="PF('confirmarReativar').show()" image="" class="botao iconebt" title="Reativar Encontro" value="Reativar Encontro"  rendered="#{encontroController.encontro.finalizado == true}" />
                     
@@ -49,10 +51,17 @@
                             </p:calendar>
                         </p:outputLabel>
                         
+                        <p:outputLabel value="Conselho Arquidiocesano*:" >
+                            <p:selectOneMenu value="#{encontroController.encontro.conselho}" converter="#{conselhoConverter}"  effect="fade"  required="true" requiredMessage="Campo 'Equipe Dirigente' é obrigatório.">
+                                <f:selectItem itemLabel="- - -" itemValue="" />
+                                <f:selectItems value="#{encontroController.listaConselho}" itemLabel="#{conselho.descricao}" itemValue="#{conselho}" var="conselho" />
+                            </p:selectOneMenu>
+                        </p:outputLabel>
+                        
                         <p:outputLabel value="Equipe Dirigente*:" >
                             <p:selectOneMenu value="#{encontroController.encontro.equipeDirigente}" converter="#{equipeDirigenteConverter}"  effect="fade"  required="true" requiredMessage="Campo 'Equipe Dirigente' é obrigatório.">
                                 <f:selectItem itemLabel="- - -" itemValue="" />
-                                <f:selectItems value="#{encontroController.listaEquipeDirigente}" itemLabel="#{ed.dataInicio}" itemValue="#{ed}" var="ed" />
+                                <f:selectItems value="#{encontroController.listaEquipeDirigente}" itemLabel="#{ed.descricao}" itemValue="#{ed}" var="ed" />
                             </p:selectOneMenu>
                         </p:outputLabel>
                         
@@ -60,9 +69,9 @@
                     
                     <p:panelGrid layout="grid" columns="1" >
                         <p:outputLabel value="Paróquia(s) do Encontro:" />
-                            <p:selectManyCheckbox id="paroquias" value="#{encontroController.encontro.paroquiaList}" layout="responsive" columns="3" converter="#{paroquiaConverter}" >
+                            <p:selectOneRadio id="paroquias" value="#{encontroController.encontro.paroquia}" layout="responsive" columns="3" converter="#{paroquiaConverter}" >
                                 <f:selectItems value="#{encontroController.listaParoquia}" var="paroquia" itemLabel="#{paroquia.descricao}" itemValue="#{paroquia}" />
-                            </p:selectManyCheckbox>                        
+                            </p:selectOneRadio>                        
                         
                        
                        <p:outputLabel value="Equipes do Encontro:" />

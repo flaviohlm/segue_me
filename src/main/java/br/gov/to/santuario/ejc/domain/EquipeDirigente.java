@@ -42,6 +42,10 @@ public class EquipeDirigente implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
+    @Column(name = "descricao")
+    private String descricao;
+    
     @Column(name = "data_inicio")
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
@@ -129,6 +133,14 @@ public class EquipeDirigente implements Serializable {
 
     public void setParoquia(Paroquia paroquia) {
         this.paroquia = paroquia;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override

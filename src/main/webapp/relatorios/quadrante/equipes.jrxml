@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="1489"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="2372"/>
+	<property name="ireport.y" value="194"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\quadrante\\"]]></defaultValueExpression>
 	</parameter>
@@ -20,8 +20,7 @@
 FROM segueme.encontro_equipe encontro_equipe
 INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
 INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_id
-INNER JOIN segueme.encontro_paroquia encontro_paroquia ON encontro.id = encontro_paroquia.encontro_id
-INNER JOIN segueme.paroquia paroquia ON encontro_paroquia.paroquia_id = paroquia.id
+INNER JOIN segueme.paroquia paroquia ON encontro.paroquia_id = paroquia.id
 
 WHERE encontro.id = $P{R_ID}
 ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
@@ -120,7 +119,7 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 				<textFieldExpression><![CDATA[$F{encontro_descricao}+" | "+$F{paroquia}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="0" width="801" height="1" uuid="276c1b09-00d8-4c4b-b6c2-576a72fad4f4"/>
+				<reportElement x="0" y="0" width="802" height="1" uuid="276c1b09-00d8-4c4b-b6c2-576a72fad4f4"/>
 			</line>
 			<staticText>
 				<reportElement x="574" y="1" width="227" height="20" uuid="4841e828-024e-4782-91f5-d919865f460d"/>

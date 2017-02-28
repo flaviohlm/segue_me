@@ -11,6 +11,7 @@ import br.gov.to.santuario.ejc.service.SeguidorService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +64,12 @@ public class EquipeDirigenteController implements Serializable {
                 }
             }
             
+            if(equipeDirigente.getDescricao() == null || equipeDirigente.getDescricao().equals("")){
+                SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+                String data = dt.format(equipeDirigente.getDataInicio());
+                equipeDirigente.setDescricao("Conselho Arquidiocesano "+data);
+            }
+            
             equipeDirigenteService.saveEquipeDirigente(equipeDirigente);
             //messages.info("Agora insira integrantes para a equipe dirigente.");
         }catch(Exception e){
@@ -74,7 +81,12 @@ public class EquipeDirigenteController implements Serializable {
     }
     
     public String atualizar(){
-        try{            
+        try{
+            if(equipeDirigente.getDescricao() == null || equipeDirigente.getDescricao().equals("")){
+                SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+                String data = dt.format(equipeDirigente.getDataInicio());
+                equipeDirigente.setDescricao("Conselho Arquidiocesano "+data);
+            }
             equipeDirigenteService.saveEquipeDirigente(equipeDirigente);
             messages.info("Equipe dirigente atualizada com sucesso!");
         }catch(Exception e){

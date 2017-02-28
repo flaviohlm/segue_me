@@ -32,6 +32,7 @@ INNER JOIN segueme.participante participante ON seguidor.participante_id = parti
 INNER JOIN segueme.encontro_equipe encontro_equipe ON encontro_equipe.id = encontro_equipe_integrantes.encontro_equipe_id
 INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
 WHERE encontro_equipe_integrantes.encontro_equipe_id = $P{ENCONTRO_EQUIPE_ID}
+AND encontro_equipe_integrantes.convite_aceito IS TRUE
 ORDER BY coordenador, tipo DESC, participante.nome]]>
 	</queryString>
 	<field name="participante_nome" class="java.lang.String"/>

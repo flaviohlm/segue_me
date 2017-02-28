@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes_integrantes" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="97a86976-de63-40c8-8075-ae253e39f851">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FUNCAO_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONSELHO_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     participante.nome AS participante_nome,
+     participante.apelido AS participante_apelido,
+     participante.email AS participante_email,
+     participante.sexo AS participante_sexo,
+     participante.endereco AS participante_endereco,
+     participante.telefone_residencial AS participante_telefone_residencial,
+     participante.telefone_celular AS participante_telefone_celular,
+     CASE WHEN seguidor.tio = true then 'tio' ELSE 'jovem' END AS tipo,
+     funcao.descricao AS funcao
+
+
+FROM segueme.conselho conselho
+INNER JOIN segueme.conselho_integrante conselho_integrante ON conselho.id = conselho_integrante.conselho_id
+INNER JOIN segueme.seguidor seguidor ON seguidor.id = conselho_integrante.seguidor_id
+INNER JOIN segueme.participante participante ON seguidor.participante_id = participante.id
+INNER JOIN segueme.funcao funcao ON funcao.id = conselho_integrante.funcao_id
+WHERE conselho.id = $P{CONSELHO_ID}
+AND conselho_integrante.funcao_id = $P{FUNCAO_ID}
+ORDER BY tipo DESC, nome]]>
+	</queryString>
+	<field name="participante_nome" class="java.lang.String"/>
+	<field name="participante_apelido" class="java.lang.String"/>
+	<field name="participante_email" class="java.lang.String"/>
+	<field name="participante_sexo" class="java.lang.String"/>
+	<field name="participante_endereco" class="java.lang.String"/>
+	<field name="participante_telefone_residencial" class="java.lang.String"/>
+	<field name="participante_telefone_celular" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="funcao" class="java.lang.String"/>
+	<columnHeader>
+		<band height="30">
+			<rectangle>
+				<reportElement x="323" y="15" width="217" height="15" backcolor="#99CCFF" uuid="ac8b82d9-3611-475e-a440-528fe165ee79"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="214" y="15" width="109" height="15" backcolor="#99CCFF" uuid="fcae20a4-af14-4f7d-b67b-7efd9ed7277d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="214" y="15" width="109" height="15" uuid="a0050f74-1158-4670-a513-190beac9f275"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="540" y="15" width="262" height="15" backcolor="#99CCFF" uuid="83b62b2e-585d-44c5-915e-be441841e7ad"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="323" y="15" width="217" height="15" uuid="b751402c-b94f-41fd-8cfb-bc31b28c18a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="15" width="214" height="15" backcolor="#99CCFF" uuid="d6a94b55-51d4-4a25-a7b1-4d5bdcaba1db"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="15" width="216" height="15" uuid="cb0cbb7b-ff69-4474-839f-6b990284107d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="15" forecolor="#000000" backcolor="#FFCCCC" uuid="dfd9d774-5f43-46cd-9030-d1b4e5e11d41"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="803" height="15" uuid="b42b5ef4-7632-4bc7-afa3-672b9b218cfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="540" y="15" width="262" height="15" uuid="96b8202d-f8dc-4eb1-a205-6bc2f0c9de74"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="214" height="15" uuid="ee0e586d-087a-4e06-aec0-af8cfdda9a36"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="214" height="15" uuid="82f86aa6-b0e0-4e69-9ced-c8cae94608c0"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font isBold="false"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_nome}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="214" y="0" width="109" height="15" uuid="1e827673-3c4d-454a-b45f-f4a8b3e3f2d2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="323" y="0" width="217" height="15" uuid="43a92133-00dd-4e66-8d1f-e0d1ebfbfa85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="540" y="0" width="262" height="15" uuid="1d4b2667-0a86-4e74-bd1b-8c149ff04f81"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="214" y="0" width="109" height="15" uuid="e4402365-9a37-4ee8-b2f0-8ecc6a4e0254"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_telefone_celular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="323" y="0" width="217" height="15" uuid="02367ff7-2db7-460b-9cf5-d95030427eca"/>
+				<textElement verticalAlignment="Top" markup="styled">
+					<font isBold="false"/>
+					<paragraph lineSpacing="Single" leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_email}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="540" y="0" width="262" height="15" uuid="521b49a9-ac15-4209-8b05-b0668e14c0b2"/>
+				<textElement verticalAlignment="Top">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participante_endereco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
