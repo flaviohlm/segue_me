@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120.65mm" height="603.238mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 12065 60324"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ enable-background="new 0 0 24 24">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil2 {fill:#30719E}
+    .fil1 {fill:#CCCCCC}
+    .fil0 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="Camada_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1488419886_Untitled-2-45.svg">
+   <g>
+    <polygon class="fil0" points="5659,3900 4911,4648 6783,4648 6035,3900 6035,3524 6411,3524 6411,3149 6035,3149 6035,2773 5659,2773 5659,3149 5284,3149 5284,3524 5659,3524 "/>
+    <path class="fil0" d="M6411 5778l0 -730 -1127 0 0 730 -1879 1503 752 0 0 1502 1127 0 0 -939c0,-311 252,-563 563,-563 311,0 564,252 564,563l0 939 1127 0 0 -1502 751 0 -1878 -1503z"/>
+   </g>
+  </g>
+  <g id="_1488419886_Untitled-2-45.svg_0">
+   <g>
+    <polygon class="fil1" points="5650,28125 4902,28873 6773,28873 6025,28125 6025,27749 6401,27749 6401,27373 6025,27373 6025,26998 5650,26998 5650,27373 5274,27373 5274,27749 5650,27749 "/>
+    <path class="fil1" d="M6401 30003l0 -730 -1127 0 0 730 -1878 1502 751 0 0 1503 1127 0 0 -939c0,-311 252,-564 564,-564 311,0 563,253 563,564l0 939 1127 0 0 -1503 751 0 -1878 -1502z"/>
+   </g>
+  </g>
+  <g id="_1488419886_Untitled-2-45.svg_1">
+   <g>
+    <polygon class="fil2" points="5579,52043 4831,52791 6703,52791 5955,52043 5955,51667 6330,51667 6330,51292 5955,51292 5955,50916 5579,50916 5579,51292 5203,51292 5203,51667 5579,51667 "/>
+    <path class="fil2" d="M6330 53921l0 -730 -1127 0 0 730 -1878 1503 752 0 0 1502 1126 0 0 -939c0,-311 252,-563 564,-563 311,0 563,252 563,563l0 939 1127 0 0 -1502 752 0 -1879 -1503z"/>
+   </g>
+  </g>
+ </g>
+</svg>

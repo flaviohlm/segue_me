@@ -424,3 +424,35 @@
 .estrela {
     background-image: url("#{resource['images/estrela.svg']}") !important;
 }
+
+.seguimistas {
+    background-image: url("#{resource['images/seguimistas.svg']}") !important;
+}
+
+.equipe_dirigente {
+    background-image: url("#{resource['images/equipe_dirigente.svg']}") !important;
+}
+
+.conselho {
+    background-image: url("#{resource['images/conselho.svg']}") !important;
+}
+
+.cape {
+    background-image: url("#{resource['images/cape.svg']}") !important;
+}
+
+.palestra {
+    background-image: url("#{resource['images/palestra.svg']}") !important;
+}
+
+.paroquia {
+    background-image: url("#{resource['images/paroquia.svg']}") !important;
+}
+
+.tipos {
+    background-image: url("#{resource['images/tipos.svg']}") !important;
+}
+
+.padre {
+    background-image: url("#{resource['images/padre.svg']}") !important;
+}
