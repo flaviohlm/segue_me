@@ -27,15 +27,23 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -88,8 +96,58 @@ public class EncontroController implements Serializable {
     private EncontroEquipe encontroEquipeSelecionado;
     private EncontroCirculo encontroCirculoSelecionado;
     private List<EncontroEquipeIntegrante> listaIntegrantes;
+    private LazyDataModel<EncontroEquipeIntegrante> listaObjetosLazy;
     private List<EquipeDirigente> listaEquipeDirigente;
     private List<Conselho> listaConselho;
+    
+    @PostConstruct
+    public void init() {        
+        // Classe interna anônima: ao mesmo tempo em que está instanciando, muda o comportamento interno da classe LazyDataModel (herança>>polimorfismo)        
+        listaObjetosLazy = new LazyDataModel<EncontroEquipeIntegrante>() {
+            private static final long serialVersionUID = 1L;
+            
+            @Override
+            public List<EncontroEquipeIntegrante> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                String globalFilter = removeAcentos((String) filters.get("globalFilter"));
+                
+                //Variavel de retorno
+                List<EncontroEquipeIntegrante> result;
+                //Seta o tamanho da pagina
+                this.setPageSize(pageSize);
+
+                if (sortOrder == SortOrder.UNSORTED || StringUtils.isBlank(sortField)) {
+                    //Atribui para o request em qual pagina vai e o tamanho da pagina                    
+                    PageRequest request = new PageRequest(first / pageSize, pageSize);
+                    //Faz a consulta no banco passando o request e o os filtros para o service
+                    Page<EncontroEquipeIntegrante> page = encontroEquipeIntegranteService.findAll(request, globalFilter);
+                    //Atribui a quantidade de registro total
+                    this.setRowCount((int) page.getTotalElements());
+                    // Pega a lista de registro que irá mostrar na pagina
+                    result = page.getContent();
+                } else {
+                    Sort sort = new Sort(sortOrder == SortOrder.ASCENDING ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+
+                    PageRequest request = new PageRequest(first / pageSize, pageSize, sort);
+                    Page<EncontroEquipeIntegrante> page = encontroEquipeIntegranteService.findAll(request, globalFilter);
+                    this.setRowCount((int) page.getTotalElements());
+                    result = page.getContent();
+                }
+                // retorna a lista com os registro
+                return result;
+            }
+
+            @Override
+            public Object getRowKey(EncontroEquipeIntegrante object) {
+                return object.getId().toString();
+            }
+
+            @Override
+            public EncontroEquipeIntegrante getRowData(String rowKey) {
+                return encontroEquipeIntegranteService.findOneEncontroEquipeIntegrante(Integer.parseInt(rowKey));
+            }
+        };
+               
+    }
     
     public String salvar(){
         try{            
@@ -198,6 +256,20 @@ public class EncontroController implements Serializable {
         }
     }
     
+    public String removeAcentos(String s) {
+        if (s == null) {
+            return s;
+        }
+        String semAcentos = s.toLowerCase();
+        semAcentos = semAcentos.replaceAll("[áàâãäa]", "_");
+        semAcentos = semAcentos.replaceAll("[éèêëe]", "_");
+        semAcentos = semAcentos.replaceAll("[íìîïi]", "_");
+        semAcentos = semAcentos.replaceAll("[óòôõöo]", "_");
+        semAcentos = semAcentos.replaceAll("[úùûüu]", "_");
+        semAcentos = semAcentos.replaceAll("çc", "_");
+        semAcentos = semAcentos.replaceAll("ñn", "_");
+        return semAcentos;
+    }
     
     //GETTERS AND SETTERS
     public EncontroService getEncontroService() {
@@ -414,6 +486,14 @@ public class EncontroController implements Serializable {
 
     public void setListaConselho(List<Conselho> listaConselho) {
         this.listaConselho = listaConselho;
+    }
+
+    public LazyDataModel<EncontroEquipeIntegrante> getListaObjetosLazy() {
+        return listaObjetosLazy;
+    }
+
+    public void setListaObjetosLazy(LazyDataModel<EncontroEquipeIntegrante> listaObjetosLazy) {
+        this.listaObjetosLazy = listaObjetosLazy;
     }
 
 }

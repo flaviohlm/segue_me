@@ -13,11 +13,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -42,6 +50,59 @@ public class SeguidorController implements Serializable {
     private List<Seguidor> listaSeguidores;
     private List<Habilidade> listaHabilidades;
     private Seguidor seguidorSelecionado;
+    
+    private LazyDataModel<Seguidor> listaObjetosLazy;
+    
+    @PostConstruct
+    public void init() {        
+        // Classe interna anônima: ao mesmo tempo em que está instanciando, muda o comportamento interno da classe LazyDataModel (herança>>polimorfismo)        
+        listaObjetosLazy = new LazyDataModel<Seguidor>() {
+            private static final long serialVersionUID = 1L;
+            
+            @Override
+            public List<Seguidor> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                String globalFilter = removeAcentos((String) filters.get("globalFilter"));
+                
+                //Variavel de retorno
+                List<Seguidor> result;
+                //Seta o tamanho da pagina
+                this.setPageSize(pageSize);
+
+                if (sortOrder == SortOrder.UNSORTED || StringUtils.isBlank(sortField)) {
+                    //Atribui para o request em qual pagina vai e o tamanho da pagina                    
+                    PageRequest request = new PageRequest(first / pageSize, pageSize);
+                    //Faz a consulta no banco passando o request e o os filtros para o service
+                    Page<Seguidor> page = seguidorService.findAll(request, globalFilter);
+                    //Atribui a quantidade de registro total
+                    this.setRowCount((int) page.getTotalElements());
+                    // Pega a lista de registro que irá mostrar na pagina
+                    result = page.getContent();
+                } else {
+                    Sort sort = new Sort(sortOrder == SortOrder.ASCENDING ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+
+                    PageRequest request = new PageRequest(first / pageSize, pageSize, sort);
+                    Page<Seguidor> page = seguidorService.findAll(request, globalFilter);
+                    this.setRowCount((int) page.getTotalElements());
+                    result = page.getContent();
+                }
+                // retorna a lista com os registro
+                return result;
+            }
+
+            @Override
+            public Object getRowKey(Seguidor object) {
+                return object.getId().toString();
+            }
+
+            @Override
+            public Seguidor getRowData(String rowKey) {
+                return seguidorService.findOneSeguidor(Integer.parseInt(rowKey));
+            }
+        };
+               
+    }
+    
+    
     
     public void salvar(){        
         try{
@@ -124,7 +185,20 @@ public class SeguidorController implements Serializable {
         }
     }
     
-    
+    public String removeAcentos(String s) {
+        if (s == null) {
+            return s;
+        }
+        String semAcentos = s.toLowerCase();
+        semAcentos = semAcentos.replaceAll("[áàâãäa]", "_");
+        semAcentos = semAcentos.replaceAll("[éèêëe]", "_");
+        semAcentos = semAcentos.replaceAll("[íìîïi]", "_");
+        semAcentos = semAcentos.replaceAll("[óòôõöo]", "_");
+        semAcentos = semAcentos.replaceAll("[úùûüu]", "_");
+        semAcentos = semAcentos.replaceAll("çc", "_");
+        semAcentos = semAcentos.replaceAll("ñn", "_");
+        return semAcentos;
+    }
     
     public void verificarTelefone(){
         List<Participante> lista = participanteService.findAllParticipantes();
@@ -273,6 +347,14 @@ public class SeguidorController implements Serializable {
 
     public void setParticipanteService(ParticipanteService participanteService) {
         this.participanteService = participanteService;
+    }
+
+    public LazyDataModel<Seguidor> getListaObjetosLazy() {
+        return listaObjetosLazy;
+    }
+
+    public void setListaObjetosLazy(LazyDataModel<Seguidor> listaObjetosLazy) {
+        this.listaObjetosLazy = listaObjetosLazy;
     }
     
 }

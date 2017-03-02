@@ -12,7 +12,11 @@
         <ui:define name="tituloPagina">
             Gerenciar Seguidores
         </ui:define> 
-        
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewAction action="#{seguidorController.init()}"  />
+            </f:metadata>
+        </ui:define>
         <!--Conteúdo da página-->
         <ui:define name="conteudo">
             <h:form id="form_1">  
@@ -22,13 +26,13 @@
                     
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                 value="#{seguidorController.listaSeguidores}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"
+                                 value="#{seguidorController.listaObjetosLazy}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex"
+                                 lazy="true"
                                  selectionMode="single" selection="#{seguidorController.seguidorSelecionado}" rowKey="#{model.id}">
 
                         <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText value="Filtrar: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                            <p:outputPanel>                                
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder="Filtrar"/>
                             </p:outputPanel>
                         </f:facet>
 
