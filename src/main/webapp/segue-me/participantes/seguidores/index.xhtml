@@ -56,7 +56,11 @@
                             <h:outputText value="Seguidor" rendered="#{model.tio == false and model.participante.sexo == 'M'}" />
                             <h:outputText value="Seguidora" rendered="#{model.tio == false and model.participante.sexo == 'F'}" />
                         </p:column>                            
-
+                        <!--
+                        <p:column headerText="Paróquia" sortBy="#{model.participante.paroquia.descricao}" filterBy="#{model.participante.paroquia.descricao}" width="130" >
+                            <h:outputText value="#{model.participante.paroquia.descricao}" />                                  
+                        </p:column>
+                        -->
                     </p:dataTable>                    
                 </p:panel>                
             </h:form>
