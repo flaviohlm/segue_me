@@ -47,10 +47,8 @@ public class SeguidorController implements Serializable {
     
     private Integer id;
     private Seguidor seguidor = new Seguidor();
-    private List<Seguidor> listaSeguidores;
     private List<Habilidade> listaHabilidades;
     private Seguidor seguidorSelecionado;
-    
     private LazyDataModel<Seguidor> listaObjetosLazy;
     
     @PostConstruct
@@ -143,8 +141,7 @@ public class SeguidorController implements Serializable {
     
     public void deletar(){
         try{            
-            seguidorService.deleteSeguidor(seguidor);
-            listaSeguidores = null;
+            seguidorService.deleteSeguidor(seguidor);            
             messages.info("Seguidor deletado com sucesso!");
         }catch(Exception e){
             messages.error("Não foi possível deletar o seguidor.");
@@ -251,7 +248,6 @@ public class SeguidorController implements Serializable {
             System.out.println(p.getNome());
         }
 
-        listaSeguidores = null;
     }
     
     public void copiar2(){
@@ -267,7 +263,6 @@ public class SeguidorController implements Serializable {
             //seguidorService.saveSeguidor(s);
         }
 
-        listaSeguidores = null;
     }
     
     //GETTERS AND SETTERS
@@ -301,17 +296,6 @@ public class SeguidorController implements Serializable {
 
     public void setSeguidor(Seguidor seguidor) {
         this.seguidor = seguidor;
-    }
-
-    public List<Seguidor> getListaSeguidores() {
-        if(listaSeguidores == null){
-            listaSeguidores = seguidorService.findAllSeguidor();
-        }
-        return listaSeguidores;
-    }
-
-    public void setListaSeguidores(List<Seguidor> listaSeguidores) {
-        this.listaSeguidores = listaSeguidores;
     }
 
     public HabilidadeService getHabilidadeService() {
