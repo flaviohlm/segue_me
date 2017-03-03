@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\equipe\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\equipe\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="R_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -84,7 +84,7 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="107" splitType="Stretch">
+		<band height="85" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="555" height="20" uuid="2781e427-a154-48d0-84bd-116bc26e85e1"/>
 				<textElement textAlignment="Center">
@@ -93,7 +93,7 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 				<textFieldExpression><![CDATA[$F{equipe_descricao}]]></textFieldExpression>
 			</textField>
 			<break>
-				<reportElement x="0" y="96" width="100" height="1" uuid="6443888b-8479-4811-9751-f4f05587b064"/>
+				<reportElement x="0" y="84" width="100" height="1" uuid="6443888b-8479-4811-9751-f4f05587b064"/>
 			</break>
 			<rectangle>
 				<reportElement x="0" y="20" width="202" height="20" backcolor="#99CCFF" uuid="6a1408f2-7496-4286-ba5e-f36e82e86fad"/>
@@ -148,7 +148,7 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 	<pageFooter>
 		<band height="23">
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="271" y="2" width="22" height="20" uuid="91aa4969-744d-4033-9b5a-daf28999ae15"/>
+				<reportElement x="271" y="3" width="22" height="20" uuid="91aa4969-744d-4033-9b5a-daf28999ae15"/>
 				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
 			</image>
 			<line>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="862"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\quadrante\\"]]></defaultValueExpression>
@@ -59,7 +59,7 @@ ORDER BY encontro_palestra.data_palestra, encontro_palestra.horario_palestra]]>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="21">
+		<band height="23">
 			<line>
 				<reportElement x="0" y="0" width="802" height="1" uuid="276c1b09-00d8-4c4b-b6c2-576a72fad4f4"/>
 			</line>
@@ -78,7 +78,7 @@ ORDER BY encontro_palestra.data_palestra, encontro_palestra.horario_palestra]]>
 				<textFieldExpression><![CDATA[$F{encontro_descricao}+" | "+$F{paroquia}]]></textFieldExpression>
 			</textField>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="388" y="1" width="22" height="20" uuid="2503c9de-2356-4633-890a-e8057438401e"/>
+				<reportElement x="388" y="2" width="22" height="20" uuid="2503c9de-2356-4633-890a-e8057438401e"/>
 				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
 			</image>
 		</band>

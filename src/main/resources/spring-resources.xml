@@ -18,13 +18,13 @@
         <!--<property name="url" value="jdbc:postgresql://10.121.0.9:5433/bcoproducao" /> -->     <!--PRODUCAO-DESENVOLVIMENTO-->
         <property name="username" value="segue_me_user" />
         <property name="password" value="segue_me_user" />
-        <!--
+        
         <property name="initialSize" value="10"/>
         <property name="maxActive" value="32"/>
         <property name="maxIdle" value="32"/>
         <property name="minIdle" value="10"/>
         <property name="maxWait" value="10000"/>
-        -->
+        
     </bean>    
     
     <!--PostProcessor-->

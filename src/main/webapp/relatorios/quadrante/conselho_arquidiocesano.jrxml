@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="646"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Flavio\\Documents\\Repository\\segue_me\\src\\main\\webapp\\relatorios\\quadrante\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\quadrante\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="R_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -127,7 +127,9 @@ ORDER BY funcao]]>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="539" y="86" width="262" height="15" uuid="fb179c79-c7b6-4d8f-b7d3-e1784fd2ac65"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{diretor_espiritual_endereco}]]></textFieldExpression>
 			</textField>
 			<staticText>
