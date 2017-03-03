@@ -114,6 +114,7 @@ public class EncontroEquipeController implements Serializable {
     public void salvarEncontroEquipeIntegrante(){
         try{
             encontroEquipeIntegranteService.saveEncontroEquipeIntegrante(encontroEquipeIntegrante);
+            this.loadModel();
         }catch(Exception e){
             messages.error("Não foi possível salvar o(a) coordenador(a).");
             e.printStackTrace();

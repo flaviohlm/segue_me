@@ -44,7 +44,7 @@
         <intercept-url pattern="/segue-me/estrutura/encontro/circulos/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/circulos/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/equipes/*" access="isAuthenticated()" />
-        <intercept-url pattern="/segue-me/estrutura/equipes/editar/*" access="isAuthenticated()" />
+        <intercept-url pattern="/segue-me/estrutura/encontro/equipes/editar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/equipes/integrantes/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/estrutura/encontro/cadastrar/*" access="isAuthenticated()" />

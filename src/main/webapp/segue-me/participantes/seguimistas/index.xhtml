@@ -26,9 +26,8 @@
                                      selectionMode="single" selection="#{seguimistaController.seguimistaSelecionado}" rowKey="#{model.id}">
                             
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Filtrar: " />
-                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                                <p:outputPanel>                  
+                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder="Filtrar"/>
                                 </p:outputPanel>
                             </f:facet>
                             

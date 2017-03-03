@@ -14,7 +14,8 @@
     <!--Conteúdo da página-->
     <ui:define name="conteudo">        
         <p:messages id="messages" autoUpdate="true" closable="true"  />
-        <p:dataList var="model"  value="#{indexController.listaEncontros}" widgetVar="model_w" emptyMessage="" class="caixa cursos-lista quadro-curso">
+        <p:dataGrid  var="model"  value="#{indexController.listaEncontros}" widgetVar="model_w" emptyMessage="" class="caixa cursos-lista quadro-curso" columns="1" layout="grid"
+         paginator="false" >
             <article class="curso">     
                 <h:link outcome="/segue-me/estrutura/encontro/editar/index.xhtml?id=#{model.id}" >
                     <h:graphicImage class="destaque" library="images" name="padrao.png" />
@@ -33,7 +34,7 @@
                 <h:link title="Integrantes das Equipes do Encontro" outcome="/segue-me/estrutura/encontro/equipes/integrantes/index.xhtml?id=#{model.id}" value="" class="botao iconebt grupo" />
                 
             </article>
-        </p:dataList>
+        </p:dataGrid >
     </ui:define>
     <ui:define name="recursos">
     </ui:define>

@@ -33,8 +33,7 @@
 
                         <f:facet name="header">
                             <p:outputPanel>
-                                <h:outputText value="Filtrar: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                                <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder="Filtrar"/>
                             </p:outputPanel>
                         </f:facet>
 
@@ -93,8 +92,7 @@
 
                         <f:facet name="header">
                             <p:outputPanel>
-                                <h:outputText value="Filtrar: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('model_x').filter()" placeholder=""/>
+                                <p:inputText id="globalFilter" onkeyup="PF('model_x').filter()" placeholder="Filtrar"/>
                             </p:outputPanel>
                         </f:facet>
 
@@ -130,7 +128,7 @@
                         </p:selectOneMenu>
                         </p:outputLabel>
 
-                        <p:commandButton update=":form_1" value="Salvar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2 trocar" oncomplete="PF('dialogTrocar').hide()" />
+                        <p:commandButton update=":form_1" value="Trocar" image="" actionListener="#{encontroEquipeController.salvarEncontroEquipeIntegrante()}" class="icone2 trocar" oncomplete="PF('dialogTrocar').hide()" />
                     </p:panelGrid>
                 </p:confirmDialog>
                 

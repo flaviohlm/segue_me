@@ -82,11 +82,11 @@
                         <p:column headerText="Equipe" width="140" sortBy="#{model.encontroEquipe.equipe.descricao}" filterBy="#{model.encontroEquipe.equipe.descricao}" >                            
                             <h:link value="#{model.encontroEquipe.equipe.descricao}" outcome="/segue-me/estrutura/encontro/equipes/editar/index.xhtml?id=#{model.encontroEquipe.id}" />                            
                         </p:column>
-                        
+                        <!--
                         <p:column headerText="Convite" width="80" >   
                             <p:selectBooleanCheckbox value="#{model.conviteAceito}" disabled="true" />
                         </p:column>
-                        
+                        -->
                     </p:dataTable>                     
                 </p:panel>                   
                 

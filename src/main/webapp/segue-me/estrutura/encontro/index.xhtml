@@ -25,8 +25,7 @@
                             
                             <f:facet name="header">
                                 <p:outputPanel>
-                                    <h:outputText value="Filtrar: " />
-                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder=""/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('model_w').filter()" placeholder="Filtrar"/>
                                 </p:outputPanel>
                             </f:facet>
                             
@@ -38,13 +37,17 @@
                                 <h:outputText value="#{model.descricao}" />                                  
                             </p:column>
                             
-                            <p:column headerText="Data de Início" sortBy="#{model.dataRealizacaoInicio}" filterBy="#{model.dataRealizacaoInicio}" >
+                            <p:column headerText="Paróquia" sortBy="#{model.paroquia.descricao}" filterBy="#{model.paroquia.descricao}" >
+                                <h:outputText value="#{model.paroquia.descricao}" />                                  
+                            </p:column>
+                            
+                            <p:column headerText="Data de Início" sortBy="#{model.dataRealizacaoInicio}" filterBy="#{model.dataRealizacaoInicio}" width="125">
                                 <h:outputText value="#{model.dataRealizacaoInicio}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>                                 
                             </p:column>                            
                             
-                            <p:column headerText="Data Fim" sortBy="#{model.dataRealizacaoFim}" filterBy="#{model.dataRealizacaoFim}" >
+                            <p:column headerText="Data Fim" sortBy="#{model.dataRealizacaoFim}" filterBy="#{model.dataRealizacaoFim}" width="125" >
                                 <h:outputText value="#{model.dataRealizacaoFim}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>                                 
