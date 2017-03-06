@@ -456,3 +456,7 @@
 .padre {
     background-image: url("#{resource['images/padre.svg']}") !important;
 }
+
+.quadrante {
+    background-image: url("#{resource['images/quadrante.svg']}") !important;
+}

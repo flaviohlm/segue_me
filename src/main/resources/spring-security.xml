@@ -68,6 +68,8 @@
         <intercept-url pattern="/segue-me/participantes/seguimistas/cadastrar/*" access="isAuthenticated()" />
         <intercept-url pattern="/segue-me/participantes/seguimistas/editar/*" access="isAuthenticated()" />
         
+        <intercept-url pattern="/segue-me/quadrante/*" access="isAuthenticated()" />
+        
         <security:access-denied-handler error-page="/login/semPermissao.xhtml" />
         
         <form-login login-page="/login/index.xhtml" always-use-default-target="true"  default-target-url="/index.xhtml" />            
