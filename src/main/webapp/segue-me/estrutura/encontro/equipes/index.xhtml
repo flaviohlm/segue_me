@@ -30,7 +30,7 @@
                     <p:commandButton value="Equipe e Integrantes" title="Imprimir todas as equipes e seus integrantes" action="#{encontroController.imprimir(encontroController.id, 'equipe','equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     <p:commandButton value="Ordem Apresentação" title="Imprimir ordem de entrada" action="#{encontroController.imprimir(encontroController.id, 'equipe', 'ordem_apresentacao')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>   
                     
-                    <p:commandButton value="Quadrante das Equipes" title="Imprimir a lista de equipes com seus integrantes para o quadrante" action="#{encontroController.imprimir(encontroController.id, 'quadrante', 'equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
+                    <p:commandButton value="Quadrante das Equipes" title="Imprimir a lista de equipes com seus integrantes para o quadrante" action="#{encontroController.imprimir(encontroController.id, 'quadrante', 'equipes_table')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
