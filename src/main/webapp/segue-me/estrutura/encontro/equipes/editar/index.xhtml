@@ -28,7 +28,7 @@
                     <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroEquipeController.id, 'equipe','equipe')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>
 
                     <p:separator/>
-                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                    <p:dataTable id="data_table" paginator="false" paginatorAlwaysVisible="false" reflow="true" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroEquipeController.listaEncontroEquipeIntegrante}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" >
 
                         <f:facet name="header">

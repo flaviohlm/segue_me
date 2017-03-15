@@ -64,16 +64,17 @@
      CASE WHEN encontro_equipe_integrantes.coordenador = true THEN 'COORDENADOR(A)' ELSE 'SEGUIDOR(A)' END AS coordenador,
      CASE WHEN seguidor.tio = true THEN 'TIO(A)' ELSE 'SEGUIDOR(A)' END AS tipo,
      encontro_equipe_integrantes.encontro_equipe_id AS encontro_equipe_id,
-     equipe.descricao AS equipe_descricao
+     equipe.descricao AS equipe_descricao,
+     CASE WHEN encontro_equipe_integrantes.convite_aceito = true THEN 'ACEITO' WHEN encontro_equipe_integrantes.convite_aceito = false THEN 'RECUSADO' ELSE 'A CONVIDAR' END AS convite_aceito,
+     encontro_equipe_integrantes.observacoes AS observacoes
 FROM
      segueme.seguidor seguidor
 INNER JOIN segueme.encontro_equipe_integrantes encontro_equipe_integrantes ON seguidor.id = encontro_equipe_integrantes.seguidor_id
 INNER JOIN segueme.participante participante ON seguidor.participante_id = participante.id
 INNER JOIN segueme.encontro_equipe encontro_equipe ON encontro_equipe.id = encontro_equipe_integrantes.encontro_equipe_id
 INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
-WHERE encontro_equipe_integrantes.convite_aceito IS TRUE
-AND encontro_equipe_integrantes.encontro_equipe_id = $P{ENCONTRO_EQUIPE_ID}
-ORDER BY coordenador, tipo DESC, participante.nome]]>
+WHERE encontro_equipe_integrantes.encontro_equipe_id = $P{ENCONTRO_EQUIPE_ID}
+ORDER BY coordenador, convite_aceito, tipo DESC, participante.nome]]>
 		</queryString>
 		<field name="participante_nome" class="java.lang.String"/>
 		<field name="participante_apelido" class="java.lang.String"/>
@@ -89,6 +90,8 @@ ORDER BY coordenador, tipo DESC, participante.nome]]>
 		<field name="tipo" class="java.lang.String"/>
 		<field name="encontro_equipe_id" class="java.lang.Integer"/>
 		<field name="equipe_descricao" class="java.lang.String"/>
+		<field name="convite_aceito" class="java.lang.String"/>
+		<field name="observacoes" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\quadrante\\"]]></defaultValueExpression>
@@ -108,7 +111,8 @@ FROM segueme.encontro_equipe encontro_equipe
 INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
 INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_id
 INNER JOIN segueme.paroquia paroquia ON encontro.paroquia_id = paroquia.id
-WHERE encontro_equipe.id = $P{R_ID}
+
+WHERE encontro.id = $P{R_ID}
 ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 	</queryString>
 	<field name="encontro_equipe_id" class="java.lang.Integer"/>
@@ -118,51 +122,58 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 	<field name="equipe_descricao" class="java.lang.String"/>
 	<field name="ordem_apresentacao" class="java.lang.Integer"/>
 	<field name="paroquia" class="java.lang.String"/>
-	<pageHeader>
-		<band height="107">
+	<title>
+		<band height="123">
 			<textField isBlankWhenNull="true">
-				<reportElement x="124" y="44" width="555" height="20" uuid="43d387f8-5028-4958-95e7-7506c21b3edb"/>
+				<reportElement x="124" y="46" width="555" height="20" uuid="cd7b59b0-3a55-4fd6-89e8-a7191d56edb7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{encontro_descricao}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="124" y="66" width="555" height="20" uuid="48f09ac0-6ca6-4cbe-b0d1-bf044e636a01"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
+			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="295" y="85" width="100" height="20" uuid="9d061226-d189-4a82-b47b-676e75ccf03f"/>
+				<reportElement x="295" y="86" width="100" height="20" uuid="31bc7d76-5fdf-477d-9e84-815ce7055707"/>
 				<textElement textAlignment="Right">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_inicio}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="395" y="86" width="14" height="20" uuid="92d3de07-b2db-471a-808b-f250ce23d0d2"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[à]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="380" y="0" width="43" height="39" uuid="ab7a673c-0151-40c1-98be-cce37c540065"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="410" y="85" width="100" height="20" uuid="8aabfb7f-c97a-405f-be9f-3f44f8e7666e"/>
+				<reportElement x="410" y="86" width="100" height="20" uuid="2fd3fc6d-36ff-40b9-8130-00f33b878515"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{encontro_data_realizacao_fim}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="395" y="85" width="14" height="20" uuid="fb3f9cd2-8e83-413f-8967-d7f6de68e1c8"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[à]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="124" y="64" width="555" height="20" uuid="9cbe1475-9b6f-4b4b-956a-54087a34ee73"/>
+				<reportElement x="124" y="100" width="555" height="20" uuid="62a4e5c4-34a5-4f52-9d2a-192701c563d9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{paroquia}]]></textFieldExpression>
-			</textField>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="379" y="3" width="43" height="39" uuid="ba921182-23c1-41e8-b147-6a382d81a680"/>
-				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
-			</image>
+				<text><![CDATA[RELATÓRIO GERAL - EQUIPES DE TRABALHO]]></text>
+			</staticText>
 		</band>
-	</pageHeader>
+	</title>
 	<detail>
-		<band height="105" splitType="Stretch">
+		<band height="118" splitType="Stretch">
 			<rectangle>
 				<reportElement x="1" y="1" width="800" height="20" backcolor="#FFCCCC" uuid="739016cd-2c32-4c55-afd2-59e4a1e2c87a"/>
 			</rectangle>
@@ -176,11 +187,11 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="200" uuid="24277b18-6b31-458d-9403-e20e397b9289">
-						<jr:columnHeader style="table 1_CH" height="20" rowSpan="1">
+						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="200" height="20" uuid="646198b7-2ec6-4b8f-88ce-e561aec37d6c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
+									<font size="14" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Nome]]></text>
 							</staticText>
@@ -195,61 +206,59 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="163" uuid="97dadad8-0b9a-44ef-9d96-7db7330758ba">
-						<jr:columnHeader style="table 1_CH" height="20" rowSpan="1">
+					<jr:column width="170" uuid="97dadad8-0b9a-44ef-9d96-7db7330758ba">
+						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="163" height="20" uuid="608bc3c2-8b85-4704-93a6-8de37e01adbe"/>
+								<reportElement x="0" y="0" width="170" height="20" uuid="608bc3c2-8b85-4704-93a6-8de37e01adbe"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
+									<font size="14" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Telefone]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="163" height="20" uuid="806f1b35-7f59-4fb8-9de4-af48ddfef94c"/>
+								<reportElement x="0" y="0" width="170" height="20" uuid="806f1b35-7f59-4fb8-9de4-af48ddfef94c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled"/>
 								<textFieldExpression><![CDATA[($F{encontro_equipe_integrantes_coordenador}==true ? "<style isBold='true'>"+ ($F{participante_telefone_residencial}==null ? $F{participante_telefone_celular} : $F{participante_telefone_residencial} == "" ? $F{participante_telefone_celular} : $F{participante_telefone_celular} + "/" + $F{participante_telefone_residencial})+"</style>" : ($F{participante_telefone_residencial}==null ? $F{participante_telefone_celular} : $F{participante_telefone_residencial} == "" ? $F{participante_telefone_celular} : $F{participante_telefone_celular} + "/" + $F{participante_telefone_residencial}))]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="239" uuid="ad86f7b4-f1fc-44bd-9526-2ddcbc1379d1">
-						<jr:columnHeader style="table 1_CH" height="20" rowSpan="1">
+					<jr:column width="105" uuid="ad86f7b4-f1fc-44bd-9526-2ddcbc1379d1">
+						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="239" height="20" uuid="14ed98e1-0b20-4be1-8144-42f1d16ca17c"/>
+								<reportElement x="0" y="0" width="105" height="20" uuid="14ed98e1-0b20-4be1-8144-42f1d16ca17c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
+									<font size="14" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Endereço]]></text>
+								<text><![CDATA[Convite]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="239" height="20" uuid="f8d1b4b6-5250-4478-9042-66827965983b"/>
-								<textElement verticalAlignment="Middle" markup="styled">
-									<paragraph leftIndent="5"/>
-								</textElement>
-								<textFieldExpression><![CDATA[(($F{encontro_equipe_integrantes_coordenador}==false ? $F{participante_endereco} : ($F{participante_endereco} == null ? "" : "<style isBold='true'>"+ $F{participante_endereco}+"</style>")))]]></textFieldExpression>
+							<textField>
+								<reportElement x="0" y="0" width="105" height="20" uuid="1c9ba9ff-6a89-4e57-aeee-a95c39bd5ac1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled"/>
+								<textFieldExpression><![CDATA[($F{encontro_equipe_integrantes_coordenador}==true ? "<style isBold='true'>"+ $F{convite_aceito}+"</style>" : $F{convite_aceito})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="198" uuid="4ce7c62f-2fed-4429-8605-e12495e10e4d">
-						<jr:columnHeader style="table 1_CH" height="20" rowSpan="1">
+					<jr:column width="325" uuid="4ce7c62f-2fed-4429-8605-e12495e10e4d">
+						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="198" height="20" uuid="e1e587f5-92d2-44d3-8128-a47ac9d51104"/>
+								<reportElement x="0" y="0" width="325" height="20" uuid="e1e587f5-92d2-44d3-8128-a47ac9d51104"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true"/>
+									<font size="14" isBold="true"/>
 								</textElement>
-								<text><![CDATA[E-mail]]></text>
+								<text><![CDATA[Observações]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="198" height="20" uuid="533010d3-3aa0-42af-a6de-6a569e025081"/>
+								<reportElement x="0" y="0" width="325" height="20" uuid="533010d3-3aa0-42af-a6de-6a569e025081"/>
 								<textElement verticalAlignment="Middle" markup="styled">
 									<paragraph leftIndent="5"/>
 								</textElement>
-								<textFieldExpression><![CDATA[(($F{encontro_equipe_integrantes_coordenador}==false ? $F{participante_email} : ($F{participante_email} == null ? "" : "<style isBold='true'>"+ $F{participante_email}+"</style>")))]]></textFieldExpression>
+								<textFieldExpression><![CDATA[(($F{encontro_equipe_integrantes_coordenador}==false ? $F{observacoes} : ($F{observacoes} == null ? "" : "<style isBold='true'>"+ $F{observacoes}+"</style>")))]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -262,12 +271,6 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{equipe_descricao}]]></textFieldExpression>
 			</textField>
-			<break>
-				<reportElement x="0" y="102" width="100" height="1" uuid="954164f5-7a6f-44da-95bd-1c1a85943a3f"/>
-			</break>
-			<break>
-				<reportElement x="0" y="104" width="100" height="1" uuid="58178e32-7100-4d4b-8e9f-d36f85e14a39"/>
-			</break>
 		</band>
 	</detail>
 	<pageFooter>
@@ -286,12 +289,19 @@ ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
 				<reportElement x="387" y="4" width="22" height="20" uuid="e58f854c-2c51-4bbf-9d9c-c92bc2d6bce4"/>
 				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="419" y="4" width="353" height="20" uuid="6c32e91a-5912-452d-839e-2f50dad18327"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Relatório Geral - Equipes de Trabalho]]></text>
+			</staticText>
 			<textField>
-				<reportElement x="410" y="4" width="390" height="20" uuid="0c7ad351-b880-430f-b3d1-5522717218a9"/>
+				<reportElement x="772" y="4" width="29" height="20" uuid="6e7abf7b-2e96-434b-b074-ca54b47c8699"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Equipes de Trabalho - "+$F{equipe_descricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
