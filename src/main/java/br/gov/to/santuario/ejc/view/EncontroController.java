@@ -19,10 +19,13 @@ import br.gov.to.santuario.ejc.service.EquipeDirigenteService;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.PalestraService;
 import br.gov.to.santuario.ejc.service.ParoquiaService;
+import br.gov.to.santuario.seg.domain.Participante;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import br.gov.to.santuario.seg.util.RelatorioUtil;
 import br.gov.to.santuario.seg.util.UsuarioUtil;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,14 +36,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.StreamedContent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -99,6 +108,7 @@ public class EncontroController implements Serializable {
     private LazyDataModel<EncontroEquipeIntegrante> listaObjetosLazy;
     private List<EquipeDirigente> listaEquipeDirigente;
     private List<Conselho> listaConselho;
+    private StreamedContent file;
     
     @PostConstruct
     public void init() {        
@@ -269,6 +279,88 @@ public class EncontroController implements Serializable {
         semAcentos = semAcentos.replaceAll("çc", "_");
         semAcentos = semAcentos.replaceAll("ñn", "_");
         return semAcentos;
+    }
+    
+    public String retornaTelefone(Participante p){
+        
+        ArrayList<String> str = new ArrayList<>();
+        String telefones = "";
+        
+        if(p.getTelefoneCelular() != null && !p.getTelefoneCelular().equals("")){
+            str.add(p.getTelefoneCelular());
+        }
+        
+        if(p.getTelefoneResidencial() != null && !p.getTelefoneResidencial().equals("")){
+            str.add(p.getTelefoneResidencial());
+        }
+        
+        telefones = StringUtils.join(str, "/");
+        
+        
+        return telefones;
+    }
+    
+    public String getRealPath(String diretorio) {
+        ServletContext sc = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        return sc.getRealPath(diretorio);
+    }
+    
+    public void baixarCSV(){
+        try{
+            // local do arquivo
+            String DIR = "/upload";
+            String filename=getRealPath(DIR)+"/Montagem - "+encontro.getDescricao() + " - " + encontro.getParoquia().getDescricao()+".xls";
+            HSSFWorkbook workbook=new HSSFWorkbook();
+            List<EncontroEquipe> listaEncontroEquipeTemp = encontroEquipeService.findAllByEncontroOrderQuadrante(encontro);
+            for(EncontroEquipe encontroEquipe : listaEncontroEquipeTemp){
+                List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante = encontroEquipeIntegranteService.findSeguidoresDaEquipe(encontroEquipe);
+                
+                HSSFSheet sheet =  workbook.createSheet(encontroEquipe.getEquipe().getDescricao());  
+
+                // criando as linhas
+                HSSFRow rowhead=   sheet.createRow((short)0);
+                rowhead.createCell(0).setCellValue("Nome");            
+                rowhead.createCell(1).setCellValue("Telefones");
+                rowhead.createCell(2).setCellValue("Endereço");
+                rowhead.createCell(3).setCellValue("E-mail");
+                rowhead.createCell(4).setCellValue("Convite");
+
+                int col = 1;
+                for(EncontroEquipeIntegrante i : listaEncontroEquipeIntegrante){
+                    HSSFRow row = sheet.createRow((short)col);
+
+                    row.createCell(0).setCellValue(i.getSeguidor().getParticipante().getNome());
+                    row.createCell(1).setCellValue(this.retornaTelefone(i.getSeguidor().getParticipante()));
+                    if(i.getSeguidor().getParticipante().getEndereco() == null){
+                        row.createCell(2).setCellValue("");
+                    }else{
+                       row.createCell(2).setCellValue(i.getSeguidor().getParticipante().getEndereco());
+                    }
+                    if(i.getSeguidor().getParticipante().getEmail() == null){
+                        row.createCell(3).setCellValue("");
+                    }else{
+                       row.createCell(3).setCellValue(i.getSeguidor().getParticipante().getEmail());
+                    }
+                    if(i.isConviteAceito()){
+                        row.createCell(4).setCellValue("ACEITO");
+                    }else{
+                        row.createCell(4).setCellValue("RECUSADO");
+                    }
+                    col++;
+                }
+            }
+            FileOutputStream fileOut =  new FileOutputStream(filename);
+            workbook.write(fileOut);
+            fileOut.close();
+            
+            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/upload/Montagem - "+encontro.getDescricao()+ " - " + encontro.getParoquia().getDescricao()+".xls");
+            file = new DefaultStreamedContent(stream, "application/xls", "Montagem - "+encontro.getDescricao()+ " - " + encontro.getParoquia().getDescricao()+".xls");
+            
+            //System.out.println("Seu arquivo excel foi gerado!");
+
+        } catch ( Exception ex ) {
+            ex.printStackTrace();
+        }
     }
     
     //GETTERS AND SETTERS
@@ -496,4 +588,13 @@ public class EncontroController implements Serializable {
         this.listaObjetosLazy = listaObjetosLazy;
     }
 
+    public StreamedContent getFile() {
+        this.baixarCSV();
+        return file;
+    }
+
+    public void setFile(StreamedContent file) {
+        this.file = file;
+    }
+    
 }

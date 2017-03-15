@@ -28,6 +28,10 @@
                     
                     <p:commandButton value="Quadrante das Equipes" title="Imprimir a lista de equipes com seus integrantes para o quadrante" action="#{encontroController.imprimir(encontroController.id, 'quadrante', 'equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     
+                    <p:commandButton value="Baixar Excel" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{encontroController.file}" />
+                    </p:commandButton>
+                    
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroController.listaObjetosLazy}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
                                  editable="true" editMode="cell" lazy="true" >
@@ -94,5 +98,13 @@
 
         </ui:define>
     </ui:composition>
-    
+<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>    
 </html>

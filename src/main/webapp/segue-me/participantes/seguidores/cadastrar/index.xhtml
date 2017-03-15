@@ -24,8 +24,8 @@
                             <p:selectBooleanButton value="#{seguidorController.seguidor.tio}" onLabel="Tio(a)" offLabel="Seguidor(a)"  />
                         </p:outputLabel>
                        
-                        <p:outputLabel value="Paróquia:" >
-                            <p:selectOneMenu value="#{seguidorController.seguidor.participante.paroquia}" converter="#{paroquiaConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Encontro' é obrigatório.">
+                        <p:outputLabel value="Paróquia*:" >
+                            <p:selectOneMenu value="#{seguidorController.seguidor.participante.paroquia}" converter="#{paroquiaConverter}" filter="true" filterMatchMode="contains" effect="fade"  required="true" requiredMessage="Campo 'Paróquia' é obrigatório.">
                                 <f:selectItem itemLabel="- - -" itemValue="" />
                                 <f:selectItems value="#{paroquiaController.listaParoquias}" itemLabel="#{paroquia.descricao}" itemValue="#{paroquia}" var="paroquia" />
                             </p:selectOneMenu>

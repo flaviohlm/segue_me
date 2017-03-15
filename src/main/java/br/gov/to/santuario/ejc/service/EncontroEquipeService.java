@@ -49,6 +49,10 @@ public class EncontroEquipeService {
        return repository.findAll(where(specificationEncontro(encontro)));
     }
     
+    public List<EncontroEquipe> findAllByEncontroOrderQuadrante(Encontro encontro){
+       return repository.findAll(where(specificationEncontroOrder(encontro)));
+    }
+    
     //SPECIFICATIONS
     public Specification<EncontroEquipe> specificationOrder() {
         return new Specification<EncontroEquipe>() {
@@ -67,6 +71,20 @@ public class EncontroEquipeService {
             public Predicate toPredicate(Root<EncontroEquipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 
                 query.orderBy(cb.asc(root.get("equipe").<String>get("descricao")));                
+                
+                Predicate p1 = cb.equal(root.get("encontro"), encontro);
+                
+                return cb.and(p1);
+            }
+        };
+    }
+    
+    public Specification<EncontroEquipe> specificationEncontroOrder(final Encontro encontro) {
+        return new Specification<EncontroEquipe>() {
+            @Override
+            public Predicate toPredicate(Root<EncontroEquipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                
+                query.orderBy(cb.asc(root.get("equipe").<Integer>get("ordemQuadrante")), cb.asc(root.get("equipe").<String>get("descricao")));                
                 
                 Predicate p1 = cb.equal(root.get("encontro"), encontro);
                 

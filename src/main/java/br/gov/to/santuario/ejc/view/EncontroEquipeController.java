@@ -8,9 +8,12 @@ import br.gov.to.santuario.ejc.service.EncontroEquipeIntegranteService;
 import br.gov.to.santuario.ejc.service.EncontroEquipeService;
 import br.gov.to.santuario.ejc.service.EquipeService;
 import br.gov.to.santuario.ejc.service.SeguidorService;
+import br.gov.to.santuario.seg.domain.Participante;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import br.gov.to.santuario.seg.util.RelatorioUtil;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,8 +21,16 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -51,6 +62,7 @@ public class EncontroEquipeController implements Serializable {
     private List<Seguidor> listaSeguidores; 
     private EncontroEquipeIntegrante encontroEquipeIntegrante = new EncontroEquipeIntegrante();    
     private List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante;
+    private StreamedContent file;
     
     public void salvar(){        
         try{            
@@ -134,6 +146,78 @@ public class EncontroEquipeController implements Serializable {
         }catch(IOException | SQLException ex){
             messages.error("Não foi possível imprimir o documento!");
             System.err.println("Erro ao gerar relatório! " + ex.getMessage());
+        }
+    }
+    
+    public String retornaTelefone(Participante p){
+        
+        ArrayList<String> str = new ArrayList<>();
+        String telefones = "";
+        
+        if(p.getTelefoneCelular() != null && !p.getTelefoneCelular().equals("")){
+            str.add(p.getTelefoneCelular());
+        }
+        
+        if(p.getTelefoneResidencial() != null && !p.getTelefoneResidencial().equals("")){
+            str.add(p.getTelefoneResidencial());
+        }
+        
+        telefones = StringUtils.join(str, "/");
+        
+        
+        return telefones;
+    }
+    
+    public String getRealPath(String diretorio) {
+        ServletContext sc = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        return sc.getRealPath(diretorio);
+    }
+    
+    public void baixarCSV(){
+        try{
+            // local do arquivo
+            String DIR = "/upload";
+            String filename=getRealPath(DIR)+"/Equipe - "+encontroEquipe.getEquipe().getDescricao()+".xls" ;
+            HSSFWorkbook workbook=new HSSFWorkbook();
+            HSSFSheet sheet =  workbook.createSheet(encontroEquipe.getEquipe().getDescricao());  
+            
+            // criando as linhas
+            HSSFRow rowhead=   sheet.createRow((short)0);
+            rowhead.createCell(0).setCellValue("Nome");            
+            rowhead.createCell(1).setCellValue("Telefones");
+            rowhead.createCell(2).setCellValue("Endereço");
+            rowhead.createCell(3).setCellValue("E-mail");
+            
+            int col = 1;
+            for(EncontroEquipeIntegrante i : listaEncontroEquipeIntegrante){
+                HSSFRow row = sheet.createRow((short)col);
+
+                row.createCell(0).setCellValue(i.getSeguidor().getParticipante().getNome());
+                row.createCell(1).setCellValue(this.retornaTelefone(i.getSeguidor().getParticipante()));
+                if(i.getSeguidor().getParticipante().getEndereco() == null){
+                    row.createCell(2).setCellValue("");
+                }else{
+                   row.createCell(2).setCellValue(i.getSeguidor().getParticipante().getEndereco());
+                }
+                if(i.getSeguidor().getParticipante().getEmail() == null){
+                    row.createCell(3).setCellValue("");
+                }else{
+                   row.createCell(3).setCellValue(i.getSeguidor().getParticipante().getEmail());
+                }
+                col++;
+            }
+            
+            FileOutputStream fileOut =  new FileOutputStream(filename);
+            workbook.write(fileOut);
+            fileOut.close();
+            
+            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/upload/Equipe - "+encontroEquipe.getEquipe().getDescricao()+".xls");
+            file = new DefaultStreamedContent(stream, "application/xls", "Equipe - "+encontroEquipe.getEquipe().getDescricao()+".xls");
+            
+            //System.out.println("Seu arquivo excel foi gerado!");
+
+        } catch ( Exception ex ) {
+            System.out.println(ex);
         }
     }
     
@@ -238,6 +322,15 @@ public class EncontroEquipeController implements Serializable {
 
     public void setListaEncontroEquipeIntegrante(List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante) {
         this.listaEncontroEquipeIntegrante = listaEncontroEquipeIntegrante;
+    }
+
+    public StreamedContent getFile() {
+        this.baixarCSV();
+        return file;
+    }
+
+    public void setFile(StreamedContent file) {
+        this.file = file;
     }
 
 }

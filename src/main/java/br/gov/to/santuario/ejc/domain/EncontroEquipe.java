@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -50,6 +51,9 @@ public class EncontroEquipe implements Serializable {
             @JoinColumn(name = "encontro_equipe_id", referencedColumnName = "ID")}, inverseJoinColumns = {
             @JoinColumn(name = "seguidor_id", referencedColumnName = "ID")})
     private List<Seguidor> seguidorList;
+    
+    @Transient
+    private Integer quantidadeSim = 0;
     
     public EncontroEquipe() {
     }
@@ -97,6 +101,20 @@ public class EncontroEquipe implements Serializable {
 
     public void setSeguidorList(List<Seguidor> seguidorList) {
         this.seguidorList = seguidorList;
+    }
+
+    public Integer getQuantidadeSim() {
+        quantidadeSim = 0;
+        for(EncontroEquipeIntegrante eei : getEncontroEquipeIntegrantesList()){
+            if(eei.isConviteAceito()){
+                quantidadeSim++;
+            }
+        }
+        return quantidadeSim;
+    }
+
+    public void setQuantidadeSim(Integer quantidadeSim) {
+        this.quantidadeSim = quantidadeSim;
     }
 
     @Override
