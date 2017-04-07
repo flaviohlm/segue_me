@@ -31,7 +31,7 @@
                     
                     <p:commandButton value="Ordem Apresentação" title="Imprimir ordem de entrada" action="#{encontroController.imprimir(encontroController.id, 'equipe', 'ordem_apresentacao')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>                       
                     
-                    <p:commandButton value="Equipe e Integrantes" title="Imprimir todas as equipes e seus integrantes" action="#{encontroController.imprimir(encontroController.id, 'equipe','equipes')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>                    
+                    <p:commandButton value="Relatório Confidencial" title="Imprimir relatório confidencial dos integrantes de equipe" action="#{encontroController.imprimir(encontroController.id, 'equipe','relatorio_confidencial')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>                    
                     
                     <p:commandButton value="Relatório Geral" title="Imprimir a lista de equipes com seus integrantes para o quadrante" action="#{encontroController.imprimir(encontroController.id, 'equipe', 'relatorio_geral')}" ajax="false" onclick="this.form.target='_blank'" class="icone2 imprimir"/>
                     <p:separator/>

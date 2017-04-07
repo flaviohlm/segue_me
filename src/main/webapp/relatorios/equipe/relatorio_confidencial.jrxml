@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc0c1ff-d68a-4661-8674-8bd0c57bbb15">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="a0c4527b-5f8e-4dcb-8494-7aa91bd7af74">
+		<parameter name="ENCONTRO_EQUIPE_ID" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     participante.nome AS participante_nome,
+     encontro_equipe_integrantes.desistiu,
+     CASE WHEN seguidor.tio = true THEN 'TIO(A)' ELSE 'SEGUIDOR(A)' END AS tipo,
+     encontro_equipe_integrantes.observacoes AS observacoes
+FROM
+     segueme.seguidor seguidor
+INNER JOIN segueme.encontro_equipe_integrantes encontro_equipe_integrantes ON seguidor.id = encontro_equipe_integrantes.seguidor_id
+INNER JOIN segueme.participante participante ON seguidor.participante_id = participante.id
+WHERE encontro_equipe_integrantes.encontro_equipe_id = $P{ENCONTRO_EQUIPE_ID}
+AND encontro_equipe_integrantes.coordenador IS NOT TRUE
+AND encontro_equipe_integrantes.convite_aceito IS TRUE
+ORDER BY tipo DESC, participante.nome]]>
+		</queryString>
+		<field name="participante_nome" class="java.lang.String"/>
+		<field name="desistiu" class="java.lang.Boolean"/>
+		<field name="tipo" class="java.lang.String"/>
+		<field name="observacoes" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\flavio.madureira\\Documents\\workspace\\segueme\\src\\main\\webapp\\relatorios\\quadrante\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="R_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT encontro_equipe.id AS encontro_equipe_id,
+     encontro.descricao AS encontro_descricao,
+     encontro.data_realizacao_inicio AS encontro_data_realizacao_inicio,
+     encontro.data_realizacao_fim AS encontro_data_realizacao_fim,
+     equipe.descricao AS equipe_descricao,
+     equipe.ordem_apresentacao AS ordem_apresentacao,
+     paroquia.descricao AS paroquia
+FROM segueme.encontro_equipe encontro_equipe
+INNER JOIN segueme.equipe equipe ON encontro_equipe.equipe_id = equipe.id
+INNER JOIN segueme.encontro encontro ON encontro.id = encontro_equipe.encontro_id
+INNER JOIN segueme.paroquia paroquia ON encontro.paroquia_id = paroquia.id
+WHERE encontro.id = $P{R_ID}
+AND equipe.id NOT IN (4,9,10,15)
+ORDER BY equipe.ordem_quadrante, equipe.descricao]]>
+	</queryString>
+	<field name="encontro_equipe_id" class="java.lang.Integer"/>
+	<field name="encontro_descricao" class="java.lang.String"/>
+	<field name="encontro_data_realizacao_inicio" class="java.sql.Date"/>
+	<field name="encontro_data_realizacao_fim" class="java.sql.Date"/>
+	<field name="equipe_descricao" class="java.lang.String"/>
+	<field name="ordem_apresentacao" class="java.lang.Integer"/>
+	<field name="paroquia" class="java.lang.String"/>
+	<pageHeader>
+		<band height="48">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="2" y="2" width="43" height="39" uuid="ec28db57-8572-4264-873d-5e60370c3e35"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="61" y="2" width="493" height="20" uuid="eaef8e57-c36a-4d66-8607-934550983506"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ARQUIDIOCESE DE PALMAS - TOCANTINS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="22" width="491" height="20" uuid="eba3d78b-f948-4b56-9164-f117010de62f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_descricao}+" | "+$F{paroquia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="74" splitType="Stretch">
+			<break>
+				<reportElement x="0" y="71" width="78" height="1" uuid="fd4d061d-e90e-44ad-bfcf-19ccd96f7e84"/>
+			</break>
+			<break>
+				<reportElement x="0" y="73" width="78" height="1" uuid="df8982e4-d1ce-4269-af2e-75f3b41788d1"/>
+			</break>
+			<textField>
+				<reportElement x="1" y="0" width="551" height="20" uuid="983ca7b8-1d5a-4a09-97fa-f6e07acaa242"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RELATÓRIO CONFIDENCIAL SOBRE PARTICIPANTES DE EQUIPE - "+$F{equipe_descricao}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="1" y="20" width="553" height="50" uuid="cb684272-5b8e-4d72-9566-52f5abc66a85"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1" uuid="14812797-d469-4b7d-adb5-68d6fc4f4a98">
+						<datasetParameter name="ENCONTRO_EQUIPE_ID">
+							<datasetParameterExpression><![CDATA[$F{encontro_equipe_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="23" uuid="5577dc39-b743-469d-88cf-54d21aa2bb83">
+						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="22" height="30" uuid="efbcacaf-9173-4aad-9943-b7b51ab8ce0b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[#]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="23" height="20" uuid="3cbec12c-831a-4569-8dc3-28bf97d90441"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="166" uuid="bb501f09-597f-4edc-9144-8444111db38d">
+						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="1" width="166" height="30" uuid="ca4f84e6-0aad-43d0-b0db-c7f505ab9a5c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Componente (Jovens e Casais)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="166" height="20" uuid="110696d3-92b3-4623-984b-000b47b65eab"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{participante_nome}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="220" uuid="6443cb28-0cb7-425b-bfea-303153aed533">
+						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="220" height="31" uuid="a50f5c34-4278-4d5d-8e8c-10c7ecb8e9e6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Avaliação ou problemas]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="220" height="20" uuid="acb0f045-739d-4337-b4b2-8aacc2393c3b"/>
+								<textElement verticalAlignment="Top">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="66" uuid="fd2c38d4-7dff-4313-9c96-b422c39cbb6c">
+						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="8e4a34fe-516d-4554-9068-8b7f38c8f6bb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Pode coordenar]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<rectangle>
+								<reportElement x="26" y="2" width="15" height="15" uuid="65c93b6e-0b8b-4d4c-9a3c-65b5fd009c87"/>
+							</rectangle>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="78" uuid="cf09b6e1-1685-4867-9e3a-381c4f32a636">
+						<jr:columnHeader style="table 2_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="77" height="30" uuid="824c564a-5e26-4a13-8b2a-7421f286f241"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font size="10" isBold="true"/>
+									<paragraph leftIndent="1"/>
+								</textElement>
+								<text><![CDATA[Palestrar / Dar testemunho ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<rectangle>
+								<reportElement x="30" y="2" width="15" height="15" uuid="fb23600c-0510-48a4-b8cb-64a99670bf8a"/>
+							</rectangle>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="144">
+			<staticText>
+				<reportElement x="2" y="118" width="552" height="26" uuid="40962c57-0c36-42ca-b8b9-4f83bd47f06c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[___________________________________________________________________________________________________ ASSINATURA DOS COORDENADORES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="98" width="552" height="20" uuid="88983c60-dd9d-4032-aa7a-83314c661843"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Palmas-TO,______ de ________de______.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="2" y="33" width="552" height="65" uuid="2af1dceb-74fa-4cbc-a87e-7a998aa02854"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="2" width="186" height="20" uuid="9514451d-e8a6-4411-88a5-d95027956981"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações/Sugestões/Justificativas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="11" width="552" height="22" uuid="5acb3016-5512-4a42-bc80-b46807a55ffa"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="6" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reportar as dificuldades encontrada, ressaltando apenas os fatos significativos relacionados ao desempenho dos integrantes da equipe, sugeringo o que julgar necessário para o aprimoramento do SEGUE-Me, Se necessario, utilizar o verso.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="45" width="552" height="1" uuid="263a1aff-7746-49d9-8ddd-a52e89861734"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="3" y="55" width="552" height="1" uuid="b1e014da-c146-4e4d-8f84-f52c5220d914"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="3" y="65" width="552" height="1" uuid="1b80b31f-e0f6-4edf-9696-b1a54ccf2da1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="3" y="75" width="552" height="1" uuid="dd3db284-6458-41df-9a11-227187d6cfaf"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="3" y="85" width="552" height="1" uuid="ddd744ba-0a2e-43d3-93a1-494642284999"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24">
+			<textField>
+				<reportElement x="0" y="3" width="278" height="20" uuid="1af15e48-7cb2-4a48-bcde-38186191ab8b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontro_descricao}+" | "+$F{paroquia}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="269" y="4" width="20" height="20" uuid="e58f854c-2c51-4bbf-9d9c-c92bc2d6bce4"/>
+				<imageExpression><![CDATA["../../resources/images/logo-bom-pastor.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="2" width="555" height="1" uuid="276c1b09-00d8-4c4b-b6c2-576a72fad4f4"/>
+			</line>
+			<textField>
+				<reportElement x="289" y="4" width="265" height="20" uuid="78d676a5-e670-4aaa-b799-df3c2df42bba"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório Confidencia Sobre Participantes de Equipe - "+$F{equipe_descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
