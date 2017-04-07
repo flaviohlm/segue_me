@@ -205,7 +205,7 @@ public class ParticipanteService implements UserDetailsService {
                 
                 query.orderBy(cb.asc(root.<Integer>get("id")));                
                 
-                Predicate p1 = cb.greaterThan(root.<Integer>get("id"), 540);
+                Predicate p1 = cb.greaterThan(root.<Integer>get("id"), 637);
                 
                 return cb.and(p1);
             }

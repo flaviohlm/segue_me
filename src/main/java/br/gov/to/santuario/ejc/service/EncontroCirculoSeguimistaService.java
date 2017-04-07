@@ -1,5 +1,6 @@
 package br.gov.to.santuario.ejc.service;
 
+import br.gov.to.santuario.ejc.domain.EncontroCirculo;
 import br.gov.to.santuario.ejc.domain.EncontroCirculoSeguimista;
 import br.gov.to.santuario.ejc.repository.IEncontroCirculoSeguimistaRepository;
 import java.util.List;
@@ -44,6 +45,9 @@ public class EncontroCirculoSeguimistaService {
        return repository.findAll(where(specificationOrder()));
     }
     
+    public List<EncontroCirculoSeguimista> findSeguimistasCirculo(EncontroCirculo encontroCirculo){        
+       return repository.findSeguimistasCirculo(encontroCirculo.getId());
+    }
     
     //SPECIFICATIONS
     public Specification<EncontroCirculoSeguimista> specificationOrder() {

@@ -67,6 +67,11 @@ public class ListaAnos {
         return date;
     }
     
+    public static String getStringFromDate(Date data) throws ParseException{  //Formato exemplo 2015-01-15      
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");        
+        return sdf.format(data);
+    }
+    
     public static Integer getAnoAtualReal(){        
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");

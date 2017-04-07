@@ -6,12 +6,14 @@ import br.gov.to.santuario.ejc.domain.Seguidor;
 import br.gov.to.santuario.ejc.domain.Seguimista;
 import br.gov.to.santuario.ejc.service.EncontroService;
 import br.gov.to.santuario.ejc.service.HabilidadeService;
+import br.gov.to.santuario.ejc.service.SeguidorService;
 import br.gov.to.santuario.ejc.service.SeguimistaService;
 import br.gov.to.santuario.seg.domain.Participante;
 import br.gov.to.santuario.seg.service.ParticipanteService;
 import br.gov.to.santuario.seg.util.FacesMessages;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -39,6 +41,9 @@ public class SeguimistaController implements Serializable {
     @ManagedProperty(value = "#{participanteService}")
     private ParticipanteService participanteService;
     
+    @ManagedProperty(value = "#{seguidorService}")
+    private SeguidorService seguidorService;
+    
     private FacesMessages messages = new FacesMessages();
     
     private Integer id;
@@ -58,8 +63,15 @@ public class SeguimistaController implements Serializable {
                 seguimista.getParticipante().setApelido(apelido[0]);
             }
             seguimistaService.saveSeguimista(seguimista);            
-            messages.info("Seguimista salvo com sucesso!");
+            
+            Seguidor seguidor = new Seguidor();
+            seguidor.setParticipante(seguimista.getParticipante());
+            seguidor.setTio(false);            
+            seguidorService.saveSeguidor(seguidor);
+            
+            messages.info("Seguimista salvo com sucesso!");            
             seguimista = new Seguimista();
+            
             if(getListaEncontro().size() > 0){                            
                 seguimista.setEncontro(listaEncontro.get(0));
             }
@@ -140,6 +152,30 @@ public class SeguimistaController implements Serializable {
         }else{
             seguimista = s;
         }
+    }
+    
+    
+    public void copiar2(){
+        //LEMBRAR DE COMENTAR O CASCADE EM SEGUIDOR PRA NAO DUPLICAR OS PARTICIPANTES
+        List<Participante> lista = participanteService.findAllParticipantes2();
+        Encontro e = encontroService.findOneEncontro(1);
+        
+        Seguimista se;
+        Seguidor s;
+        //List<Seguidor> listaS = new ArrayList<>();
+        for(Participante p : lista){
+            se = new Seguimista();
+            se.setParticipante(p);
+            se.setEncontro(e);
+            
+            s = new Seguidor();
+            s.setTio(true);
+            s.setParticipante(p);
+            
+//            seguimistaService.saveSeguimista(se);
+//            seguidorService.saveSeguidor(s);
+        }
+
     }
     
     //GETTERS AND SETTERS
@@ -238,6 +274,14 @@ public class SeguimistaController implements Serializable {
 
     public void setParticipanteService(ParticipanteService participanteService) {
         this.participanteService = participanteService;
+    }
+
+    public SeguidorService getSeguidorService() {
+        return seguidorService;
+    }
+
+    public void setSeguidorService(SeguidorService seguidorService) {
+        this.seguidorService = seguidorService;
     }
     
 }

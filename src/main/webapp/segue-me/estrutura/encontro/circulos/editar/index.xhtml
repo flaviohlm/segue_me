@@ -35,9 +35,13 @@
                     <p:commandButton oncomplete="PF('dialogPessoas').show()" image="" class="iconebt adicionar" value="Integrantes" title="Selecionar Integrantes da Circulo"  />                
                     <p:commandButton id="imprimir" value="Imprimir" action="#{encontroController.imprimir(encontroCirculoController.id, 'circulo','circulo')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir"/>                    
 
+                    <p:commandButton value="Baixar Excel" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{encontroCirculoController.file}" />
+                    </p:commandButton>
+                    
                     <p:separator/>
-                    <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="10" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
-                                 value="#{encontroCirculoController.encontroCirculo.seguimistaList}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex" >
+                    <p:dataTable id="data_table" paginator="false" paginatorAlwaysVisible="false" reflow="true"  widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroCirculoController.encontroCirculo.seguimistaList}" rowIndexVar="rowIndex" >
 
                         <f:facet name="header">
                             <p:outputPanel>
@@ -70,8 +74,9 @@
                 </p:panel>   
                 
                 <p:confirmDialog id="dialog_pessoas" message="Selecione clicando no checkbox" header="Seguimistas" width="800" widgetVar="dialogPessoas" >
-                    <p:dataTable paginatorAlwaysVisible="false" reflow="true"  widgetVar="model_x" emptyMessage="Nenhum registro encontrado." var="model" rowSelectMode="checkbox"
-                                 value="#{encontroCirculoController.listaSeguimista}" selection="#{encontroCirculoController.encontroCirculo.seguimistaList}" rowKey="#{model.id}" >
+                    <p:dataTable widgetVar="model_x" emptyMessage="Nenhum registro encontrado." var="model" rowSelectMode="checkbox"
+                                 value="#{encontroCirculoController.listaSeguimista}" selection="#{encontroCirculoController.encontroCirculo.seguimistaList}" rowKey="#{model.id}" 
+                                 paginator="true" paginatorAlwaysVisible="false" rows="10" reflow="true" currentPageReportTemplate="{currentPage} de {totalPages}" >
 
                         <f:facet name="header">
                             <p:outputPanel>
@@ -101,4 +106,14 @@
         </ui:define>
     </ui:composition>
     
+
+<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>    
 </html>

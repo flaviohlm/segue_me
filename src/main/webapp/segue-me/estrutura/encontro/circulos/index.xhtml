@@ -28,6 +28,10 @@
                     
                     <p:commandButton value="Quadrante dos Círculos" title="Imprimir a lista de seguimistas para o quadrante" action="#{encontroController.imprimir(encontroCirculoController.id, 'quadrante','circulos')}" ajax="false" onclick="this.form.target='_blank'" class="iconebt imprimir" process="@this"/>
                     
+                    <p:commandButton value="Baixar Excel" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{encontroCirculoController.fileTodosCirculos}" />
+                    </p:commandButton>
+                    
                     <p:separator/>
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroCirculoController.listaEncontroCirculo}" currentPageReportTemplate="{currentPage} de {totalPages}"  rowIndexVar="rowIndex"
@@ -110,4 +114,14 @@
 
         </ui:define>
     </ui:composition>
+
+<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>
 </html>

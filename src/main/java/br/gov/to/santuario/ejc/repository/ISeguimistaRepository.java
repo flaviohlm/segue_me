@@ -22,7 +22,7 @@ public interface ISeguimistaRepository extends JpaRepository<Seguimista, Seriali
                     " AND s.id NOT IN(SELECT ecs.seguimista_id \n" +
                     " FROM segueme.encontro_circulo_seguimista ecs \n" +
                     " WHERE encontro_circulo_id != ?2)\n" +
-                    " ORDER BY p.data_nascimento", nativeQuery = true)    
+                    " ORDER BY p.data_nascimento, p.nome", nativeQuery = true)    
     ArrayList<Seguimista> findSeguimistasDisponiveis(Integer idEncontro, Integer encontroCirculoId);
     
 }
