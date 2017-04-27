@@ -67,6 +67,12 @@
                             <h:outputText value="#{model.equipe.quantidadeParticipantes}" />                                  
                         </p:column>
                         
+                        <p:column headerText="Relatório Confidencial">
+                            <h:link id="cmdEditar" title="Relatório Confidencial das Equipes" outcome="relatorio-confidencial/index.xhtml" class="botao iconebt editar" includeViewParams="true" >
+                                <f:param name="id" value="#{model.id}" />
+                            </h:link>
+                        </p:column>
+                        
                     </p:dataTable>                    
                 </p:panel>    
                 

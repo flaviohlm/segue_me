@@ -29,6 +29,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -63,6 +65,8 @@ public class EncontroEquipeController implements Serializable {
     private EncontroEquipeIntegrante encontroEquipeIntegrante = new EncontroEquipeIntegrante();    
     private List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante;
     private StreamedContent file;
+    private StreamedContent fileRelaorioGeral;
+    
     
     public void salvar(){        
         try{            
@@ -221,6 +225,102 @@ public class EncontroEquipeController implements Serializable {
         }
     }
     
+    public void onCellEdit(CellEditEvent event) {
+        DataTable s = (DataTable) event.getSource();
+        EncontroEquipeIntegrante eei = (EncontroEquipeIntegrante) s.getRowData();
+        
+        try{
+            encontroEquipeIntegranteService.saveEncontroEquipeIntegrante(eei);
+            //messages.info("Dados salvos com sucesso!");
+        }catch(Exception e){
+            messages.error("Erro ao salvar os dados!");
+            e.printStackTrace();
+        } 
+    }
+    
+    public void baixarCSVRelatorioGeral(){
+        try{
+            // local do arquivo
+            String DIR = "/upload";
+            String filename=getRealPath(DIR)+"/Relatório Geral da Equipe - "+encontroEquipe.getEquipe().getDescricao()+".xls" ;
+            HSSFWorkbook workbook=new HSSFWorkbook();
+            HSSFSheet sheet =  workbook.createSheet(encontroEquipe.getEquipe().getDescricao());  
+            
+            // criando as linhas
+            HSSFRow rowhead=   sheet.createRow((short)0);
+            rowhead.createCell(0).setCellValue("Nome");            
+            rowhead.createCell(1).setCellValue("Telefones");
+            rowhead.createCell(2).setCellValue("Endereço");
+            rowhead.createCell(3).setCellValue("E-mail");
+            
+            rowhead.createCell(4).setCellValue("Convite");
+            rowhead.createCell(5).setCellValue("Pode Coordenar");
+            rowhead.createCell(6).setCellValue("Poder Palestrar/Testemunho");
+            rowhead.createCell(7).setCellValue("Desistiu");
+            rowhead.createCell(8).setCellValue("Observações");
+            
+            int col = 1;
+            for(EncontroEquipeIntegrante i : listaEncontroEquipeIntegrante){
+                HSSFRow row = sheet.createRow((short)col);
+
+                row.createCell(0).setCellValue(i.getSeguidor().getParticipante().getNome());
+                row.createCell(1).setCellValue(this.retornaTelefone(i.getSeguidor().getParticipante()));
+                if(i.getSeguidor().getParticipante().getEndereco() == null){
+                    row.createCell(2).setCellValue("");
+                }else{
+                   row.createCell(2).setCellValue(i.getSeguidor().getParticipante().getEndereco());
+                }
+                if(i.getSeguidor().getParticipante().getEmail() == null){
+                    row.createCell(3).setCellValue("");
+                }else{
+                   row.createCell(3).setCellValue(i.getSeguidor().getParticipante().getEmail());
+                }
+                if(i.getConviteAceito()){
+                    row.createCell(4).setCellValue("ACEITO");
+                }else{
+                    row.createCell(4).setCellValue("RECUSADO");
+                }
+                if(i.isAptidaoCoordenacao()){
+                    row.createCell(5).setCellValue("SIM");
+                }else{
+                    row.createCell(5).setCellValue("NÃO");
+                }
+                
+                if(i.isAptidaoPalestrar()){
+                    row.createCell(6).setCellValue("SIM");
+                }else{
+                    row.createCell(6).setCellValue("NÃO");
+                }
+                
+                if(i.isDesistiu()){
+                    row.createCell(7).setCellValue("SIM");
+                }else{
+                    row.createCell(7).setCellValue("");
+                }
+                
+                if(i.getObservacoes() == null){
+                    row.createCell(8).setCellValue("");
+                }else{
+                   row.createCell(8).setCellValue(i.getObservacoes());
+                }
+                
+                col++;
+            }
+            
+            FileOutputStream fileOut =  new FileOutputStream(filename);
+            workbook.write(fileOut);
+            fileOut.close();
+            
+            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/upload/Relatório Geral da Equipe - "+encontroEquipe.getEquipe().getDescricao()+".xls");
+            fileRelaorioGeral = new DefaultStreamedContent(stream, "application/xls", "Relatório Geral da Equipe - "+encontroEquipe.getEquipe().getDescricao()+".xls");
+            
+            //System.out.println("Seu arquivo excel foi gerado!");
+
+        } catch ( Exception ex ) {
+            System.out.println(ex);
+        }
+    }
+    
     //GETTERS AND SETTERS
     public EncontroEquipeService getEncontroEquipeService() {
         return encontroEquipeService;
@@ -331,6 +431,15 @@ public class EncontroEquipeController implements Serializable {
 
     public void setFile(StreamedContent file) {
         this.file = file;
+    }
+
+    public StreamedContent getFileRelaorioGeral() {
+        this.baixarCSVRelatorioGeral();
+        return fileRelaorioGeral;
+    }
+
+    public void setFileRelaorioGeral(StreamedContent fileRelaorioGeral) {
+        this.fileRelaorioGeral = fileRelaorioGeral;
     }
 
 }

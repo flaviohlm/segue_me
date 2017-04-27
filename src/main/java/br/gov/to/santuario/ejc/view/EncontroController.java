@@ -109,6 +109,7 @@ public class EncontroController implements Serializable {
     private List<EquipeDirigente> listaEquipeDirigente;
     private List<Conselho> listaConselho;
     private StreamedContent file;
+    private StreamedContent fileRelaorioGeral;
     
     @PostConstruct
     public void init() {        
@@ -341,7 +342,7 @@ public class EncontroController implements Serializable {
                     }else{
                        row.createCell(3).setCellValue(i.getSeguidor().getParticipante().getEmail());
                     }
-                    if(i.isConviteAceito()){
+                    if(i.getConviteAceito()){
                         row.createCell(4).setCellValue("ACEITO");
                     }else{
                         row.createCell(4).setCellValue("RECUSADO");
@@ -355,6 +356,94 @@ public class EncontroController implements Serializable {
             
             InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/upload/Montagem - "+encontro.getDescricao()+ " - " + encontro.getParoquia().getDescricao()+".xls");
             file = new DefaultStreamedContent(stream, "application/xls", "Montagem - "+encontro.getDescricao()+ " - " + encontro.getParoquia().getDescricao()+".xls");
+            
+            //System.out.println("Seu arquivo excel foi gerado!");
+
+        } catch ( Exception ex ) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void baixarCSVRelatorioGeral(){
+        try{
+            // local do arquivo
+            String DIR = "/upload";
+            String filename=getRealPath(DIR)+"/Relatorio Geral - "+encontro.getDescricao() + " - " + encontro.getParoquia().getDescricao()+".xls";
+            HSSFWorkbook workbook=new HSSFWorkbook();
+            List<EncontroEquipe> listaEncontroEquipeTemp = encontroEquipeService.findAllByEncontroOrderQuadrante(encontro);
+            for(EncontroEquipe encontroEquipe : listaEncontroEquipeTemp){
+                List<EncontroEquipeIntegrante> listaEncontroEquipeIntegrante = encontroEquipeIntegranteService.findSeguidoresDaEquipe(encontroEquipe);
+                
+                HSSFSheet sheet =  workbook.createSheet(encontroEquipe.getEquipe().getDescricao());  
+
+                // criando as linhas
+                HSSFRow rowhead=   sheet.createRow((short)0);
+                rowhead.createCell(0).setCellValue("Nome");            
+                rowhead.createCell(1).setCellValue("Telefones");
+                rowhead.createCell(2).setCellValue("Endereço");
+                rowhead.createCell(3).setCellValue("E-mail");
+                rowhead.createCell(4).setCellValue("Convite");
+                rowhead.createCell(5).setCellValue("Pode Coordenar");
+                rowhead.createCell(6).setCellValue("Pode Palestrar/Testemunho");
+                rowhead.createCell(7).setCellValue("Desistiu");
+                rowhead.createCell(8).setCellValue("Observações");
+
+                int col = 1;
+                for(EncontroEquipeIntegrante i : listaEncontroEquipeIntegrante){
+                    HSSFRow row = sheet.createRow((short)col);
+
+                    row.createCell(0).setCellValue(i.getSeguidor().getParticipante().getNome());
+                    row.createCell(1).setCellValue(this.retornaTelefone(i.getSeguidor().getParticipante()));
+                    if(i.getSeguidor().getParticipante().getEndereco() == null){
+                        row.createCell(2).setCellValue("");
+                    }else{
+                       row.createCell(2).setCellValue(i.getSeguidor().getParticipante().getEndereco());
+                    }
+                    if(i.getSeguidor().getParticipante().getEmail() == null){
+                        row.createCell(3).setCellValue("");
+                    }else{
+                       row.createCell(3).setCellValue(i.getSeguidor().getParticipante().getEmail());
+                    }
+                    if(i.getConviteAceito() == true){
+                        row.createCell(4).setCellValue("ACEITO");
+                    }else if(i.getConviteAceito() == false){
+                        row.createCell(4).setCellValue("RECUSADO");
+                    }else{
+                        row.createCell(4).setCellValue("");
+                    }                    
+                
+                    if(i.isAptidaoCoordenacao()){
+                        row.createCell(5).setCellValue("SIM");
+                    }else{
+                        row.createCell(5).setCellValue("NÃO");
+                    }
+
+                    if(i.isAptidaoPalestrar()){
+                        row.createCell(6).setCellValue("SIM");
+                    }else{
+                        row.createCell(6).setCellValue("NÃO");
+                    }
+
+                    if(i.isDesistiu()){
+                        row.createCell(7).setCellValue("SIM");
+                    }else{
+                        row.createCell(7).setCellValue("");
+                    }
+
+                    if(i.getObservacoes() == null){
+                        row.createCell(8).setCellValue("");
+                    }else{
+                       row.createCell(8).setCellValue(i.getObservacoes());
+                    }
+                    col++;
+                }
+            }
+            FileOutputStream fileOut =  new FileOutputStream(filename);
+            workbook.write(fileOut);
+            fileOut.close();
+            
+            InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/upload/Relatorio Geral - "+encontro.getDescricao()+ " - " + encontro.getParoquia().getDescricao()+".xls");
+            fileRelaorioGeral = new DefaultStreamedContent(stream, "application/xls", "Relatorio Geral - "+encontro.getDescricao()+ " - " + encontro.getParoquia().getDescricao()+".xls");
             
             //System.out.println("Seu arquivo excel foi gerado!");
 
@@ -595,6 +684,15 @@ public class EncontroController implements Serializable {
 
     public void setFile(StreamedContent file) {
         this.file = file;
+    }
+    
+    public StreamedContent getFileRelaorioGeral() {
+        this.baixarCSVRelatorioGeral();
+        return fileRelaorioGeral;
+    }
+
+    public void setFileRelaorioGeral(StreamedContent fileRelaorioGeral) {
+        this.fileRelaorioGeral = fileRelaorioGeral;
     }
     
 }

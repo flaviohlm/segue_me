@@ -49,6 +49,9 @@ public class EncontroEquipeIntegrante implements Serializable {
     @Column(name = "aptidao_coordenacao")
     private boolean aptidaoCoordenacao = false;
     
+    @Column(name = "aptidao_palestrar")
+    private boolean aptidaoPalestrar = false;
+    
     @Column(name = "observacoes")
     private String observacoes;
     
@@ -108,7 +111,7 @@ public class EncontroEquipeIntegrante implements Serializable {
         this.seguidor = seguidor;
     }
 
-    public boolean isConviteAceito() {
+    public boolean getConviteAceito() {
         return conviteAceito;
     }
 
@@ -138,6 +141,14 @@ public class EncontroEquipeIntegrante implements Serializable {
 
     public void setAptidaoCoordenacao(boolean aptidaoCoordenacao) {
         this.aptidaoCoordenacao = aptidaoCoordenacao;
+    }
+
+    public boolean isAptidaoPalestrar() {
+        return aptidaoPalestrar;
+    }
+
+    public void setAptidaoPalestrar(boolean aptidaoPalestrar) {
+        this.aptidaoPalestrar = aptidaoPalestrar;
     }
 
     @Override

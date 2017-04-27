@@ -32,6 +32,10 @@
                         <p:fileDownload value="#{encontroController.file}" />
                     </p:commandButton>
                     
+                    <p:commandButton value="Excel Relatório Geral" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{encontroController.fileRelaorioGeral}" />
+                    </p:commandButton>
+                    
                     <p:dataTable id="data_table" paginator="true" paginatorAlwaysVisible="false" reflow="true" rows="30" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
                                  value="#{encontroController.listaObjetosLazy}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
                                  editable="true" editMode="cell" lazy="true" >

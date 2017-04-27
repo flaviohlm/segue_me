@@ -106,7 +106,7 @@ public class EncontroEquipe implements Serializable {
     public Integer getQuantidadeSim() {
         quantidadeSim = 0;
         for(EncontroEquipeIntegrante eei : getEncontroEquipeIntegrantesList()){
-            if(eei.isConviteAceito()){
+            if(eei.getConviteAceito()){
                 quantidadeSim++;
             }
         }

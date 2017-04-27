@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/index.xhtml">
+        <!--Substituir o Título padrão da Página-->
+        <ui:define name="tituloPagina">
+            Gerenciar Integrantes da Equipe
+        </ui:define> 
+        <ui:define name="meta">
+            <f:metadata>
+                <f:viewParam name="id" value="#{encontroEquipeController.id}" />
+                <f:viewAction action="#{encontroEquipeController.loadModel}" />
+            </f:metadata> 
+        </ui:define>
+        <!--Conteúdo da página-->
+        <ui:define name="conteudo">
+            <h:form id="form_1">  
+                <p:panel header="Equipe: #{encontroEquipeController.encontroEquipe.equipe.descricao}">
+                    <p:messages id="messages" autoUpdate="true" closable="true"  />                
+
+                    <p:commandButton value="Baixar Excel" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{encontroEquipeController.fileRelaorioGeral}" />
+                    </p:commandButton>
+                    
+                    <p:separator/>
+                    <p:dataTable id="data_table" paginator="false" paginatorAlwaysVisible="false" reflow="true" widgetVar="model_w" emptyMessage="Nenhum registro encontrado." var="model"
+                                 value="#{encontroEquipeController.listaEncontroEquipeIntegrante}" currentPageReportTemplate="{currentPage} de {totalPages}" rowIndexVar="rowIndex" 
+                                 editable="true" editMode="cell">
+                        
+
+                        <p:ajax event="cellEdit" listener="#{encontroEquipeController.onCellEdit}" update=":form_1:messages" />
+                        
+                        <p:column headerText="#" width="40">
+                            #{rowIndex+1}
+                        </p:column>
+                        
+                        <p:column headerText="Nome" sortBy="#{model.seguidor.participante.nome}" filterBy="#{model.seguidor.participante.nome}" >
+                            <h:outputText value="Tio " rendered="#{encontroEquipeController.encontroEquipeIntegrante.seguidor.tio and encontroEquipeController.encontroEquipeIntegrante.seguidor.participante.sexo eq 'M'}" /> 
+                            <h:outputText value="Tia " rendered="#{encontroEquipeController.encontroEquipeIntegrante.seguidor.tio and encontroEquipeController.encontroEquipeIntegrante.seguidor.participante.sexo eq 'F'}" /> 
+                            <h:outputText value="#{model.seguidor.participante.nome}" />                                  
+                        </p:column>
+
+                        <p:column headerText="Coordenador" width="100">
+                            <p:selectBooleanCheckbox value="#{model.coordenador}" disabled="true"/>
+                        </p:column>
+                        
+                        <p:column headerText="Convite Aceito" width="90">                                  
+                            <p:selectBooleanCheckbox value="#{model.conviteAceito}" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                        
+                        <p:column headerText="Pode Coordenar" width="90">                                  
+                            <p:selectBooleanCheckbox value="#{model.aptidaoCoordenacao}" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                        
+                        <p:column headerText="Pode Palestrar/Testemunho" width="90">                                  
+                            <p:selectBooleanCheckbox value="#{model.aptidaoPalestrar}" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                        
+                        <p:column headerText="Desistiu" width="90">                                  
+                            <p:selectBooleanCheckbox value="#{model.desistiu}" >
+                                <p:ajax event="change" listener="#{encontroEquipeController.conviteAceito(model)}" update=":form_1"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                        
+                        <p:column headerText="Observações" sortBy="#{model.observacoes}" filterBy="#{model.observacoes}" >
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{model.observacoes}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{model.observacoes}" style="width:96%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>                         
+                    </p:dataTable>                     
+                </p:panel>   
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+    
+<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>
+    
+</html>
